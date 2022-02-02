@@ -6,18 +6,22 @@
             Console.ForegroundColor = ConsoleColor.Green
             Console.WriteLine("Main Menu:")
             Console.ForegroundColor = ConsoleColor.Yellow
+            Console.WriteLine("1) Start")
             Console.WriteLine("0) Quit")
             Console.WriteLine()
             Console.ForegroundColor = ConsoleColor.Gray
             Console.Write(">")
             Dim input = Console.ReadLine()
-            If input = "0" Then
-                done = ConfirmQuit.Run()
-            Else
-                Console.WriteLine()
-                Console.ForegroundColor = ConsoleColor.Red
-                Console.WriteLine("Invalid input!")
-            End If
+            Select Case input
+                Case "0"
+                    done = ConfirmQuit.Run()
+                Case "1"
+                    Start.Run()
+                Case Else
+                    Console.WriteLine()
+                    Console.ForegroundColor = ConsoleColor.Red
+                    Console.WriteLine("Invalid input!")
+            End Select
         End While
     End Sub
 End Module

@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "TGGD_jfabd2/1.0.0": {
+        "runtime": {
+          "TGGD_jfabd2.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "TGGD_jfabd2/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

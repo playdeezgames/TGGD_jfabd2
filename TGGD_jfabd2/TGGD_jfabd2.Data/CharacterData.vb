@@ -89,4 +89,13 @@
         End Using
         Return Nothing
     End Function
+    Sub WriteDirection(characterId As Integer, direction As Integer)
+        Initialize()
+        Using command = connection.CreateCommand()
+            command.CommandText = "UPDATE [Characters] SET [Direction]=@Direction WHERE [CharacterId]=@CharacterId;"
+            command.Parameters.AddWithValue("@CharacterId", characterId)
+            command.Parameters.AddWithValue("@Direction", direction)
+            command.ExecuteNonQuery()
+        End Using
+    End Sub
 End Module

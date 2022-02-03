@@ -20,4 +20,13 @@ Public Class Character
     Public Function GetDirection() As Integer
         Return CharacterData.ReadDirection(characterId).Value
     End Function
+    Public Sub TurnLeft()
+        CharacterData.WriteDirection(characterId, (GetDirection() + 3) Mod 4)
+    End Sub
+    Public Sub TurnRight()
+        CharacterData.WriteDirection(characterId, (GetDirection() + 1) Mod 4)
+    End Sub
+    Public Sub TurnAround()
+        CharacterData.WriteDirection(characterId, (GetDirection() + 2) Mod 4)
+    End Sub
 End Class

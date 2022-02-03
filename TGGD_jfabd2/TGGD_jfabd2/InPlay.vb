@@ -12,6 +12,7 @@ Module InPlay
             Console.WriteLine($"Location ({character.GetX()}, {character.GetY()})")
             Console.WriteLine($"Direction {character.GetDirection()}")
             Console.ForegroundColor = ConsoleColor.Yellow
+            Console.WriteLine("1) Turn")
             Console.WriteLine("0) Abandon game")
             Console.WriteLine()
             Console.Write(">")
@@ -21,6 +22,8 @@ Module InPlay
                     If Confirm.Run("Are you sure you want to abandon the game?") Then
                         Return
                     End If
+                Case "1"
+                    TurnMenu.Run()
                 Case Else
                     Console.ForegroundColor = ConsoleColor.Red
                     Console.WriteLine()

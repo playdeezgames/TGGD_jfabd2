@@ -43,4 +43,12 @@
             command.ExecuteNonQuery()
         End Using
     End Sub
+    Function GetCharacterId() As Integer
+        Initialize()
+        Using command = connection.CreateCommand()
+            command.CommandText = "SELECT [CharacterId] FROM [Characters] WHERE [PlayerId]=@PlayerId;"
+            command.Parameters.AddWithValue("@PlayerId", 1)
+            Return command.ExecuteScalar()
+        End Using
+    End Function
 End Module

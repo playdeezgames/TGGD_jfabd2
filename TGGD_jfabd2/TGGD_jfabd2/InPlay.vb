@@ -13,6 +13,7 @@ Module InPlay
             Console.WriteLine($"Direction {character.GetDirection()}")
             Console.ForegroundColor = ConsoleColor.Yellow
             Console.WriteLine("1) Turn")
+            Console.WriteLine("2) Move")
             Console.WriteLine("0) Abandon game")
             Console.WriteLine()
             Console.Write(">")
@@ -24,6 +25,8 @@ Module InPlay
                     End If
                 Case "1"
                     TurnMenu.Run()
+                Case "2"
+                    MoveMenu.Run()
                 Case Else
                     Console.ForegroundColor = ConsoleColor.Red
                     Console.WriteLine()

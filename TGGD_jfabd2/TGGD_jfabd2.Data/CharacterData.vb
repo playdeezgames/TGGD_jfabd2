@@ -98,4 +98,14 @@
             command.ExecuteNonQuery()
         End Using
     End Sub
+    Sub WriteXY(characterId As Integer, x As Integer, y As Integer)
+        Initialize()
+        Using command = connection.CreateCommand()
+            command.CommandText = "UPDATE [Characters] SET [X]=@X, [Y]=@Y WHERE [CharacterId]=@CharacterId;"
+            command.Parameters.AddWithValue("@CharacterId", characterId)
+            command.Parameters.AddWithValue("@X", x)
+            command.Parameters.AddWithValue("@Y", y)
+            command.ExecuteNonQuery()
+        End Using
+    End Sub
 End Module

@@ -1,5 +1,3 @@
-Imports System
-
 Module Program
     Sub Main(args As String())
         Console.Title = "A Game in VB about Fruits"

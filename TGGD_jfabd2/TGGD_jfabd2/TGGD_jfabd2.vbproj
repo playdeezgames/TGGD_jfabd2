@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Data.SQLite" Version="1.0.115.5" />
+    <ProjectReference Include="..\TGGD_jfabd2.Game\TGGD_jfabd2.Game.vbproj" />
   </ItemGroup>
 
 </Project>

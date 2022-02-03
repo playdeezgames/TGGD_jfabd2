@@ -15,8 +15,7 @@ Module TurnMenu
             Console.WriteLine()
             Console.ForegroundColor = ConsoleColor.Gray
             Console.Write(">")
-            Dim input = Console.ReadLine()
-            Select Case input
+            Select Case Console.ReadLine()
                 Case "0"
                     done = True
                 Case "1"

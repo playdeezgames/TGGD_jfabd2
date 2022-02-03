@@ -11,8 +11,7 @@
             Console.WriteLine()
             Console.ForegroundColor = ConsoleColor.Gray
             Console.Write(">")
-            Dim input = Console.ReadLine()
-            Select Case input
+            Select Case Console.ReadLine()
                 Case "1"
                     Return True
                 Case "0"

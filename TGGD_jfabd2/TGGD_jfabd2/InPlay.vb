@@ -14,13 +14,12 @@ Module InPlay
             Console.ForegroundColor = ConsoleColor.Yellow
             Console.WriteLine("1) Turn")
             Console.WriteLine("2) Move")
-            Console.WriteLine("0) Abandon game")
+            Console.WriteLine("0) Menu")
             Console.WriteLine()
             Console.Write(">")
-            Dim input = Console.ReadLine()
-            Select Case input
+            Select Case Console.ReadLine()
                 Case "0"
-                    If Confirm.Run("Are you sure you want to abandon the game?") Then
+                    If GameMenu.Run() Then
                         Return
                     End If
                 Case "1"

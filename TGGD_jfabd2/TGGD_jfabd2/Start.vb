@@ -1,5 +1,24 @@
 ﻿Module Start
     Sub Run()
-        'TODO: stuff
+        Game.Reset()
+        Dim done As Boolean = False
+        While Not done
+            Console.WriteLine()
+            Console.ForegroundColor = ConsoleColor.Green
+            Console.WriteLine("Yer playin' the game!")
+            Console.ForegroundColor = ConsoleColor.Yellow
+            Console.WriteLine("0) Abandon game")
+            Console.WriteLine()
+            Console.Write(">")
+            Dim input = Console.ReadLine()
+            Select Case input
+                Case "0"
+                    Return
+                Case Else
+                    Console.ForegroundColor = ConsoleColor.Red
+                    Console.WriteLine()
+                    Console.WriteLine("Invalid Input!")
+            End Select
+        End While
     End Sub
 End Module

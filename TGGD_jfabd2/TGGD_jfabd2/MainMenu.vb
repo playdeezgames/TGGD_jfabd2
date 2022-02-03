@@ -14,7 +14,7 @@
             Dim input = Console.ReadLine()
             Select Case input
                 Case "0"
-                    done = ConfirmQuit.Run()
+                    done = Confirm.Run("Are you sure you want to quit?")
                 Case "1"
                     Start.Run()
                 Case Else

@@ -14,7 +14,9 @@ Module Start
             Dim input = Console.ReadLine()
             Select Case input
                 Case "0"
-                    Return
+                    If Confirm.Run("Are you sure you want to abandon the game?") Then
+                        Return
+                    End If
                 Case Else
                     Console.ForegroundColor = ConsoleColor.Red
                     Console.WriteLine()

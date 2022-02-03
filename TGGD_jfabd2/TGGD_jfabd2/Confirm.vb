@@ -1,10 +1,10 @@
-﻿Module ConfirmQuit
-    Function Run() As Boolean
+﻿Module Confirm
+    Function Run(prompt As String) As Boolean
         Dim done = False
         While Not done
             Console.WriteLine()
             Console.ForegroundColor = ConsoleColor.Red
-            Console.WriteLine("Are you sure you want to quit?")
+            Console.WriteLine(prompt)
             Console.ForegroundColor = ConsoleColor.Yellow
             Console.WriteLine("1) Yes")
             Console.WriteLine("0) No")

@@ -1,5 +1,6 @@
+Imports TGGD_jfabd2.Data
 Public Module Game
-    Sub Reset()
-
+    Public Sub Reset()
+        Store.Reset()
     End Sub
 End Module

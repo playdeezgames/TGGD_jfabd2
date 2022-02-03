@@ -1,4 +1,5 @@
-﻿Module Start
+﻿Imports TGGD_jfabd2.Game
+Module Start
     Sub Run()
         Game.Reset()
         Dim done As Boolean = False

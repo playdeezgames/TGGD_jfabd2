@@ -57,8 +57,8 @@
             command.Parameters.AddWithValue("@CharacterId", characterId)
             Dim reader = command.ExecuteReader()
             If reader.HasRows() Then
-                reader.NextResult()
-                Return reader.GetInt32("X")
+                reader.Read()
+                Return reader.GetInt32(0)
             End If
         End Using
         Return Nothing
@@ -70,8 +70,8 @@
             command.Parameters.AddWithValue("@CharacterId", characterId)
             Dim reader = command.ExecuteReader()
             If reader.HasRows() Then
-                reader.NextResult()
-                Return reader.GetInt32("Y")
+                reader.Read()
+                Return reader.GetInt32(0)
             End If
         End Using
         Return Nothing
@@ -83,8 +83,8 @@
             command.Parameters.AddWithValue("@CharacterId", characterId)
             Dim reader = command.ExecuteReader()
             If reader.HasRows() Then
-                reader.NextResult()
-                Return reader.GetInt32("Direction")
+                reader.Read()
+                Return reader.GetInt32(0)
             End If
         End Using
         Return Nothing

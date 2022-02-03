@@ -46,7 +46,7 @@
     Function GetCharacterId() As Integer
         Initialize()
         Using command = connection.CreateCommand()
-            command.CommandText = "SELECT [CharacterId] FROM [Characters] WHERE [PlayerId]=@PlayerId;"
+            command.CommandText = "SELECT [CharacterId] FROM [Players] WHERE [PlayerId]=@PlayerId;"
             command.Parameters.AddWithValue("@PlayerId", 1)
             Return command.ExecuteScalar()
         End Using

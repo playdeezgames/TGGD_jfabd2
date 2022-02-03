@@ -1,4 +1,5 @@
-﻿Imports TGGD_jfabd2.Game
+﻿Imports TGGD_jfabd2.Data
+Imports TGGD_jfabd2.Game
 Module Start
     Sub Run()
         Game.Reset()
@@ -7,6 +8,10 @@ Module Start
             Console.WriteLine()
             Console.ForegroundColor = ConsoleColor.Green
             Console.WriteLine("Yer playin' the game!")
+            Console.ForegroundColor = ConsoleColor.Gray
+            Dim character = New Character(PlayerData.GetCharacterId())
+            Console.WriteLine($"Location ({character.GetX()}, {character.GetY()})")
+            Console.WriteLine($"Direction {character.GetDirection()}")
             Console.ForegroundColor = ConsoleColor.Yellow
             Console.WriteLine("0) Abandon game")
             Console.WriteLine()

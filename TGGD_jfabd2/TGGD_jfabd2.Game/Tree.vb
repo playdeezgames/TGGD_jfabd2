@@ -9,6 +9,7 @@ Public Class Tree
         If TreeData.Grow() Then
             Dim regenerating = TreeData.ReadRegenerating()
             For Each locationId As Integer In regenerating
+                'TODO: check for regeneration chance: rand(avail + dep) < dep
                 TreeData.SetAvailable(locationId, TreeData.GetAvailable(locationId))
                 TreeData.SetDepletion(locationId, TreeData.GetDepletion(locationId))
                 TreeData.SetRegenerationCounter(locationId, 0)

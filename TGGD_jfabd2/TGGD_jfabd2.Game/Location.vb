@@ -8,6 +8,10 @@ Public Class Location
         Else
             locationId = LocationData.CreateXY(x, y)
             'spawn stuff
+            If random.Next(100) < 5 Then
+                'spawn tree
+
+            End If
         End If
     End Sub
     Public Sub New(x As Integer, y As Integer)

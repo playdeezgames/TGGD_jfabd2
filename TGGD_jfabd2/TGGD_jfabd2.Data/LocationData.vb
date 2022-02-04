@@ -13,6 +13,7 @@
         End Using
     End Sub
     Public Sub Clear()
+        TreeData.Clear()
         Initialize()
         Using command = connection.CreateCommand()
             command.CommandText = "DELETE FROM [Locations];"

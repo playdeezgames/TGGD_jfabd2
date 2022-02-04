@@ -1,24 +1,17 @@
 ﻿Public Module CharacterData
     Sub Initialize()
-        Using command = connection.CreateCommand()
-            command.CommandText =
-                "CREATE TABLE IF NOT EXISTS [Characters]
+        ExecuteNonQuery("CREATE TABLE IF NOT EXISTS [Characters]
                 (
                     [CharacterId] INTEGER PRIMARY KEY AUTOINCREMENT,
                     [X] INT NOT NULL,
                     [Y] INT NOT NULL,
                     [Direction] INT NOT NULL,
                     CHECK([Direction]>=0 AND [Direction]<=3)
-                );"
-            command.ExecuteNonQuery()
-        End Using
+                );")
     End Sub
     Sub Clear()
         Initialize()
-        Using command = connection.CreateCommand()
-            command.CommandText = "DELETE FROM [Characters];"
-            command.ExecuteNonQuery()
-        End Using
+        ExecuteNonQuery("DELETE FROM [Characters];")
     End Sub
     Public Sub Reset()
         Initialize()

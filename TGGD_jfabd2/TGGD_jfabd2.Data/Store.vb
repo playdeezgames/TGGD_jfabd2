@@ -18,6 +18,12 @@ Public Module Store
             destination.Close()
         End Using
     End Sub
+    Public Sub ExecuteNonQuery(sql As String)
+        Using command = connection.CreateCommand()
+            command.CommandText = sql
+            command.ExecuteNonQuery()
+        End Using
+    End Sub
     Function GetLastInsertRowId()
         Using command = connection.CreateCommand()
             command.CommandText = "SELECT last_insert_rowid();"

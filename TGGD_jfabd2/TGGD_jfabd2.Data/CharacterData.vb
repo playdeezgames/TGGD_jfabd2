@@ -45,10 +45,7 @@
             command.Parameters.AddWithValue("@Direction", direction)
             command.ExecuteNonQuery()
         End Using
-        Using command = connection.CreateCommand()
-            command.CommandText = "SELECT last_insert_rowid();"
-            Return command.ExecuteScalar()
-        End Using
+        Return GetLastInsertRowId()
     End Function
     Function ReadX(characterId As Integer) As Integer?
         Initialize()

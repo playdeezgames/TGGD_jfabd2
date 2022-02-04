@@ -18,4 +18,10 @@ Public Module Store
             destination.Close()
         End Using
     End Sub
+    Function GetLastInsertRowId()
+        Using command = connection.CreateCommand()
+            command.CommandText = "SELECT last_insert_rowid();"
+            Return command.ExecuteScalar()
+        End Using
+    End Function
 End Module

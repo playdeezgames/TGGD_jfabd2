@@ -11,6 +11,8 @@ Module InPlay
             Dim character = New PlayerCharacter()
             Console.WriteLine($"Location ({character.GetX()}, {character.GetY()})")
             Console.WriteLine($"Direction {character.GetDirection()}")
+            Dim location = New Location(character)
+            Console.WriteLine($"Location {location.GetId()}")
             Console.ForegroundColor = ConsoleColor.Yellow
             Console.WriteLine("1) Turn")
             Console.WriteLine("2) Move")

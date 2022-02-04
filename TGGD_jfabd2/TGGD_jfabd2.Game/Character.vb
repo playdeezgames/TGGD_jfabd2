@@ -1,12 +1,6 @@
 ﻿Imports TGGD_jfabd2.Data
 
 Public Class Character
-    Shared Sub Reset()
-        CharacterData.Reset()
-        PlayerData.Reset()
-        Dim characterId = CharacterData.Create(0, 0, 0)
-        PlayerData.SetCharacterId(characterId)
-    End Sub
     Private characterId As Integer
     Public Sub New(characterId As Integer)
         Me.characterId = characterId

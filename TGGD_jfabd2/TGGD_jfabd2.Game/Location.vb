@@ -19,7 +19,4 @@ Public Class Location
     Public Shared Sub Reset()
         LocationData.Clear()
     End Sub
-    Public Function GetId() As Integer
-        Return locationId
-    End Function
 End Class

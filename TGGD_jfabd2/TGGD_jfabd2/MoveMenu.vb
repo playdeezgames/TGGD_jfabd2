@@ -11,7 +11,7 @@ Module MoveMenu
             Console.WriteLine("1) Ahead")
             Console.WriteLine("2) Left")
             Console.WriteLine("3) Right")
-            Console.WriteLine("3) Back")
+            Console.WriteLine("4) Back")
             Console.WriteLine("0) Never mind")
             Console.WriteLine()
             Console.ForegroundColor = ConsoleColor.Gray

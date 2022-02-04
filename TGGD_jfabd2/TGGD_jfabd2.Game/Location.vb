@@ -8,7 +8,7 @@ Public Class Location
         Else
             locationId = LocationData.CreateXY(x, y)
             'spawn stuff
-            If random.Next(100) < 5 Then
+            If random.Next(10) < 2 Then
                 'spawn tree
                 TreeData.Create(locationId, 1, 100, 0, 0, 10)
             End If
@@ -23,4 +23,10 @@ Public Class Location
     Public Shared Sub Reset()
         LocationData.Clear()
     End Sub
+    Public Function GetTree() As Tree
+        If TreeData.ReadFruitType(locationId).HasValue Then
+            Return New Tree(locationId)
+        End If
+        Return Nothing
+    End Function
 End Class

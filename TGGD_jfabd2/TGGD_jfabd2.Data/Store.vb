@@ -11,4 +11,11 @@ Public Module Store
             connection = Nothing
         End If
     End Sub
+    Public Sub Save(filename As String)
+        Using destination = New SQLiteConnection($"Data Source={filename}.db;Version=3;New=True;")
+            destination.Open()
+            connection.BackupDatabase(destination, "main", "main", -1, Nothing, 0)
+            destination.Close()
+        End Using
+    End Sub
 End Module

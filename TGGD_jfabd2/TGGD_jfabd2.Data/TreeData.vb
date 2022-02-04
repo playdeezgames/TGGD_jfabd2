@@ -15,4 +15,28 @@
         Initialize()
         ExecuteNonQuery("DELETE FROM [Trees];")
     End Sub
+    Public Sub Create(locationId As Integer, fruitType As Integer, available As Integer, depletion As Integer, regenerationCounter As Integer, regenerationThreshold As Integer)
+        Initialize()
+        Using command = connection.CreateCommand()
+            command.CommandText =
+                "REPLACE INTO [Trees]
+                (
+                    [LocationId],
+                    [FruitType],
+                    [Available],
+                    [Depletion],
+                    [RegenerationCounter],
+                    [RegenerationThreshold]
+                ) 
+                VALUES
+                (
+                    @LocationId,
+                    @FruitType,
+                    @Available,
+                    @Depletion,
+                    @RegenerationCounter,
+                    @RegenerationThreshold
+                );"
+        End Using
+    End Sub
 End Module

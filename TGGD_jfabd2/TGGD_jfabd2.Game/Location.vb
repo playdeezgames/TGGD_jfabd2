@@ -10,7 +10,7 @@ Public Class Location
             'spawn stuff
             If random.Next(100) < 5 Then
                 'spawn tree
-
+                TreeData.Create(locationId, 1, 100, 0, 0, 10)
             End If
         End If
     End Sub

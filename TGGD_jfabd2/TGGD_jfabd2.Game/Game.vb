@@ -6,4 +6,7 @@ Public Module Game
         Location.Reset()
         PlayerCharacter.Reset()
     End Sub
+    Public Sub Update()
+        Tree.Update()
+    End Sub
 End Module

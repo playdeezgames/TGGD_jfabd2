@@ -37,6 +37,7 @@ Public Class Character
                 deltaX = -1
         End Select
         CharacterData.WriteXY(characterId, CharacterData.ReadX(characterId) + deltaX, CharacterData.ReadY(characterId) + deltaY)
+        Game.Update()
     End Sub
     Public Sub MoveLeft()
         TurnLeft()

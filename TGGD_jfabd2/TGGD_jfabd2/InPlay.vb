@@ -17,6 +17,7 @@ Module InPlay
         If hasInventory Then
             ShowMenuItem("4) Inventory")
         End If
+        'TODO: stuff on the ground
         ShowMenuItem("0) Menu")
     End Sub
     Function HandleInput(canPickFruit As Boolean, hasInventory As Boolean) As Boolean
@@ -41,6 +42,7 @@ Module InPlay
                 Else
                     InvalidInput()
                 End If
+                'TODO: stuff on the ground
             Case Else
                 InvalidInput()
         End Select
@@ -54,6 +56,7 @@ Module InPlay
             Dim tree = location.GetTree()
             Dim canPickFruit = tree IsNot Nothing
             Dim hasInventory = Not character.GetInventory().IsEmpty()
+            'TODO: stuff on the ground
             ShowStatus(canPickFruit, tree)
             ShowMenu(canPickFruit, hasInventory)
             ShowPrompt()

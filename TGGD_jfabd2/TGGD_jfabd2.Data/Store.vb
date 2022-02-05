@@ -2,6 +2,10 @@ Imports System.Data.SQLite
 Public Module Store
     Friend connection As SQLiteConnection
     Public Sub Reset()
+        If connection IsNot Nothing Then
+            connection.Close()
+            connection = Nothing
+        End If
         connection = New SQLiteConnection("Data Source=:memory:;Version=3;New=True;")
         connection.Open()
     End Sub
@@ -16,6 +20,14 @@ Public Module Store
             destination.Open()
             connection.BackupDatabase(destination, "main", "main", -1, Nothing, 0)
             destination.Close()
+        End Using
+    End Sub
+    Public Sub Load(filename As String)
+        Using source = New SQLiteConnection($"Data Source={filename}.db;Version=3;New=True;")
+            source.Open()
+            Reset()
+            source.BackupDatabase(connection, "main", "main", -1, Nothing, 0)
+            source.Close()
         End Using
     End Sub
     Public Sub ExecuteNonQuery(sql As String)

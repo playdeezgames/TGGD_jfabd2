@@ -34,4 +34,20 @@
         End Using
         Return result
     End Function
+    Function ReadForItem(itemId As Integer) As Integer?
+        Initialize()
+        Using command = connection.CreateCommand()
+            command.CommandText = "SELECT * FROM [CharacterItems] WHERE [ItemId]=@ItemId;"
+            command.Parameters.AddWithValue("@ItemId", itemId)
+            Return command.ExecuteScalar()
+        End Using
+    End Function
+    Sub Clear(itemId As Integer)
+        Initialize()
+        Using command = connection.CreateCommand()
+            command.CommandText = "DELETE FROM [CharacterItems] WHERE [ItemId]=@ItemId"
+            command.Parameters.AddWithValue("@ItemId", itemId)
+            command.ExecuteNonQuery()
+        End Using
+    End Sub
 End Module

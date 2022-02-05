@@ -5,12 +5,16 @@ Module ItemMenu
         While Not done
             ShowMenuTitle(item.GetName())
             ShowInfo(item.GetDescription())
-            'TODO: drop item
+            ShowMenuItem("1) Drop")
             'TODO: eat item
             ShowMenuItem("0) Never mind")
             ShowPrompt()
             Select Case Console.ReadLine()
                 Case "0"
+                    done = True
+                Case "1"
+                    item.Drop()
+                    ShowInfo($"You drop the {item.GetName()}.")
                     done = True
             End Select
         End While

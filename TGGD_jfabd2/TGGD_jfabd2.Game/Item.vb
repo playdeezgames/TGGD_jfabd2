@@ -23,5 +23,13 @@ Public Class Item
                 Throw New NotImplementedException()
         End Select
     End Function
+    Sub Drop()
+        Dim characterId = InventoryData.ReadForItem(itemId)
+        If characterId.HasValue Then
+            InventoryData.Clear(itemId)
+            Dim location = New Character(characterId.Value).GetLocation()
+            GroundData.Write(location.GetLocationId(), itemId)
+        End If
+    End Sub
 End Class
 

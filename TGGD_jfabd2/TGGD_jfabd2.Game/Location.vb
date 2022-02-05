@@ -1,6 +1,9 @@
 ﻿Imports TGGD_jfabd2.Data
 Public Class Location
     Private locationId As Integer 'TODO: this can be made readonly!
+    Function GetLocationId() As Integer
+        Return locationId
+    End Function
     Private Sub FromXY(x As Integer, y As Integer)
         Dim id = LocationData.FindXY(x, y)
         If id.HasValue Then

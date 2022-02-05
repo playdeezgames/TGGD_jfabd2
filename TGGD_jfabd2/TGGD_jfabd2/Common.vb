@@ -9,6 +9,10 @@
         Console.WriteLine()
         Console.WriteLine(text)
     End Sub
+    Sub ShowMenuItem(text As String)
+        Console.ForegroundColor = ConsoleColor.Yellow
+        Console.WriteLine(text)
+    End Sub
     Sub InvalidInput()
         ErrorMessage("Invalid input!")
     End Sub

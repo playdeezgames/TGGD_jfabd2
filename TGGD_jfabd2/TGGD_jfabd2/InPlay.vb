@@ -8,16 +8,18 @@ Module InPlay
             Console.WriteLine($"There is a {FruitTypes.GetFruitTypeName(tree.GetFruitType())} tree here.")
         End If
     End Sub
-    Sub ShowMenu(canPickFruit As Boolean)
-        Console.ForegroundColor = ConsoleColor.Yellow
-        Console.WriteLine("1) Turn")
-        Console.WriteLine("2) Move")
+    Sub ShowMenu(canPickFruit As Boolean, hasInventory As Boolean)
+        ShowMenuItem("1) Turn")
+        ShowMenuItem("2) Move")
         If canPickFruit Then
-            Console.WriteLine("3) Pick Fruit")
+            ShowMenuItem("3) Pick Fruit")
         End If
-        Console.WriteLine("0) Menu")
+        If hasInventory Then
+            ShowMenuItem("4) Inventory")
+        End If
+        ShowMenuItem("0) Menu")
     End Sub
-    Function HandleInput(canPickFruit As Boolean) As Boolean
+    Function HandleInput(canPickFruit As Boolean, hasInventory As Boolean) As Boolean
         Select Case Console.ReadLine()
             Case "0"
                 If GameMenu.Run() Then
@@ -33,6 +35,12 @@ Module InPlay
                 Else
                     InvalidInput()
                 End If
+            Case "4"
+                If hasInventory Then
+                    Inventory.Run()
+                Else
+                    InvalidInput()
+                End If
             Case Else
                 InvalidInput()
         End Select
@@ -45,10 +53,11 @@ Module InPlay
             Dim location = character.GetLocation()
             Dim tree = location.GetTree()
             Dim canPickFruit = tree IsNot Nothing
+            Dim hasInventory = Not character.GetInventory().IsEmpty()
             ShowStatus(canPickFruit, tree)
-            ShowMenu(canPickFruit)
+            ShowMenu(canPickFruit, hasInventory)
             ShowPrompt()
-            done = HandleInput(canPickFruit)
+            done = HandleInput(canPickFruit, hasInventory)
         End While
     End Sub
 End Module

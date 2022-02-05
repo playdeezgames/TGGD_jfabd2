@@ -12,7 +12,7 @@ Module InPlay
             Dim location = New Location(character)
             Dim tree = location.GetTree()
             If tree IsNot Nothing Then
-                Console.WriteLine("There is a tree here.")
+                Console.WriteLine($"There is a {tree.GetFruitType()} tree here.")
             End If
             Console.ForegroundColor = ConsoleColor.Yellow
             Console.WriteLine("1) Turn")

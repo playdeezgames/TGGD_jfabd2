@@ -78,7 +78,7 @@
         End Using
         Return result
     End Function
-    Public Sub SetRegenerationCounter(locationId As Integer, regenerationCounter As Integer)
+    Public Sub WriteRegenerationCounter(locationId As Integer, regenerationCounter As Integer)
         Initialize()
         Using command = connection.CreateCommand()
             command.CommandText = "UPDATE [Trees] SET [RegenerationCounter]=@RegenerationCounter WHERE [LocationId]=@LocationId;"
@@ -87,7 +87,7 @@
             command.ExecuteNonQuery()
         End Using
     End Sub
-    Public Function GetAvailable(locationId As Integer) As Integer?
+    Public Function ReadAvailable(locationId As Integer) As Integer?
         Initialize()
         Using command = connection.CreateCommand()
             command.CommandText = "SELECT [Available] FROM [Trees] WHERE [LocationId]=@LocationId;"
@@ -95,7 +95,7 @@
             Return command.ExecuteScalar()
         End Using
     End Function
-    Public Function GetDepletion(locationId As Integer) As Integer?
+    Public Function ReadDepletion(locationId As Integer) As Integer?
         Initialize()
         Using command = connection.CreateCommand()
             command.CommandText = "SELECT [Depletion] FROM [Trees] WHERE [LocationId]=@LocationId;"
@@ -103,7 +103,7 @@
             Return command.ExecuteScalar()
         End Using
     End Function
-    Public Sub SetAvailable(locationId As Integer, available As Integer)
+    Public Sub WriteAvailable(locationId As Integer, available As Integer)
         Initialize()
         Using command = connection.CreateCommand()
             command.CommandText = "UPDATE [Trees] SET [Available]=@Available WHERE [LocationId]=@LocationId;"
@@ -112,7 +112,7 @@
             command.ExecuteNonQuery()
         End Using
     End Sub
-    Public Sub SetDepletion(locationId As Integer, depletion As Integer)
+    Public Sub WriteDepletion(locationId As Integer, depletion As Integer)
         Initialize()
         Using command = connection.CreateCommand()
             command.CommandText = "UPDATE [Trees] SET [Depletion]=@Depletion WHERE [LocationId]=@LocationId;"

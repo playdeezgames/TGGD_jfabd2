@@ -1,39 +1,54 @@
 ﻿Imports TGGD_jfabd2.Game
 
 Module InPlay
+    Sub ShowStatus(canPickFruit As Boolean, tree As Tree)
+        ShowMenuTitle("Yer playin' the game!")
+        Console.ForegroundColor = ConsoleColor.Gray
+        If canPickFruit Then
+            Console.WriteLine($"There is a {FruitTypes.GetFruitTypeName(tree.GetFruitType())} tree here.")
+        End If
+    End Sub
+    Sub ShowMenu(canPickFruit As Boolean)
+        Console.ForegroundColor = ConsoleColor.Yellow
+        Console.WriteLine("1) Turn")
+        Console.WriteLine("2) Move")
+        If canPickFruit Then
+            Console.WriteLine("3) Pick Fruit")
+        End If
+        Console.WriteLine("0) Menu")
+    End Sub
+    Function HandleInput(canPickFruit As Boolean) As Boolean
+        Select Case Console.ReadLine()
+            Case "0"
+                If GameMenu.Run() Then
+                    Return True
+                End If
+            Case "1"
+                TurnMenu.Run()
+            Case "2"
+                MoveMenu.Run()
+            Case "3"
+                If canPickFruit Then
+                    PickFruit.Run()
+                Else
+                    InvalidInput()
+                End If
+            Case Else
+                InvalidInput()
+        End Select
+        Return False
+    End Function
     Sub Run()
         Dim done As Boolean = False
         While Not done
-            Console.WriteLine()
-            Console.ForegroundColor = ConsoleColor.Green
-            Console.WriteLine("Yer playin' the game!")
-            Console.ForegroundColor = ConsoleColor.Gray
             Dim character = New PlayerCharacter()
             Dim location = New Location(character)
             Dim tree = location.GetTree()
-            If tree IsNot Nothing Then
-                Console.WriteLine($"There is a {tree.GetFruitType()} tree here.")
-            End If
-            Console.ForegroundColor = ConsoleColor.Yellow
-            Console.WriteLine("1) Turn")
-            Console.WriteLine("2) Move")
-            Console.WriteLine("0) Menu")
-            Console.WriteLine()
-            Console.Write(">")
-            Select Case Console.ReadLine()
-                Case "0"
-                    If GameMenu.Run() Then
-                        Return
-                    End If
-                Case "1"
-                    TurnMenu.Run()
-                Case "2"
-                    MoveMenu.Run()
-                Case Else
-                    Console.ForegroundColor = ConsoleColor.Red
-                    Console.WriteLine()
-                    Console.WriteLine("Invalid Input!")
-            End Select
+            Dim canPickFruit = tree IsNot Nothing
+            ShowStatus(canPickFruit, tree)
+            ShowMenu(canPickFruit)
+            ShowPrompt()
+            done = HandleInput(canPickFruit)
         End While
     End Sub
 End Module

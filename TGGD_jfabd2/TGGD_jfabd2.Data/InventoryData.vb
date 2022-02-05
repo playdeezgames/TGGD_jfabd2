@@ -20,4 +20,18 @@
             command.ExecuteNonQuery()
         End Using
     End Sub
+    Function ReadForCharacter(characterId As Integer) As List(Of Integer)
+        Initialize()
+        Dim result As New List(Of Integer)
+        Using command = connection.CreateCommand()
+            command.CommandText = "SELECT [ItemId] FROM [CharacterItems] WHERE [CharacterId]=@CharacterId;"
+            command.Parameters.AddWithValue("@CharacterId", characterId)
+            Using reader = command.ExecuteReader()
+                While reader.Read()
+                    result.Add(reader.GetInt32(0))
+                End While
+            End Using
+        End Using
+        Return result
+    End Function
 End Module

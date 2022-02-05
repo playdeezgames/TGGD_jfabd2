@@ -16,4 +16,7 @@
         End Using
         Return GetLastInsertRowId()
     End Function
+    Function ReadItemType(itemId As Integer) As Integer
+
+    End Function
 End Module

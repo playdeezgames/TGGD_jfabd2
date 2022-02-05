@@ -6,4 +6,7 @@
     Function GetFruitType() As Integer
         Return fruitType
     End Function
+    Function GetName() As String
+        Return FruitTypes.GetFruitTypeName(GetFruitType())
+    End Function
 End Class

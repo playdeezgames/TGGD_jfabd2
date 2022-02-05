@@ -8,7 +8,13 @@ Public Class CharacterInventory
         Return False
     End Function
     Function IsEmpty() As Boolean
-        Return True
+        Return Not GetItems().Any() 'TODO: ask this question more directly from the store
+    End Function
+    Function GetItems() As List(Of Item)
+        Return InventoryData.ReadForCharacter(characterId).Select(Of Item)(
+            Function(itemId As Integer) As Item
+                Return New Item(itemId)
+            End Function).ToList()
     End Function
     Sub Add(fruit As Fruit)
         If Not IsFull() Then

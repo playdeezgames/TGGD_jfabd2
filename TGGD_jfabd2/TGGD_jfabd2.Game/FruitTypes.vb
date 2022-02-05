@@ -1,4 +1,4 @@
-﻿Module FruitTypes
+﻿Public Module FruitTypes
     Function GetFruitTypeName(fruitType As Integer) As String
         Select Case fruitType
             Case 1

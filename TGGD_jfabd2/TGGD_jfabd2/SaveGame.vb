@@ -2,12 +2,8 @@
 
 Module SaveGame
     Sub Run()
-        Console.WriteLine()
-        Console.ForegroundColor = ConsoleColor.Green
-        Console.WriteLine("Enter a save file name:")
-        Console.WriteLine()
-        Console.ForegroundColor = ConsoleColor.Gray
-        Console.Write(">")
+        ShowMenuTitle("Enter a save file name:")
+        ShowPrompt()
         Dim input = Console.ReadLine()
         If Not String.IsNullOrWhiteSpace(input) Then
             Store.Save(input)

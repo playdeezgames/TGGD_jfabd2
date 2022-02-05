@@ -4,53 +4,38 @@ Module MoveMenu
     Sub Run()
         Dim done As Boolean = False
         While Not done
-            Console.WriteLine()
-            Console.ForegroundColor = ConsoleColor.Green
-            Console.WriteLine("Move which way?")
-            Console.ForegroundColor = ConsoleColor.Yellow
-            Console.WriteLine("1) Ahead")
-            Console.WriteLine("2) Left")
-            Console.WriteLine("3) Right")
-            Console.WriteLine("4) Back")
-            Console.WriteLine("0) Never mind")
-            Console.WriteLine()
-            Console.ForegroundColor = ConsoleColor.Gray
-            Console.Write(">")
+            ShowMenuTitle("Move which way?")
+            ShowMenuItem("1) Ahead")
+            ShowMenuItem("2) Left")
+            ShowMenuItem("3) Right")
+            ShowMenuItem("4) Back")
+            ShowMenuItem("0) Never mind")
+            ShowPrompt()
             Select Case Console.ReadLine()
                 Case "0"
                     done = True
                 Case "1"
                     Dim character = New PlayerCharacter()
                     character.MoveAhead()
-                    Console.WriteLine()
-                    Console.ForegroundColor = ConsoleColor.Gray
-                    Console.WriteLine("You move ahead.")
+                    ShowInfo("You move ahead.")
                     done = True
                 Case "2"
                     Dim character = New PlayerCharacter()
                     character.MoveLeft()
-                    Console.WriteLine()
-                    Console.ForegroundColor = ConsoleColor.Gray
-                    Console.WriteLine("You move left.")
+                    ShowInfo("You move left.")
                     done = True
                 Case "3"
                     Dim character = New PlayerCharacter()
                     character.MoveRight()
-                    Console.WriteLine()
-                    Console.ForegroundColor = ConsoleColor.Gray
-                    Console.WriteLine("You move right.")
+                    ShowInfo("You move right.")
                     done = True
                 Case "4"
                     Dim character = New PlayerCharacter()
                     character.MoveBack()
-                    Console.WriteLine()
-                    Console.ForegroundColor = ConsoleColor.Gray
-                    Console.WriteLine("You move back.")
+                    ShowInfo("You move back.")
                     done = True
                 Case Else
-                    Console.WriteLine()
-                    Console.ForegroundColor = ConsoleColor.Red
-                    Console.WriteLine("Invalid input!")
+                    InvalidInput()
             End Select
         End While
     End Sub

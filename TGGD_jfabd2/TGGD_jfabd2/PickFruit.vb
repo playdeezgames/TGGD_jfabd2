@@ -9,7 +9,7 @@ Module PickFruit
             Dim tree = character.GetLocation().GetTree()
             Dim fruit = tree.PickFruit()
             If fruit IsNot Nothing Then
-                SuccessMessage($"You acquire {GetFruitTypeName(fruit.GetFruitType())}")
+                SuccessMessage($"You acquire {GetName(fruit.GetFruitType())}")
                 character.GetInventory().Add(fruit)
             Else
                 ErrorMessage("You didn't manage to pick a fruit.")

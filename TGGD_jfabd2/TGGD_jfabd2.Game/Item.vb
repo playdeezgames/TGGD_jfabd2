@@ -10,7 +10,15 @@ Public Class Item
     Function GetName() As String
         Select Case GetItemType()
             Case ItemType.Fruit
-                Return FruitTypes.GetFruitTypeName(FruitData.ReadFruitType(itemId))
+                Return FruitTypes.GetName(FruitData.ReadFruitType(itemId))
+            Case Else
+                Throw New NotImplementedException()
+        End Select
+    End Function
+    Function GetDescription() As String
+        Select Case GetItemType()
+            Case ItemType.Fruit
+                Return FruitTypes.GetDescription(FruitData.ReadFruitType(itemId))
             Case Else
                 Throw New NotImplementedException()
         End Select

@@ -13,6 +13,10 @@
         Console.ForegroundColor = ConsoleColor.Yellow
         Console.WriteLine(text)
     End Sub
+    Sub ShowInfo(text As String)
+        Console.ForegroundColor = ConsoleColor.Gray
+        Console.WriteLine(text)
+    End Sub
     Sub InvalidInput()
         ErrorMessage("Invalid input!")
     End Sub
@@ -23,7 +27,7 @@
     End Sub
     Sub ShowMenuTitle(text As String)
         Console.WriteLine()
-        Console.ForegroundColor = ConsoleColor.Green
+        Console.ForegroundColor = ConsoleColor.Cyan
         Console.WriteLine(text)
         Console.ForegroundColor = ConsoleColor.Gray
     End Sub

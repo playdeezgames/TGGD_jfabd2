@@ -5,7 +5,7 @@ Module InPlay
         ShowMenuTitle("Yer playin' the game!")
         Console.ForegroundColor = ConsoleColor.Gray
         If canPickFruit Then
-            Console.WriteLine($"There is a {FruitTypes.GetFruitTypeName(tree.GetFruitType())} tree here.")
+            Console.WriteLine($"There is a {FruitTypes.GetName(tree.GetFruitType())} tree here.")
         End If
     End Sub
     Sub ShowMenu(canPickFruit As Boolean, hasInventory As Boolean)

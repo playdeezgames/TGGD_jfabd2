@@ -2,17 +2,11 @@
     Function Run() As Boolean
         Dim done As Boolean = False
         While Not done
-            Console.WriteLine()
-            Console.ForegroundColor = ConsoleColor.Green
-            Console.WriteLine("Game Menu:")
-            Console.ForegroundColor = ConsoleColor.Gray
-            Console.ForegroundColor = ConsoleColor.Yellow
-            Console.WriteLine("1) Abandon game")
-            Console.WriteLine("2) Save game...")
-            Console.WriteLine("0) Back")
-            Console.WriteLine()
-            Console.ForegroundColor = ConsoleColor.Gray
-            Console.Write(">")
+            ShowMenuTitle("Game Menu:")
+            ShowMenuItem("1) Abandon game")
+            ShowMenuItem("2) Save game...")
+            ShowMenuItem("0) Back")
+            ShowPrompt()
             Select Case Console.ReadLine()
                 Case "0"
                     Return False
@@ -22,6 +16,8 @@
                     End If
                 Case "2"
                     SaveGame.Run()
+                Case Else
+                    InvalidInput()
             End Select
         End While
         Return False

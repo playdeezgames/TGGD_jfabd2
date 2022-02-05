@@ -5,6 +5,8 @@ Module ItemMenu
         While Not done
             ShowMenuTitle(item.GetName())
             ShowInfo(item.GetDescription())
+            'TODO: drop item
+            'TODO: eat item
             ShowMenuItem("0) Never mind")
             ShowPrompt()
             Select Case Console.ReadLine()

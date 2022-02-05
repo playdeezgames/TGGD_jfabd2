@@ -1,7 +1,7 @@
 ﻿Imports TGGD_jfabd2.Data
 
 Public Class Tree
-    Private locationId As Integer
+    Private ReadOnly locationId As Integer
     Public Sub New(locationId As Integer)
         Me.locationId = locationId
     End Sub

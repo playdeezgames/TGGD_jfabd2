@@ -1,5 +1,5 @@
 ﻿Public Class Fruit
-    Private fruitType As Integer
+    Private ReadOnly fruitType As Integer
     Sub New(fruitType As Integer)
         Me.fruitType = fruitType
     End Sub

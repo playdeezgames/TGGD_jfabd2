@@ -1,6 +1,6 @@
 Imports TGGD_jfabd2.Data
 Public Module Game
-    Friend random As Random = New Random()
+    Friend random As New Random()
     Public Sub Reset()
         Store.Reset()
         Location.Reset()

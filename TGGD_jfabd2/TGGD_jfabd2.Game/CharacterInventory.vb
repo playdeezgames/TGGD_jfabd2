@@ -1,6 +1,6 @@
 ﻿Imports TGGD_jfabd2.Data
 Public Class CharacterInventory
-    Private characterId As Integer
+    Private ReadOnly characterId As Integer
     Sub New(characterId As Integer)
         Me.characterId = characterId
     End Sub

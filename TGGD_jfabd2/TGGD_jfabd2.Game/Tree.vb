@@ -16,10 +16,20 @@ Public Class Tree
                 Dim depletion = TreeData.ReadDepletion(locationId)
                 If random.Next(available + depletion) < depletion Then
                     TreeData.WriteAvailable(locationId, available + 1)
-                    TreeData.WriteDepletion(locationId, depletion + 1)
+                    TreeData.WriteDepletion(locationId, depletion - 1)
                 End If
                 TreeData.WriteRegenerationCounter(locationId, 0)
             Next
         End If
     End Sub
+    Public Function PickFruit() As Fruit
+        Dim available = TreeData.ReadAvailable(locationId)
+        Dim depletion = TreeData.ReadDepletion(locationId)
+        If random.Next(available + depletion) < available Then
+            TreeData.WriteAvailable(locationId, available - 1)
+            TreeData.WriteDepletion(locationId, depletion + 1)
+            Return New Fruit(TreeData.ReadFruitType(locationId))
+        End If
+        Return Nothing
+    End Function
 End Class

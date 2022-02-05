@@ -42,7 +42,7 @@ Module InPlay
         Dim done As Boolean = False
         While Not done
             Dim character = New PlayerCharacter()
-            Dim location = New Location(character)
+            Dim location = character.GetLocation()
             Dim tree = location.GetTree()
             Dim canPickFruit = tree IsNot Nothing
             ShowStatus(canPickFruit, tree)

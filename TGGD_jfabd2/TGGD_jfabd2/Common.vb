@@ -1,8 +1,16 @@
 ﻿Module Common
-    Sub InvalidInput()
+    Sub ErrorMessage(text As String)
         Console.ForegroundColor = ConsoleColor.Red
         Console.WriteLine()
-        Console.WriteLine("Invalid Input!")
+        Console.WriteLine(text)
+    End Sub
+    Sub SuccessMessage(text As String)
+        Console.ForegroundColor = ConsoleColor.Green
+        Console.WriteLine()
+        Console.WriteLine(text)
+    End Sub
+    Sub InvalidInput()
+        ErrorMessage("Invalid input!")
     End Sub
     Sub ShowPrompt()
         Console.WriteLine()

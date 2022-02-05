@@ -5,13 +5,16 @@ Public Class Character
     Public Sub New(characterId As Integer)
         Me.characterId = characterId
     End Sub
+    Public Function GetLocation() As Location
+        Return New Location(Me)
+    End Function
     Public Function GetX() As Integer
         Return CharacterData.ReadX(characterId).Value
     End Function
     Public Function GetY() As Integer
         Return CharacterData.ReadY(characterId).Value
     End Function
-    Public Function GetDirection() As Integer
+    Private Function GetDirection() As Integer
         Return CharacterData.ReadDirection(characterId).Value
     End Function
     Public Sub TurnLeft()
@@ -54,4 +57,7 @@ Public Class Character
         MoveAhead()
         TurnAround()
     End Sub
+    Public Function GetInventory() As CharacterInventory
+        Return New CharacterInventory(characterId)
+    End Function
 End Class

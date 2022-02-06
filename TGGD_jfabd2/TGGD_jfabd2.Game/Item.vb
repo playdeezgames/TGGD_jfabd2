@@ -31,5 +31,12 @@ Public Class Item
             GroundData.Write(location.GetLocationId(), itemId)
         End If
     End Sub
+    Sub PickUp(characterId As Integer)
+        Dim locationId = GroundData.ReadForItem(itemId)
+        If locationId.HasValue Then
+            GroundData.Clear(itemId)
+            InventoryData.Write(characterId, itemId)
+        End If
+    End Sub
 End Class
 

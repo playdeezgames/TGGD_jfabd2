@@ -1,7 +1,10 @@
 ﻿Imports TGGD_jfabd2.Data
 
 Public Class Character
-    Private characterId As Integer
+    Private ReadOnly characterId As Integer
+    Public Function GetCharacterId()
+        Return characterId
+    End Function
     Public Sub New(characterId As Integer)
         Me.characterId = characterId
     End Sub

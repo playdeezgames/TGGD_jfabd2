@@ -48,7 +48,7 @@ Module InPlay
                 End If
             Case "5"
                 If hasGroundInventory Then
-                    'TODO: stuff on the ground
+                    Ground.Run()
                 Else
                     InvalidInput()
                 End If

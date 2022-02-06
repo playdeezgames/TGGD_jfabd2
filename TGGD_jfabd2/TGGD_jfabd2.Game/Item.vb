@@ -4,6 +4,31 @@ Public Class Item
     Sub New(itemId As Integer)
         Me.itemId = itemId
     End Sub
+    Function CanConsume() As Boolean
+        Return InventoryData.ReadForItem(itemId).HasValue AndAlso ItemTypes.CanConsume(GetItemType())
+    End Function
+    Private Sub ConsumeFruit()
+        Dim character As New Character(InventoryData.ReadForItem(itemId).Value)
+        Dim satietyBuff = FruitTypes.GetSatietyBuff(FruitData.ReadFruitType(itemId).Value)
+        Dim satiety As Integer = character.GetStatistic(StatisticType.Satiety)
+        Dim oversatiation = satiety + satietyBuff - StatisticsTypes.MaximumValue(StatisticType.Satiety)
+        character.ChangeStatistic(StatisticType.Satiety, satietyBuff)
+        If oversatiation > 0 Then
+            character.ChangeStatistic(StatisticType.Health, oversatiation)
+        End If
+        character.AddMessage(New CharacterMessage(Mood.Success, $"You eat the {GetName()}."))
+        ItemData.Destroy(itemId)
+    End Sub
+    Sub Consume()
+        If CanConsume() Then
+            Select Case GetItemType()
+                Case ItemType.Fruit
+                    ConsumeFruit()
+                Case Else
+                    Throw New NotImplementedException()
+            End Select
+        End If
+    End Sub
     Function GetItemType() As ItemType
         Return ItemData.ReadItemType(itemId)
     End Function

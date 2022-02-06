@@ -8,6 +8,7 @@ Module PickFruit
         Else
             Dim tree = character.GetLocation().GetTree()
             Dim fruit = tree.PickFruit()
+            character.Metabolize()
             If fruit IsNot Nothing Then
                 SuccessMessage($"You acquire {GetName(fruit.GetFruitType())}")
                 character.GetInventory().Add(fruit)

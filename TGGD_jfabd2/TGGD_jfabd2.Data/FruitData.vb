@@ -26,4 +26,12 @@
             Return command.ExecuteScalar()
         End Using
     End Function
+    Sub Destroy(itemId As Integer)
+        Initialize()
+        Using command = connection.CreateCommand()
+            command.CommandText = "DELETE FROM [FruitItems] WHERE [ItemId]=@ItemId;"
+            command.Parameters.AddWithValue("@ItemId", itemId)
+            command.ExecuteNonQuery()
+        End Using
+    End Sub
 End Module

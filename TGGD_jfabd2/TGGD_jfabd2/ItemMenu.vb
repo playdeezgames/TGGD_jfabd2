@@ -6,7 +6,9 @@ Module ItemMenu
             ShowMenuTitle(item.GetName())
             ShowInfo(item.GetDescription())
             ShowMenuItem("1) Drop")
-            'TODO: eat item
+            If item.CanConsume() Then
+                ShowMenuItem("2) Consume")
+            End If
             ShowMenuItem("0) Never mind")
             ShowPrompt()
             Select Case Console.ReadLine()
@@ -16,6 +18,11 @@ Module ItemMenu
                     item.Drop()
                     ShowInfo($"You drop the {item.GetName()}.")
                     done = True
+                Case "2"
+                    If item.CanConsume() Then
+                        item.Consume()
+                        done = True
+                    End If
             End Select
         End While
     End Sub

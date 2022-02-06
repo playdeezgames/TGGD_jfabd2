@@ -51,4 +51,7 @@
                 Throw New ArgumentOutOfRangeException(NameOf(fruitType))
         End Select
     End Function
+    Function GetSatietyBuff(fruitType As Integer) As Integer
+        Return 25 'TODO: give real values
+    End Function
 End Module

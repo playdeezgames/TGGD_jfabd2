@@ -43,6 +43,7 @@ Public Class Character
                 deltaX = -1
         End Select
         CharacterData.WriteXY(characterId, CharacterData.ReadX(characterId) + deltaX, CharacterData.ReadY(characterId) + deltaY)
+        Metabolize()
         Game.Update()
     End Sub
     Public Sub MoveLeft()
@@ -64,6 +65,28 @@ Public Class Character
         Return New CharacterInventory(characterId)
     End Function
     Public Function IsAlive() As Boolean
-        Return True
+        Return GetStatistic(StatisticType.Health) > StatisticsTypes.MinimumValue(StatisticType.Health)
     End Function
+    Public Function GetStatistic(statisticType As StatisticType) As Integer
+        Dim value = CharacterStatisticData.Read(characterId, statisticType)
+        If value.HasValue Then
+            Return value.Value
+        Else
+            Return StatisticsTypes.InitialValue(statisticType)
+        End If
+    End Function
+    Public Sub SetStatistic(statisticType As StatisticType, value As Integer)
+        value = StatisticsTypes.ClampValue(statisticType, value)
+        CharacterStatisticData.Write(characterId, statisticType, value)
+    End Sub
+    Public Sub ChangeStatistic(statisticType As StatisticType, delta As Integer)
+        SetStatistic(statisticType, GetStatistic(statisticType) + delta)
+    End Sub
+    Public Sub Metabolize()
+        If GetStatistic(StatisticType.Satiety) > StatisticsTypes.MinimumValue(StatisticType.Satiety) Then
+            ChangeStatistic(StatisticType.Satiety, -1)
+        Else
+            ChangeStatistic(StatisticType.Health, -1)
+        End If
+    End Sub
 End Class

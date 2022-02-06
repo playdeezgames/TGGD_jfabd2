@@ -3,8 +3,11 @@ Module Inventory
     Sub Run()
         Dim done As Boolean
         While Not done
-            ShowMenuTitle("Yer Inventory:")
             Dim items = New PlayerCharacter().GetInventory().GetItems()
+            If Not items.Any() Then
+                Return
+            End If
+            ShowMenuTitle("Yer Inventory:")
             Dim index = 1
             For Each item In items
                 ShowMenuItem($"{index}) {item.GetName()}")

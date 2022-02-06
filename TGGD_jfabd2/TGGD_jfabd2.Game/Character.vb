@@ -87,6 +87,19 @@ Public Class Character
             ChangeStatistic(StatisticType.Satiety, -1)
         Else
             ChangeStatistic(StatisticType.Health, -1)
+            AddMessage(New CharacterMessage(Mood.Failure, "Yer starvin'!"))
         End If
+    End Sub
+    Public Sub AddMessage(message As CharacterMessage)
+        CharacterMessageData.Write(characterId, message.GetMood(), message.GetText())
+    End Sub
+    Public Function GetMessages() As List(Of CharacterMessage)
+        Return CharacterMessageData.Read(characterId).Select(
+            Function(x As Tuple(Of Integer, String))
+                Return New CharacterMessage(x.Item1, x.Item2)
+            End Function).ToList()
+    End Function
+    Public Sub ClearMessages()
+        CharacterMessageData.Clear(characterId)
     End Sub
 End Class

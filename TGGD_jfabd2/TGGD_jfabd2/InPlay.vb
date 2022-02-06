@@ -61,6 +61,7 @@ Module InPlay
         Dim done As Boolean = False
         While Not done
             Dim character = New PlayerCharacter()
+            ShowCharacterMessages(character)
             If character.IsAlive() Then
                 Dim location = character.GetLocation()
                 Dim tree = location.GetTree()
@@ -73,7 +74,7 @@ Module InPlay
                 done = HandleInput(canPickFruit, hasInventory, hasGroundInventory)
             Else
                 done = True
-                ErrorMessage("Yer dead!")
+                ErrorMessage("Yer dead!") 'TODO: make a character message!
             End If
         End While
     End Sub

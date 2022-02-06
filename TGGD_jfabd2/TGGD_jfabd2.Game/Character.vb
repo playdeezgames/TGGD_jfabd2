@@ -63,4 +63,7 @@ Public Class Character
     Public Function GetInventory() As CharacterInventory
         Return New CharacterInventory(characterId)
     End Function
+    Public Function IsAlive() As Boolean
+        Return True
+    End Function
 End Class

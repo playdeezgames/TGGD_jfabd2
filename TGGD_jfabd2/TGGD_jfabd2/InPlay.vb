@@ -61,15 +61,20 @@ Module InPlay
         Dim done As Boolean = False
         While Not done
             Dim character = New PlayerCharacter()
-            Dim location = character.GetLocation()
-            Dim tree = location.GetTree()
-            Dim canPickFruit = tree IsNot Nothing
-            Dim hasInventory = Not character.GetInventory().IsEmpty()
-            Dim hasGroundInventory = Not location.GetInventory().IsEmpty()
-            ShowStatus(canPickFruit, tree, hasGroundInventory)
-            ShowMenu(canPickFruit, hasInventory, hasGroundInventory)
-            ShowPrompt()
-            done = HandleInput(canPickFruit, hasInventory, hasGroundInventory)
+            If character.IsAlive() Then
+                Dim location = character.GetLocation()
+                Dim tree = location.GetTree()
+                Dim canPickFruit = tree IsNot Nothing
+                Dim hasInventory = Not character.GetInventory().IsEmpty()
+                Dim hasGroundInventory = Not location.GetInventory().IsEmpty()
+                ShowStatus(canPickFruit, tree, hasGroundInventory)
+                ShowMenu(canPickFruit, hasInventory, hasGroundInventory)
+                ShowPrompt()
+                done = HandleInput(canPickFruit, hasInventory, hasGroundInventory)
+            Else
+                done = True
+                ErrorMessage("Yer dead!")
+            End If
         End While
     End Sub
 End Module

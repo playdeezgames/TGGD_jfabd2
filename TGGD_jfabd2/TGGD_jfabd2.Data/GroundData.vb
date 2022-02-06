@@ -20,4 +20,18 @@
             command.ExecuteNonQuery()
         End Using
     End Sub
+    Function ReadForLocation(locationId As Integer) As List(Of Integer)
+        Initialize()
+        Using command = connection.CreateCommand()
+            command.CommandText = "SELECT [ItemId] FROM [GroundItems] WHERE [LocationId]=@LocationId;"
+            command.Parameters.AddWithValue("@LocationId", locationId)
+            Dim result As New List(Of Integer)
+            Using reader = command.ExecuteReader()
+                While reader.Read()
+                    result.Add(reader("ItemId"))
+                End While
+            End Using
+            Return result
+        End Using
+    End Function
 End Module

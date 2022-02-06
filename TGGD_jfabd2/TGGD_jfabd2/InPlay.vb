@@ -1,14 +1,16 @@
 ﻿Imports TGGD_jfabd2.Game
 
 Module InPlay
-    Sub ShowStatus(canPickFruit As Boolean, tree As Tree)
+    Sub ShowStatus(canPickFruit As Boolean, tree As Tree, hasGroundInventory As Boolean)
         ShowMenuTitle("Yer playin' the game!")
-        Console.ForegroundColor = ConsoleColor.Gray
         If canPickFruit Then
-            Console.WriteLine($"There is a {FruitTypes.GetName(tree.GetFruitType())} tree here.")
+            ShowInfo($"There is a {FruitTypes.GetName(tree.GetFruitType())} tree here.")
+        End If
+        If hasGroundInventory Then
+            ShowInfo("There is some stuff on the ground.")
         End If
     End Sub
-    Sub ShowMenu(canPickFruit As Boolean, hasInventory As Boolean)
+    Sub ShowMenu(canPickFruit As Boolean, hasInventory As Boolean, hasGroundInventory As Boolean)
         ShowMenuItem("1) Turn")
         ShowMenuItem("2) Move")
         If canPickFruit Then
@@ -17,10 +19,12 @@ Module InPlay
         If hasInventory Then
             ShowMenuItem("4) Inventory")
         End If
-        'TODO: stuff on the ground
+        If hasGroundInventory Then
+            ShowMenuItem("5) Ground")
+        End If
         ShowMenuItem("0) Menu")
     End Sub
-    Function HandleInput(canPickFruit As Boolean, hasInventory As Boolean) As Boolean
+    Function HandleInput(canPickFruit As Boolean, hasInventory As Boolean, hasGroundInventory As Boolean) As Boolean
         Select Case Console.ReadLine()
             Case "0"
                 If GameMenu.Run() Then
@@ -42,7 +46,12 @@ Module InPlay
                 Else
                     InvalidInput()
                 End If
-                'TODO: stuff on the ground
+            Case "5"
+                If hasGroundInventory Then
+                    'TODO: stuff on the ground
+                Else
+                    InvalidInput()
+                End If
             Case Else
                 InvalidInput()
         End Select
@@ -56,11 +65,11 @@ Module InPlay
             Dim tree = location.GetTree()
             Dim canPickFruit = tree IsNot Nothing
             Dim hasInventory = Not character.GetInventory().IsEmpty()
-            'TODO: stuff on the ground
-            ShowStatus(canPickFruit, tree)
-            ShowMenu(canPickFruit, hasInventory)
+            Dim hasGroundInventory = Not location.GetInventory().IsEmpty()
+            ShowStatus(canPickFruit, tree, hasGroundInventory)
+            ShowMenu(canPickFruit, hasInventory, hasGroundInventory)
             ShowPrompt()
-            done = HandleInput(canPickFruit, hasInventory)
+            done = HandleInput(canPickFruit, hasInventory, hasGroundInventory)
         End While
     End Sub
 End Module

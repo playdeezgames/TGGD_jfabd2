@@ -1,6 +1,6 @@
 ﻿Imports TGGD_jfabd2.Data
 Public Class Location
-    Private locationId As Integer 'TODO: this can be made readonly!
+    Private locationId As Integer
     Function GetLocationId() As Integer
         Return locationId
     End Function
@@ -31,5 +31,8 @@ Public Class Location
             Return New Tree(locationId)
         End If
         Return Nothing
+    End Function
+    Public Function GetInventory() As GroundInventory
+        Return New GroundInventory(locationId)
     End Function
 End Class

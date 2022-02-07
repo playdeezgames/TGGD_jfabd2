@@ -32,4 +32,18 @@
             command.ExecuteNonQuery()
         End Using
     End Sub
+    Function ReadForCharacter(characterId As Integer) As List(Of Tuple(Of Integer, Integer))
+        Initialize()
+        Using command = connection.CreateCommand()
+            command.CommandText = "SELECT [EquipSlot],[ItemId] FROM [CharacterEquippedItems] WHERE [CharacterId]=@CharacterId;"
+            command.Parameters.AddWithValue("CharacterId", characterId)
+            Dim result As New List(Of Tuple(Of Integer, Integer))
+            Using reader = command.ExecuteReader()
+                While reader.Read()
+                    result.Add(New Tuple(Of Integer, Integer)(reader("EquipSlot"), reader("ItemId")))
+                End While
+            End Using
+            Return result
+        End Using
+    End Function
 End Module

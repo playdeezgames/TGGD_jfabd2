@@ -102,4 +102,12 @@ Public Class Character
     Public Sub ClearMessages()
         CharacterMessageData.Clear(characterId)
     End Sub
+    Public Function GetEquipment() As Dictionary(Of EquipSlot, Item)
+        Dim equipment = CharacterEquipmentData.ReadForCharacter(characterId)
+        Dim result As New Dictionary(Of EquipSlot, Item)
+        For Each entry In equipment
+            result(entry.Item1) = New Item(entry.Item2)
+        Next
+        Return result
+    End Function
 End Class

@@ -5,6 +5,8 @@
                 Return 100
             Case StatisticType.Satiety
                 Return 50
+            Case StatisticType.CarryingCapacity
+                Return 2
             Case Else
                 Throw New ArgumentOutOfRangeException(NameOf(statisticType))
         End Select
@@ -15,6 +17,8 @@
                 Return 0
             Case StatisticType.Satiety
                 Return 0
+            Case StatisticType.CarryingCapacity
+                Return 2
             Case Else
                 Throw New ArgumentOutOfRangeException(NameOf(statisticType))
         End Select
@@ -25,6 +29,8 @@
                 Return 100
             Case StatisticType.Satiety
                 Return 100
+            Case StatisticType.CarryingCapacity
+                Return Integer.MaxValue
             Case Else
                 Throw New ArgumentOutOfRangeException(NameOf(statisticType))
         End Select

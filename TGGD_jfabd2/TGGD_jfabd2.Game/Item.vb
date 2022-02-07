@@ -59,8 +59,10 @@ Public Class Item
     Sub PickUp(characterId As Integer)
         Dim locationId = GroundData.ReadForItem(itemId)
         If locationId.HasValue Then
-            GroundData.Clear(itemId)
-            InventoryData.Write(characterId, itemId)
+            If Not New Character(characterId).GetInventory().IsFull() Then
+                GroundData.Clear(itemId)
+                InventoryData.Write(characterId, itemId)
+            End If
         End If
     End Sub
 End Class

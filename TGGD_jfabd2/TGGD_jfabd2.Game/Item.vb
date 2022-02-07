@@ -76,5 +76,14 @@ Public Class Item
             InventoryData.Write(equippedOn.Item1, itemId)
         End If
     End Sub
+    Sub Equip(equipSlot As EquipSlot)
+        'can this item be equipped on this equip slot?
+        'is this item in the inventory of a character?
+        'is there an item already equipped on that character's equip slot?
+        Throw New NotImplementedException()
+    End Sub
+    Function CanEquip() As Boolean
+        Return ItemTypes.GetEquipSlots(GetItemType()).Any()
+    End Function
 End Class
 

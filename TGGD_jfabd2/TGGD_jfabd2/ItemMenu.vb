@@ -9,6 +9,9 @@ Module ItemMenu
             If item.CanConsume() Then
                 ShowMenuItem("2) Consume")
             End If
+            If item.CanEquip() Then
+                ShowMenuItem("3) Equip")
+            End If
             ShowMenuItem("0) Never mind")
             ShowPrompt()
             Select Case Console.ReadLine()
@@ -22,6 +25,14 @@ Module ItemMenu
                     If item.CanConsume() Then
                         item.Consume()
                         done = True
+                    Else
+                        InvalidInput()
+                    End If
+                Case "3"
+                    If item.CanEquip() Then
+                        EquipItemMenu.Run(item)
+                    Else
+                        InvalidInput()
                     End If
             End Select
         End While

@@ -1,41 +1,41 @@
-﻿Public Module StatisticsTypes
-    Function InitialValue(statisticType As StatisticType) As Integer
+﻿Public Module CharacterStatisticsTypes
+    Function InitialValue(statisticType As CharacterStatisticType) As Integer
         Select Case statisticType
-            Case StatisticType.Health
+            Case CharacterStatisticType.Health
                 Return 100
-            Case StatisticType.Satiety
+            Case CharacterStatisticType.Satiety
                 Return 50
-            Case StatisticType.CarryingCapacity
+            Case CharacterStatisticType.CarryingCapacity
                 Return 2
             Case Else
                 Throw New ArgumentOutOfRangeException(NameOf(statisticType))
         End Select
     End Function
-    Function MinimumValue(statisticType As StatisticType) As Integer
+    Function MinimumValue(statisticType As CharacterStatisticType) As Integer
         Select Case statisticType
-            Case StatisticType.Health
+            Case CharacterStatisticType.Health
                 Return 0
-            Case StatisticType.Satiety
+            Case CharacterStatisticType.Satiety
                 Return 0
-            Case StatisticType.CarryingCapacity
+            Case CharacterStatisticType.CarryingCapacity
                 Return 2
             Case Else
                 Throw New ArgumentOutOfRangeException(NameOf(statisticType))
         End Select
     End Function
-    Function MaximumValue(statisticType As StatisticType) As Integer
+    Function MaximumValue(statisticType As CharacterStatisticType) As Integer
         Select Case statisticType
-            Case StatisticType.Health
+            Case CharacterStatisticType.Health
                 Return 100
-            Case StatisticType.Satiety
+            Case CharacterStatisticType.Satiety
                 Return 100
-            Case StatisticType.CarryingCapacity
+            Case CharacterStatisticType.CarryingCapacity
                 Return Integer.MaxValue
             Case Else
                 Throw New ArgumentOutOfRangeException(NameOf(statisticType))
         End Select
     End Function
-    Function ClampValue(statisticType As StatisticType, value As Integer) As Integer
+    Function ClampValue(statisticType As CharacterStatisticType, value As Integer) As Integer
         If value < MinimumValue(statisticType) Then
             Return MinimumValue(statisticType)
         ElseIf value > MaximumValue(statisticType) Then

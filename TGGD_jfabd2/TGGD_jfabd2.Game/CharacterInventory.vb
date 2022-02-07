@@ -5,7 +5,7 @@ Public Class CharacterInventory
         Me.characterId = characterId
     End Sub
     Function IsFull() As Boolean
-        Return GetCount() >= New Character(characterId).GetStatistic(StatisticType.CarryingCapacity)
+        Return GetCount() >= New Character(characterId).GetStatistic(CharacterStatisticType.CarryingCapacity)
     End Function
     Function IsEmpty() As Boolean
         Return Not GetItems().Any() 'TODO: ask this question more directly from the store

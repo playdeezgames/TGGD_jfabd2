@@ -10,11 +10,11 @@ Public Class Item
     Private Sub ConsumeFruit()
         Dim character As New Character(InventoryData.ReadForItem(itemId).Value)
         Dim satietyBuff = FruitTypes.GetSatietyBuff(FruitData.ReadFruitType(itemId).Value)
-        Dim satiety As Integer = character.GetStatistic(StatisticType.Satiety)
-        Dim oversatiation = satiety + satietyBuff - StatisticsTypes.MaximumValue(StatisticType.Satiety)
-        character.ChangeStatistic(StatisticType.Satiety, satietyBuff)
+        Dim satiety As Integer = character.GetStatistic(CharacterStatisticType.Satiety)
+        Dim oversatiation = satiety + satietyBuff - CharacterStatisticsTypes.MaximumValue(CharacterStatisticType.Satiety)
+        character.ChangeStatistic(CharacterStatisticType.Satiety, satietyBuff)
         If oversatiation > 0 Then
-            character.ChangeStatistic(StatisticType.Health, oversatiation)
+            character.ChangeStatistic(CharacterStatisticType.Health, oversatiation)
         End If
         character.AddMessage(New CharacterMessage(Mood.Success, $"You eat the {GetName()}."))
         ItemData.Destroy(itemId)

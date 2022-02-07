@@ -65,28 +65,28 @@ Public Class Character
         Return New CharacterInventory(characterId)
     End Function
     Public Function IsAlive() As Boolean
-        Return GetStatistic(StatisticType.Health) > StatisticsTypes.MinimumValue(StatisticType.Health)
+        Return GetStatistic(CharacterStatisticType.Health) > CharacterStatisticsTypes.MinimumValue(CharacterStatisticType.Health)
     End Function
-    Public Function GetStatistic(statisticType As StatisticType) As Integer
+    Public Function GetStatistic(statisticType As CharacterStatisticType) As Integer
         Dim value = CharacterStatisticData.Read(characterId, statisticType)
         If value.HasValue Then
             Return value.Value
         Else
-            Return StatisticsTypes.InitialValue(statisticType)
+            Return CharacterStatisticsTypes.InitialValue(statisticType)
         End If
     End Function
-    Public Sub SetStatistic(statisticType As StatisticType, value As Integer)
-        value = StatisticsTypes.ClampValue(statisticType, value)
+    Public Sub SetStatistic(statisticType As CharacterStatisticType, value As Integer)
+        value = CharacterStatisticsTypes.ClampValue(statisticType, value)
         CharacterStatisticData.Write(characterId, statisticType, value)
     End Sub
-    Public Sub ChangeStatistic(statisticType As StatisticType, delta As Integer)
+    Public Sub ChangeStatistic(statisticType As CharacterStatisticType, delta As Integer)
         SetStatistic(statisticType, GetStatistic(statisticType) + delta)
     End Sub
     Public Sub Metabolize()
-        If GetStatistic(StatisticType.Satiety) > StatisticsTypes.MinimumValue(StatisticType.Satiety) Then
-            ChangeStatistic(StatisticType.Satiety, -1)
+        If GetStatistic(CharacterStatisticType.Satiety) > CharacterStatisticsTypes.MinimumValue(CharacterStatisticType.Satiety) Then
+            ChangeStatistic(CharacterStatisticType.Satiety, -1)
         Else
-            ChangeStatistic(StatisticType.Health, -1)
+            ChangeStatistic(CharacterStatisticType.Health, -1)
             AddMessage(New CharacterMessage(Mood.Failure, "Yer starvin'!"))
         End If
     End Sub

@@ -10,7 +10,7 @@ Module InPlay
             ShowInfo("There is some stuff on the ground.")
         End If
     End Sub
-    Sub ShowMenu(canPickFruit As Boolean, hasInventory As Boolean, hasGroundInventory As Boolean)
+    Sub ShowMenu(canPickFruit As Boolean, hasInventory As Boolean, hasGroundInventory As Boolean, hasEquipment As Boolean)
         ShowMenuItem("1) Turn")
         ShowMenuItem("2) Move")
         If canPickFruit Then
@@ -22,9 +22,12 @@ Module InPlay
         If hasGroundInventory Then
             ShowMenuItem("5) Ground")
         End If
+        If hasEquipment Then
+            ShowMenuItem("6) Equipment")
+        End If
         ShowMenuItem("0) Menu")
     End Sub
-    Function HandleInput(canPickFruit As Boolean, hasInventory As Boolean, hasGroundInventory As Boolean) As Boolean
+    Function HandleInput(canPickFruit As Boolean, hasInventory As Boolean, hasGroundInventory As Boolean, hasEquipment As Boolean) As Boolean
         Select Case Console.ReadLine()
             Case "0"
                 If GameMenu.Run() Then
@@ -52,6 +55,12 @@ Module InPlay
                 Else
                     InvalidInput()
                 End If
+            Case "6"
+                If hasEquipment Then
+                    Equipment.Run()
+                Else
+                    InvalidInput()
+                End If
             Case Else
                 InvalidInput()
         End Select
@@ -68,10 +77,11 @@ Module InPlay
                 Dim canPickFruit = tree IsNot Nothing
                 Dim hasInventory = Not character.GetInventory().IsEmpty()
                 Dim hasGroundInventory = Not location.GetInventory().IsEmpty()
+                Dim hasEquipment = character.GetEquipment().Any()
                 ShowStatus(canPickFruit, tree, hasGroundInventory)
-                ShowMenu(canPickFruit, hasInventory, hasGroundInventory)
+                ShowMenu(canPickFruit, hasInventory, hasGroundInventory, hasEquipment)
                 ShowPrompt()
-                done = HandleInput(canPickFruit, hasInventory, hasGroundInventory)
+                done = HandleInput(canPickFruit, hasInventory, hasGroundInventory, hasEquipment)
             Else
                 done = True
                 ErrorMessage("Yer dead!") 'TODO: make a character message!

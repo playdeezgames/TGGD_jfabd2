@@ -36,6 +36,8 @@ Public Class Item
         Select Case GetItemType()
             Case ItemType.Fruit
                 Return FruitTypes.GetName(FruitData.ReadFruitType(itemId))
+            Case ItemType.Wallet
+                Return $"Wallet(Size: {WalletData.Read(itemId).Value})"
             Case Else
                 Throw New NotImplementedException()
         End Select

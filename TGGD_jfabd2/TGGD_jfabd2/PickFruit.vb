@@ -10,7 +10,7 @@ Module PickFruit
             Dim fruit = tree.PickFruit()
             character.Metabolize()
             If fruit IsNot Nothing Then
-                SuccessMessage($"You acquire {GetName(fruit.GetFruitType())}")
+                SuccessMessage($"You acquire {FruitTypes.GetName(fruit.GetFruitType())}")
                 character.GetInventory().Add(fruit)
             Else
                 ErrorMessage("You didn't manage to pick a fruit.")

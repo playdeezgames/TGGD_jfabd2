@@ -2,5 +2,5 @@
     Health
     Satiety
     CarryingCapacity
-    WalletSize
+    Jools
 End Enum

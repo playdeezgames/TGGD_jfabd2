@@ -6,6 +6,9 @@ Public Class PlayerCharacter
         PlayerData.Reset()
         Dim characterId = CharacterData.Create(random.Next(100), random.Next(100), random.Next(4))
         PlayerData.SetCharacterId(characterId)
+        Dim itemId = ItemData.Create(ItemType.Wallet)
+        WalletData.Write(itemId, 50)
+        CharacterEquipmentData.Write(characterId, EquipSlot.Wallet, itemId)
     End Sub
     Public Sub New()
         MyBase.New(PlayerData.GetCharacterId())

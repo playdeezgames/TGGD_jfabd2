@@ -28,7 +28,9 @@
         Initialize()
         GroundData.Clear(itemId)
         InventoryData.Clear(itemId)
+        CharacterEquipmentData.Clear(itemId)
         FruitData.Destroy(itemId)
+        WalletData.Destroy(itemId)
         Using command = connection.CreateCommand()
             command.CommandText = "DELETE FROM [Items] WHERE [ItemId]=@ItemId;"
             command.Parameters.AddWithValue("@ItemId", itemId)

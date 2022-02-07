@@ -13,5 +13,4 @@ Public Class PlayerCharacter
     Public Sub New()
         MyBase.New(PlayerData.GetCharacterId())
     End Sub
-
 End Class

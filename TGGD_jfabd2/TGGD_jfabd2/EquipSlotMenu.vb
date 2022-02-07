@@ -2,7 +2,6 @@
 
 Module EquipSlotMenu
     Sub Run(equipSlot As EquipSlot)
-        'TODO: the stuff
         Dim done As Boolean = False
         While Not done
             Dim character As New PlayerCharacter()
@@ -10,10 +9,14 @@ Module EquipSlotMenu
             If equipment.ContainsKey(equipSlot) Then
                 Dim item = equipment(equipSlot)
                 ShowMenuTitle(item.GetName())
+                ShowMenuItem("1) Unequip")
                 ShowMenuItem("0) Never mind")
                 ShowPrompt()
                 Select Case Console.ReadLine()
                     Case "0"
+                        done = True
+                    Case "1"
+                        item.Unequip()
                         done = True
                     Case Else
                         InvalidInput()

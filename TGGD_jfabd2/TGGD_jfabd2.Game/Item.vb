@@ -46,6 +46,8 @@ Public Class Item
         Select Case GetItemType()
             Case ItemType.Fruit
                 Return FruitTypes.GetDescription(FruitData.ReadFruitType(itemId))
+            Case ItemType.Wallet
+                Return "It's a wallet! It holds money!"
             Case Else
                 Throw New NotImplementedException()
         End Select
@@ -65,6 +67,13 @@ Public Class Item
                 GroundData.Clear(itemId)
                 InventoryData.Write(characterId, itemId)
             End If
+        End If
+    End Sub
+    Sub Unequip()
+        Dim equippedOn = CharacterEquipmentData.ReadForItem(itemId)
+        If equippedOn IsNot Nothing Then
+            CharacterEquipmentData.Clear(itemId)
+            InventoryData.Write(equippedOn.Item1, itemId)
         End If
     End Sub
 End Class

@@ -46,4 +46,17 @@
             Return result
         End Using
     End Function
+    Function ReadForItem(itemId As Integer) As Tuple(Of Integer, Integer)
+        Initialize()
+        Using command = connection.CreateCommand
+            command.CommandText = "SELECT [CharacterId],[EquipSlot] FROM [CharacterEquippedItems] WHERE [ItemId]=@ItemId;"
+            command.Parameters.AddWithValue("@ItemId", itemId)
+            Using reader = command.ExecuteReader()
+                If reader.Read() Then
+                    Return New Tuple(Of Integer, Integer)(reader("CharacterId"), reader("EquipSlot"))
+                End If
+            End Using
+        End Using
+        Return Nothing
+    End Function
 End Module

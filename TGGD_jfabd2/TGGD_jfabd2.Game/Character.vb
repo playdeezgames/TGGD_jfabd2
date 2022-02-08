@@ -43,9 +43,10 @@ Public Class Character
                 deltaX = -1
         End Select
         CharacterData.WriteXY(characterId, CharacterData.ReadX(characterId) + deltaX, CharacterData.ReadY(characterId) + deltaY)
-        Metabolize()
+        UpKeep()
         Game.Update()
     End Sub
+
     Public Sub MoveLeft()
         TurnLeft()
         MoveAhead()
@@ -82,13 +83,17 @@ Public Class Character
     Public Sub ChangeStatistic(statisticType As CharacterStatisticType, delta As Integer)
         SetStatistic(statisticType, GetStatistic(statisticType) + delta)
     End Sub
-    Public Sub Metabolize()
+    Private Sub Metabolize()
         If GetStatistic(CharacterStatisticType.Satiety) > CharacterStatisticsTypes.MinimumValue(CharacterStatisticType.Satiety) Then
             ChangeStatistic(CharacterStatisticType.Satiety, -1)
         Else
             ChangeStatistic(CharacterStatisticType.Health, -1)
             AddMessage(New CharacterMessage(Mood.Failure, "Yer starvin'!"))
         End If
+    End Sub
+    Public Sub UpKeep()
+        Metabolize()
+        'TODO: limit jools based on wallet
     End Sub
     Public Sub AddMessage(message As CharacterMessage)
         CharacterMessageData.Write(characterId, message.GetMood(), message.GetText())

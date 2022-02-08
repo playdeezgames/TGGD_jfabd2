@@ -1,16 +1,19 @@
 ﻿Imports TGGD_jfabd2.Game
 
 Module InPlay
-    Sub ShowStatus(canPickFruit As Boolean, tree As Tree, hasGroundInventory As Boolean)
+    Sub ShowStatus(canPickFruit As Boolean, tree As Tree, hasGroundInventory As Boolean, hasVendor As Boolean)
         ShowMenuTitle("Yer playin' the game!")
         If canPickFruit Then
             ShowInfo($"There is a {FruitTypes.GetName(tree.GetFruitType())} tree here.")
+        End If
+        If hasVendor Then
+            ShowInfo("There is a vendor here.")
         End If
         If hasGroundInventory Then
             ShowInfo("There is some stuff on the ground.")
         End If
     End Sub
-    Sub ShowMenu(canPickFruit As Boolean, hasInventory As Boolean, hasGroundInventory As Boolean, hasEquipment As Boolean)
+    Sub ShowMenu(canPickFruit As Boolean, hasInventory As Boolean, hasGroundInventory As Boolean, hasEquipment As Boolean, hasVendor As Boolean)
         ShowMenuItem("1) Turn")
         ShowMenuItem("2) Move")
         If canPickFruit Then
@@ -25,9 +28,12 @@ Module InPlay
         If hasEquipment Then
             ShowMenuItem("6) Equipment")
         End If
+        If hasVendor Then
+            ShowMenuItem("7) Trade")
+        End If
         ShowMenuItem("0) Menu")
     End Sub
-    Function HandleInput(canPickFruit As Boolean, hasInventory As Boolean, hasGroundInventory As Boolean, hasEquipment As Boolean) As Boolean
+    Function HandleInput(canPickFruit As Boolean, hasInventory As Boolean, hasGroundInventory As Boolean, hasEquipment As Boolean, hasVendor As Boolean) As Boolean
         Select Case Console.ReadLine()
             Case "0"
                 If GameMenu.Run() Then
@@ -61,8 +67,14 @@ Module InPlay
                 Else
                     InvalidInput()
                 End If
+            Case "7"
+                If hasVendor Then
+                    Vendor.Run()
+                Else
+                    InvalidInput()
+                End If
             Case Else
-                InvalidInput()
+                    InvalidInput()
         End Select
         Return False
     End Function
@@ -78,10 +90,12 @@ Module InPlay
                 Dim hasInventory = Not character.GetInventory().IsEmpty()
                 Dim hasGroundInventory = Not location.GetInventory().IsEmpty()
                 Dim hasEquipment = character.GetEquipment().Any()
-                ShowStatus(canPickFruit, tree, hasGroundInventory)
-                ShowMenu(canPickFruit, hasInventory, hasGroundInventory, hasEquipment)
+                Dim vendor = location.GetVendor()
+                Dim hasVendor = vendor IsNot Nothing
+                ShowStatus(canPickFruit, tree, hasGroundInventory, hasVendor)
+                ShowMenu(canPickFruit, hasInventory, hasGroundInventory, hasEquipment, hasVendor)
                 ShowPrompt()
-                done = HandleInput(canPickFruit, hasInventory, hasGroundInventory, hasEquipment)
+                done = HandleInput(canPickFruit, hasInventory, hasGroundInventory, hasEquipment, hasVendor)
             Else
                 done = True
                 ErrorMessage("Yer dead!") 'TODO: make a character message!

@@ -13,8 +13,9 @@
         End Using
     End Sub
     Public Sub Clear()
-        TreeData.Clear()
         Initialize()
+        VendorData.Clear()
+        TreeData.Clear()
         Using command = connection.CreateCommand()
             command.CommandText = "DELETE FROM [Locations];"
             command.ExecuteNonQuery()

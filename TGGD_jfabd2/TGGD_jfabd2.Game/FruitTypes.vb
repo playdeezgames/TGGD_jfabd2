@@ -1,4 +1,7 @@
 ﻿Public Module FruitTypes
+    Function GenerateFruitType() As Integer
+        Return random.Next(1, 11)
+    End Function
     Function GetName(fruitType As Integer) As String
         Select Case fruitType
             Case 1

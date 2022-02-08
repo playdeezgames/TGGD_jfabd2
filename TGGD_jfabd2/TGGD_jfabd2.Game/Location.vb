@@ -4,6 +4,29 @@ Public Class Location
     Function GetLocationId() As Integer
         Return locationId
     End Function
+    Private Shared Function SpawnTree(locationId As Integer) As Boolean
+        If random.Next(5) < 1 Then
+            'spawn tree
+            TreeData.Create(locationId, random.Next(1, 11), random.Next(25, 101), random.Next(0, 51), 0, random.Next(20, 101))
+            Return True
+        End If
+        Return False
+    End Function
+    Private Shared Function SpawnVendor(locationId As Integer) As Boolean
+        If random.Next(10) < 1 Then
+            'spawn vendor
+            VendorData.Create(locationId)
+            'pick some fruits to sell
+            Dim fruits = random.Next(0, 5)
+            While fruits > 0
+                Dim fruitType = FruitTypes.GenerateFruitType()
+                FruitPriceData.Write(locationId, fruitType, random.Next(1, 6))
+                fruits -= 1
+            End While
+            Return True
+        End If
+        Return False
+    End Function
     Private Sub FromXY(x As Integer, y As Integer)
         Dim id = LocationData.FindXY(x, y)
         If id.HasValue Then
@@ -11,10 +34,9 @@ Public Class Location
         Else
             locationId = LocationData.CreateXY(x, y)
             'spawn stuff
-            If random.Next(10) < 2 Then
-                'spawn tree
-                TreeData.Create(locationId, random.Next(1, 11), random.Next(25, 101), random.Next(0, 51), 0, random.Next(20, 101))
-            End If
+            Dim spawnedSomething =
+                SpawnTree(locationId) OrElse
+                SpawnVendor(locationId)
         End If
     End Sub
     Public Sub New(x As Integer, y As Integer)
@@ -29,6 +51,12 @@ Public Class Location
     Public Function GetTree() As Tree
         If TreeData.ReadFruitType(locationId).HasValue Then
             Return New Tree(locationId)
+        End If
+        Return Nothing
+    End Function
+    Public Function GetVendor() As Vendor
+        If VendorData.HasVendor(locationId) Then
+            Return New Vendor(locationId)
         End If
         Return Nothing
     End Function

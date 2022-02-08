@@ -16,6 +16,7 @@ Module VendorFruitMenu
                 Case "0"
                     done = True
                 Case Else
+                    'TODO: zoom into individual fruit for buying and selling
                     InvalidInput()
             End Select
 

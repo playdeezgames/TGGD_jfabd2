@@ -30,7 +30,7 @@ Module ItemMenu
                     End If
                 Case "3"
                     If item.CanEquip() Then
-                        EquipItemMenu.Run(item)
+                        done = EquipItemMenu.Run(item)
                     Else
                         InvalidInput()
                     End If

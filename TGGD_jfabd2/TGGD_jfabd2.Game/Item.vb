@@ -77,10 +77,22 @@ Public Class Item
         End If
     End Sub
     Sub Equip(equipSlot As EquipSlot)
-        'can this item be equipped on this equip slot?
-        'is this item in the inventory of a character?
-        'is there an item already equipped on that character's equip slot?
-        Throw New NotImplementedException()
+        Dim equippedOn = CharacterEquipmentData.ReadForItem(itemId)
+        If equippedOn Is Nothing Then
+            Dim characterId = InventoryData.ReadForItem(itemId)
+            If characterId.HasValue Then
+                Dim equipSlots = ItemTypes.GetEquipSlots(GetItemType())
+                If equipSlots.Contains(equipSlot) Then
+                    Dim oldItemId = CharacterEquipmentData.ReadForEquipSlot(characterId.Value, equipSlot)
+                    If oldItemId.HasValue Then
+                        Dim x = New Item(oldItemId.Value)
+                        x.Unequip()
+                    End If
+                    InventoryData.Clear(itemId)
+                    CharacterEquipmentData.Write(characterId.Value, equipSlot, itemId)
+                End If
+            End If
+        End If
     End Sub
     Function CanEquip() As Boolean
         Return ItemTypes.GetEquipSlots(GetItemType()).Any()

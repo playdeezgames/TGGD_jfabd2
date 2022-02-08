@@ -1,13 +1,14 @@
 ﻿Imports TGGD_jfabd2.Game
 
 Module EquipItemMenu
-    Sub Run(item As Item)
+    Function Run(item As Item) As Boolean
         Dim equipSlots = ItemTypes.GetEquipSlots(item.GetItemType)
         Select Case equipSlots.Count
             Case 0
-                Return
+                Return False
             Case 1
                 item.Equip(equipSlots.Single)
+                Return True
             Case Else
                 Dim done As Boolean = False
                 While Not done
@@ -28,6 +29,7 @@ Module EquipItemMenu
                                 If index < equipSlots.Count Then
                                     item.Equip(equipSlots(index))
                                     done = True
+                                    Return True
                                 Else
                                     InvalidInput()
                                 End If
@@ -37,5 +39,6 @@ Module EquipItemMenu
                     End Select
                 End While
         End Select
-    End Sub
+        Return False
+    End Function
 End Module

@@ -46,6 +46,15 @@
             Return result
         End Using
     End Function
+    Function ReadForEquipSlot(characterId As Integer, equipSlot As Integer) As Integer?
+        Initialize()
+        Using command = connection.CreateCommand()
+            command.CommandText = "SELECT [ItemId] FROM [CharacterEquippedItems] WHERE [CharacterId]=@CharacterId AND [EquipSlot]=@EquipSlot;"
+            command.Parameters.AddWithValue("@CharacterId", characterId)
+            command.Parameters.AddWithValue("@EquipSlot", equipSlot)
+            Return command.ExecuteScalar()
+        End Using
+    End Function
     Function ReadForItem(itemId As Integer) As Tuple(Of Integer, Integer)
         Initialize()
         Using command = connection.CreateCommand

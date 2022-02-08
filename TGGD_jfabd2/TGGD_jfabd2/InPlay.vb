@@ -69,7 +69,7 @@ Module InPlay
                 End If
             Case "7"
                 If hasVendor Then
-                    Vendor.Run()
+                    VendorMenu.Run()
                 Else
                     InvalidInput()
                 End If

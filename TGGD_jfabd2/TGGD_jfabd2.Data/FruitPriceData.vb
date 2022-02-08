@@ -21,4 +21,13 @@
             command.ExecuteNonQuery()
         End Using
     End Sub
+
+    Function ReadCountForLocation(locationId As Integer) As Integer
+        Initialize()
+        Using command = connection.CreateCommand()
+            command.CommandText = "SELECT COUNT(1) FROM [FruitPrices] WHERE [LocationId]=@LocationId;"
+            command.Parameters.AddWithValue("@LocationId", locationId)
+            Return command.ExecuteScalar()
+        End Using
+    End Function
 End Module

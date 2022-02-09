@@ -91,9 +91,18 @@ Public Class Character
             AddMessage(New CharacterMessage(Mood.Failure, "Yer starvin'!"))
         End If
     End Sub
+    Private Sub UpKeepWallet()
+        Dim jools = GetStatistic(CharacterStatisticType.Jools)
+        Dim walletSize = GetEquipment().Sum(Function(entry)
+                                                Return entry.Value.GetWalletSize()
+                                            End Function)
+        If jools > walletSize Then
+            ChangeStatistic(CharacterStatisticType.Jools, walletSize - jools)
+        End If
+    End Sub
     Public Sub UpKeep()
         Metabolize()
-        'TODO: limit jools based on wallet
+        UpKeepWallet()
     End Sub
     Public Sub AddMessage(message As CharacterMessage)
         CharacterMessageData.Write(characterId, message.GetMood(), message.GetText())

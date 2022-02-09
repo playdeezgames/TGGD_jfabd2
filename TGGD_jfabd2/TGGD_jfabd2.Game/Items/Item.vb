@@ -103,5 +103,11 @@ Public Class Item
         End If
         Return Nothing
     End Function
+    Function GetWalletSize() As Integer
+        If GetItemType() = ItemType.Wallet Then
+            Return WalletData.Read(ItemId).Value
+        End If
+        Return 0
+    End Function
 End Class
 

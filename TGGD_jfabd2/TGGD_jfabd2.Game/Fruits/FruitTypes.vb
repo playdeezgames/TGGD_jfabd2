@@ -2,6 +2,18 @@
     Function GenerateFruitType() As Integer
         Return random.Next(1, 11)
     End Function
+    Function GenerateAvailable(fruitType As Integer) As Integer
+        Return random.Next(25, 101)
+    End Function
+    Function GenerateDepletion(fruitType As Integer) As Integer
+        Return random.Next(0, 51)
+    End Function
+    Function GenerateRegenerationCounter(fruitType As Integer) As Integer
+        Return 0
+    End Function
+    Function GenerateRegenerationThreshold(fruitType As Integer) As Integer
+        Return random.Next(20, 101)
+    End Function
     Function GeneratePrice(fruitType As Integer) As Integer
         Return random.Next(1, 6)
     End Function

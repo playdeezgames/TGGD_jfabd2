@@ -5,9 +5,16 @@ Public Class Location
         Return locationId
     End Function
     Private Shared Function SpawnTree(locationId As Integer) As Boolean
-        If random.Next(5) < 1 Then
+        If random.Next(10) < 1 Then
             'spawn tree
-            TreeData.Create(locationId, random.Next(1, 11), random.Next(25, 101), random.Next(0, 51), 0, random.Next(20, 101))
+            Dim fruitType = FruitTypes.GenerateFruitType()
+            TreeData.Create(
+                locationId,
+                FruitTypes.GenerateFruitType(),
+                FruitTypes.GenerateAvailable(fruitType),
+                FruitTypes.GenerateDepletion(fruitType),
+                FruitTypes.GenerateRegenerationCounter(fruitType),
+                FruitTypes.GenerateRegenerationThreshold(fruitType))
             Return True
         End If
         Return False
@@ -27,6 +34,13 @@ Public Class Location
         End If
         Return False
     End Function
+    Private Shared Function SpawnCritter(locationId) As Boolean
+        If random.Next(5) < 1 Then
+            CritterData.Create(locationId)
+            Return True
+        End If
+        Return False
+    End Function
     Private Sub FromXY(x As Integer, y As Integer)
         Dim id = LocationData.FindXY(x, y)
         If id.HasValue Then
@@ -36,7 +50,8 @@ Public Class Location
             'spawn stuff
             Dim spawnedSomething =
                 SpawnTree(locationId) OrElse
-                SpawnVendor(locationId)
+                SpawnVendor(locationId) OrElse
+                SpawnCritter(locationId)
         End If
     End Sub
     Public Sub New(x As Integer, y As Integer)

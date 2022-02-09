@@ -20,7 +20,7 @@ Public Class Location
             Dim fruits = random.Next(0, 5)
             While fruits > 0
                 Dim fruitType = FruitTypes.GenerateFruitType()
-                FruitPriceData.Write(locationId, fruitType, random.Next(1, 6))
+                FruitPriceData.Write(locationId, fruitType, FruitTypes.GeneratePrice(fruitType))
                 fruits -= 1
             End While
             Return True

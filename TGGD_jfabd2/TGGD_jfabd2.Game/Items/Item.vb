@@ -1,15 +1,15 @@
 ﻿Imports TGGD_jfabd2.Data
 Public Class Item
-    Private ReadOnly itemId As Integer
+    Public ReadOnly ItemId As Integer
     Sub New(itemId As Integer)
-        Me.itemId = itemId
+        Me.ItemId = itemId
     End Sub
     Function CanConsume() As Boolean
-        Return InventoryData.ReadForItem(itemId).HasValue AndAlso ItemTypes.CanConsume(GetItemType())
+        Return InventoryData.ReadForItem(ItemId).HasValue AndAlso ItemTypes.CanConsume(GetItemType())
     End Function
     Private Sub ConsumeFruit()
-        Dim character As New Character(InventoryData.ReadForItem(itemId).Value)
-        Dim satietyBuff = FruitTypes.GetSatietyBuff(FruitData.ReadFruitType(itemId).Value)
+        Dim character As New Character(InventoryData.ReadForItem(ItemId).Value)
+        Dim satietyBuff = FruitTypes.GetSatietyBuff(FruitData.ReadFruitType(ItemId).Value)
         Dim satiety As Integer = character.GetStatistic(CharacterStatisticType.Satiety)
         Dim oversatiation = satiety + satietyBuff - CharacterStatisticsTypes.MaximumValue(CharacterStatisticType.Satiety)
         character.ChangeStatistic(CharacterStatisticType.Satiety, satietyBuff)
@@ -17,7 +17,7 @@ Public Class Item
             character.ChangeStatistic(CharacterStatisticType.Health, oversatiation)
         End If
         character.AddMessage(New CharacterMessage(Mood.Success, $"You eat the {GetName()}."))
-        ItemData.Destroy(itemId)
+        ItemData.Destroy(ItemId)
     End Sub
     Sub Consume()
         If CanConsume() Then
@@ -30,14 +30,14 @@ Public Class Item
         End If
     End Sub
     Function GetItemType() As ItemType
-        Return ItemData.ReadItemType(itemId)
+        Return ItemData.ReadItemType(ItemId)
     End Function
     Function GetName() As String
         Select Case GetItemType()
             Case ItemType.Fruit
-                Return FruitTypes.GetName(FruitData.ReadFruitType(itemId))
+                Return FruitTypes.GetName(FruitData.ReadFruitType(ItemId))
             Case ItemType.Wallet
-                Return $"Wallet(Size: {WalletData.Read(itemId).Value})"
+                Return $"Wallet(Size: {WalletData.Read(ItemId).Value})"
             Case Else
                 Throw New NotImplementedException()
         End Select
@@ -45,7 +45,7 @@ Public Class Item
     Function GetDescription() As String
         Select Case GetItemType()
             Case ItemType.Fruit
-                Return FruitTypes.GetDescription(FruitData.ReadFruitType(itemId))
+                Return FruitTypes.GetDescription(FruitData.ReadFruitType(ItemId))
             Case ItemType.Wallet
                 Return "It's a wallet! It holds money!"
             Case Else
@@ -53,33 +53,33 @@ Public Class Item
         End Select
     End Function
     Sub Drop()
-        Dim characterId = InventoryData.ReadForItem(itemId)
+        Dim characterId = InventoryData.ReadForItem(ItemId)
         If characterId.HasValue Then
-            InventoryData.Clear(itemId)
+            InventoryData.Clear(ItemId)
             Dim location = New Character(characterId.Value).GetLocation()
-            GroundData.Write(location.GetLocationId(), itemId)
+            GroundData.Write(location.GetLocationId(), ItemId)
         End If
     End Sub
     Sub PickUp(characterId As Integer)
-        Dim locationId = GroundData.ReadForItem(itemId)
+        Dim locationId = GroundData.ReadForItem(ItemId)
         If locationId.HasValue Then
             If Not New Character(characterId).GetInventory().IsFull() Then
-                GroundData.Clear(itemId)
-                InventoryData.Write(characterId, itemId)
+                GroundData.Clear(ItemId)
+                InventoryData.Write(characterId, ItemId)
             End If
         End If
     End Sub
     Sub Unequip()
-        Dim equippedOn = CharacterEquipmentData.ReadForItem(itemId)
+        Dim equippedOn = CharacterEquipmentData.ReadForItem(ItemId)
         If equippedOn IsNot Nothing Then
-            CharacterEquipmentData.Clear(itemId)
-            InventoryData.Write(equippedOn.Item1, itemId)
+            CharacterEquipmentData.Clear(ItemId)
+            InventoryData.Write(equippedOn.Item1, ItemId)
         End If
     End Sub
     Sub Equip(equipSlot As EquipSlot)
-        Dim equippedOn = CharacterEquipmentData.ReadForItem(itemId)
+        Dim equippedOn = CharacterEquipmentData.ReadForItem(ItemId)
         If equippedOn Is Nothing Then
-            Dim characterId = InventoryData.ReadForItem(itemId)
+            Dim characterId = InventoryData.ReadForItem(ItemId)
             If characterId.HasValue Then
                 Dim equipSlots = ItemTypes.GetEquipSlots(GetItemType())
                 If equipSlots.Contains(equipSlot) Then
@@ -88,14 +88,20 @@ Public Class Item
                         Dim x = New Item(oldItemId.Value)
                         x.Unequip()
                     End If
-                    InventoryData.Clear(itemId)
-                    CharacterEquipmentData.Write(characterId.Value, equipSlot, itemId)
+                    InventoryData.Clear(ItemId)
+                    CharacterEquipmentData.Write(characterId.Value, equipSlot, ItemId)
                 End If
             End If
         End If
     End Sub
     Function CanEquip() As Boolean
         Return ItemTypes.GetEquipSlots(GetItemType()).Any()
+    End Function
+    Function GetFruitType() As Integer?
+        If GetItemType() = ItemType.Fruit Then
+            Return FruitData.ReadFruitType(ItemId)
+        End If
+        Return Nothing
     End Function
 End Class
 

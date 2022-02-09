@@ -1,25 +1,39 @@
 ﻿Imports TGGD_jfabd2.Game
 
 Module VendorFruitMenu
-    Sub Run(vendor As Vendor)
+    Sub Run(vendorFruit As VendorFruit)
         Dim done = False
+        Dim character = New PlayerCharacter()
         While Not done
-            ShowMenuTitle("Fruits:")
-            Dim fruits = vendor.GetFruitTypes()
-            Dim index = 1
-            For Each fruit In fruits
-                ShowMenuItem($"{index}) {fruit.Name} (price:{fruit.Price})")
-                index += 1
-            Next
+            Dim jools = character.GetStatistic(CharacterStatisticType.Jools)
+            ShowMenuTitle(vendorFruit.Name)
+            ShowInfo($"You can buy for: {vendorFruit.BuyingPrice} jools")
+            ShowInfo($"You can sell for: {vendorFruit.SellingPrice} jools")
+            ShowInfo($"You have: {jools} jools")
+            Dim canBuy = jools >= vendorFruit.BuyingPrice AndAlso Not character.GetInventory().IsFull
+            Dim canSell = character.GetInventory().HasFruitType(vendorFruit.FruitType) AndAlso vendorFruit.SellingPrice > 0
+            If canBuy Then
+                ShowMenuItem("1) Buy")
+            End If
+            If canSell Then
+                ShowMenuItem("2) Sell")
+            End If
             ShowMenuItem("0) Never mind")
+            ShowPrompt()
             Select Case Console.ReadLine()
                 Case "0"
                     done = True
+                Case "2"
+                    If canSell Then
+                        character.GetInventory().RemoveFruit(vendorFruit.FruitType)
+                        character.ChangeStatistic(CharacterStatisticType.Jools, vendorFruit.SellingPrice)
+                        vendorFruit.HandleSale()
+                    Else
+                        InvalidInput()
+                    End If
                 Case Else
-                    'TODO: zoom into individual fruit for buying and selling
                     InvalidInput()
             End Select
-
         End While
     End Sub
 End Module

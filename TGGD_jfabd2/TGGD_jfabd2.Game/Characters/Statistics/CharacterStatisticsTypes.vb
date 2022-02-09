@@ -7,6 +7,8 @@
                 Return 50
             Case CharacterStatisticType.CarryingCapacity
                 Return 2
+            Case CharacterStatisticType.Jools
+                Return 0
             Case Else
                 Throw New ArgumentOutOfRangeException(NameOf(statisticType))
         End Select
@@ -19,6 +21,8 @@
                 Return 0
             Case CharacterStatisticType.CarryingCapacity
                 Return 2
+            Case CharacterStatisticType.Jools
+                Return 0
             Case Else
                 Throw New ArgumentOutOfRangeException(NameOf(statisticType))
         End Select
@@ -30,6 +34,8 @@
             Case CharacterStatisticType.Satiety
                 Return 100
             Case CharacterStatisticType.CarryingCapacity
+                Return Integer.MaxValue
+            Case CharacterStatisticType.Jools
                 Return Integer.MaxValue
             Case Else
                 Throw New ArgumentOutOfRangeException(NameOf(statisticType))

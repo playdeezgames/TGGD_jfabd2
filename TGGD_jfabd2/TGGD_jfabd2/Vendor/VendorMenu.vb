@@ -11,12 +11,13 @@ Module VendorMenu
                 ShowMenuItem("1) Fruits")
             End If
             ShowMenuItem("0) Never mind")
+            ShowPrompt()
             Select Case Console.ReadLine
                 Case "0"
                     done = True
                 Case "1"
                     If hasFruits Then
-                        VendorFruitMenu.Run(vendor)
+                        VendorFruitListMenu.Run(vendor)
                     Else
                         InvalidInput()
                     End If

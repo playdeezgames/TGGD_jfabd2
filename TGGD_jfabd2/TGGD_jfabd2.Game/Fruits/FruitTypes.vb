@@ -2,6 +2,9 @@
     Function GenerateFruitType() As Integer
         Return random.Next(1, 11)
     End Function
+    Function GeneratePrice(fruitType As Integer) As Integer
+        Return random.Next(1, 6)
+    End Function
     Function GetName(fruitType As Integer) As String
         Select Case fruitType
             Case 1

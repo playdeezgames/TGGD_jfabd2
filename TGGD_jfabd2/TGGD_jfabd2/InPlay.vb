@@ -13,27 +13,22 @@ Module InPlay
             ShowInfo("There is some stuff on the ground.")
         End If
     End Sub
-    Sub ShowMenu(canPickFruit As Boolean, hasInventory As Boolean, hasGroundInventory As Boolean, hasEquipment As Boolean, hasVendor As Boolean)
+    Sub ShowMenu(canPickFruit As Boolean, hasGroundInventory As Boolean, hasVendor As Boolean)
         ShowMenuItem("1) Move")
         ShowMenuItem("2) Turn")
         If canPickFruit Then
-            ShowMenuItem("3) Pick Fruit")
-        End If
-        If hasInventory Then
-            ShowMenuItem("4) Inventory")
+            ShowMenuItem("3) Pick Fruit") 'interact with the tree
         End If
         If hasGroundInventory Then
-            ShowMenuItem("5) Ground")
-        End If
-        If hasEquipment Then
-            ShowMenuItem("6) Equipment")
+            ShowMenuItem("5) Ground") 'interact with the ground
         End If
         If hasVendor Then
-            ShowMenuItem("7) Trade")
+            ShowMenuItem("7) Trade") 'interact with a vendor
         End If
+        ShowMenuItem("8) Status") 'TODO: becomes 3
         ShowMenuItem("0) Menu")
     End Sub
-    Function HandleInput(canPickFruit As Boolean, hasInventory As Boolean, hasGroundInventory As Boolean, hasEquipment As Boolean, hasVendor As Boolean) As Boolean
+    Function HandleInput(canPickFruit As Boolean, hasGroundInventory As Boolean, hasVendor As Boolean) As Boolean
         Select Case Console.ReadLine()
             Case "0"
                 If GameMenu.Run() Then
@@ -49,21 +44,9 @@ Module InPlay
                 Else
                     InvalidInput()
                 End If
-            Case "4"
-                If hasInventory Then
-                    Inventory.Run()
-                Else
-                    InvalidInput()
-                End If
             Case "5"
                 If hasGroundInventory Then
                     Ground.Run()
-                Else
-                    InvalidInput()
-                End If
-            Case "6"
-                If hasEquipment Then
-                    Equipment.Run()
                 Else
                     InvalidInput()
                 End If
@@ -73,8 +56,10 @@ Module InPlay
                 Else
                     InvalidInput()
                 End If
+            Case "8"
+                StatusMenu.Run()
             Case Else
-                    InvalidInput()
+                InvalidInput()
         End Select
         Return False
     End Function
@@ -87,15 +72,13 @@ Module InPlay
                 Dim location = character.GetLocation()
                 Dim tree = location.GetTree()
                 Dim canPickFruit = tree IsNot Nothing
-                Dim hasInventory = Not character.GetInventory().IsEmpty()
                 Dim hasGroundInventory = Not location.GetInventory().IsEmpty()
-                Dim hasEquipment = character.GetEquipment().Any()
                 Dim vendor = location.GetVendor()
                 Dim hasVendor = vendor IsNot Nothing
                 ShowStatus(canPickFruit, tree, hasGroundInventory, hasVendor)
-                ShowMenu(canPickFruit, hasInventory, hasGroundInventory, hasEquipment, hasVendor)
+                ShowMenu(canPickFruit, hasGroundInventory, hasVendor)
                 ShowPrompt()
-                done = HandleInput(canPickFruit, hasInventory, hasGroundInventory, hasEquipment, hasVendor)
+                done = HandleInput(canPickFruit, hasGroundInventory, hasVendor)
             Else
                 done = True
                 ErrorMessage("Yer dead!") 'TODO: make a character message!

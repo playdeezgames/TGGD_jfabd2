@@ -23,6 +23,12 @@ Module VendorFruitMenu
             Select Case Console.ReadLine()
                 Case "0"
                     done = True
+                Case "1"
+                    If canBuy Then
+                        character.GetInventory().Add(New Fruit(vendorFruit.FruitType))
+                        character.ChangeStatistic(CharacterStatisticType.Jools, -vendorFruit.BuyingPrice)
+                        vendorFruit.HandleBuy()
+                    End If
                 Case "2"
                     If canSell Then
                         character.GetInventory().RemoveFruit(vendorFruit.FruitType)

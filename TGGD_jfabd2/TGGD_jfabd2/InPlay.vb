@@ -14,8 +14,8 @@ Module InPlay
         End If
     End Sub
     Sub ShowMenu(canPickFruit As Boolean, hasInventory As Boolean, hasGroundInventory As Boolean, hasEquipment As Boolean, hasVendor As Boolean)
-        ShowMenuItem("1) Turn")
-        ShowMenuItem("2) Move")
+        ShowMenuItem("1) Move")
+        ShowMenuItem("2) Turn")
         If canPickFruit Then
             ShowMenuItem("3) Pick Fruit")
         End If
@@ -39,9 +39,9 @@ Module InPlay
                 If GameMenu.Run() Then
                     Return True
                 End If
-            Case "1"
-                TurnMenu.Run()
             Case "2"
+                TurnMenu.Run()
+            Case "1"
                 MoveMenu.Run()
             Case "3"
                 If canPickFruit Then

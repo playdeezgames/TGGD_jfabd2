@@ -16,6 +16,11 @@ Public Class CharacterInventory
                 Return New Item(itemId)
             End Function).ToList()
     End Function
+    Function GetItems(itemType As ItemType) As List(Of Item)
+        Return GetItems().Where(Function(item)
+                                    Return item.GetItemType() = itemType
+                                End Function).ToList()
+    End Function
     Sub Add(fruit As Fruit)
         If Not IsFull() Then
             Dim itemId = ItemData.Create(ItemType.Fruit)
@@ -39,5 +44,10 @@ Public Class CharacterInventory
             ItemData.Destroy(item.ItemId)
         End If
         Return False
+    End Function
+    Function HasItemType(itemType As ItemType) As Boolean
+        Return GetItems().Any(Function(item)
+                                  Return item.GetItemType = itemType
+                              End Function)
     End Function
 End Class

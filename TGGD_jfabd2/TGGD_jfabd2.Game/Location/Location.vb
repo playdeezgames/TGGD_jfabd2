@@ -5,7 +5,7 @@ Public Class Location
         Return locationId
     End Function
     Private Shared Function SpawnTree(locationId As Integer) As Boolean
-        If random.Next(10) < 1 Then
+        If random.Next(5) < 1 Then
             'spawn tree
             Dim fruitType = FruitTypes.GenerateFruitType()
             TreeData.Create(

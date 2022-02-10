@@ -16,16 +16,10 @@ Module InPlay
     Sub ShowMenu(canPickFruit As Boolean, hasGroundInventory As Boolean, hasVendor As Boolean)
         ShowMenuItem("1) Move")
         ShowMenuItem("2) Turn")
-        If canPickFruit Then
-            ShowMenuItem("3) Pick Fruit") 'interact with the tree
+        ShowMenuItem("3) Status...")
+        If canPickFruit OrElse hasGroundInventory OrElse hasVendor Then
+            ShowMenuItem("4) Interact...")
         End If
-        If hasGroundInventory Then
-            ShowMenuItem("5) Ground") 'interact with the ground
-        End If
-        If hasVendor Then
-            ShowMenuItem("7) Trade") 'interact with a vendor
-        End If
-        ShowMenuItem("8) Status") 'TODO: becomes 3
         ShowMenuItem("0) Menu")
     End Sub
     Function HandleInput(canPickFruit As Boolean, hasGroundInventory As Boolean, hasVendor As Boolean) As Boolean
@@ -39,25 +33,13 @@ Module InPlay
             Case "1"
                 MoveMenu.Run()
             Case "3"
-                If canPickFruit Then
-                    PickFruit.Run()
-                Else
-                    InvalidInput()
-                End If
-            Case "5"
-                If hasGroundInventory Then
-                    Ground.Run()
-                Else
-                    InvalidInput()
-                End If
-            Case "7"
-                If hasVendor Then
-                    VendorMenu.Run()
-                Else
-                    InvalidInput()
-                End If
-            Case "8"
                 StatusMenu.Run()
+            Case "4"
+                If canPickFruit OrElse hasGroundInventory OrElse hasVendor Then
+                    InteractMenu.Run()
+                Else
+                    InvalidInput()
+                End If
             Case Else
                 InvalidInput()
         End Select

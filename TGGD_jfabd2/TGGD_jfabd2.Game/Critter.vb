@@ -10,4 +10,7 @@ Public Class Critter
             Return CritterTypes.GetName(CritterData.ReadCritterType(critterId))
         End Get
     End Property
+    Sub Feed(item As Item)
+        item.Destroy()
+    End Sub
 End Class

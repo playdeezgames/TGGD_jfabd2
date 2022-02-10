@@ -18,7 +18,16 @@ Module CritterFeedMenu
                 Case "0"
                     done = True
                 Case Else
-                    InvalidInput()
+                    If Integer.TryParse(input, index) Then
+                        index -= 1
+                        If index < fruits.Count Then
+                            critter.Feed(fruits(index))
+                        Else
+                            InvalidInput()
+                        End If
+                    Else
+                        InvalidInput()
+                    End If
             End Select
         End While
     End Sub

@@ -109,5 +109,8 @@ Public Class Item
         End If
         Return 0
     End Function
+    Sub Destroy()
+        ItemData.Destroy(ItemId)
+    End Sub
 End Class
 

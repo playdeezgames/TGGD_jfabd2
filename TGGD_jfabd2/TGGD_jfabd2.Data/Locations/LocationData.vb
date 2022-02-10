@@ -32,7 +32,7 @@
         End Using
         Return Nothing
     End Function
-    Public Function CreateXY(x As Integer, y As Integer) As Integer
+    Public Function CreateXY(x As Integer, y As Integer) As UInt64
         Initialize()
         Using command = connection.CreateCommand()
             command.CommandText = "INSERT INTO [Locations] ([X],[Y]) VALUES(@X,@Y);"

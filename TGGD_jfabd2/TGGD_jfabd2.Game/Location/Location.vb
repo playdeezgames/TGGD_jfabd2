@@ -36,7 +36,8 @@ Public Class Location
     End Function
     Private Shared Function SpawnCritter(locationId) As Boolean
         If random.Next(5) < 1 Then
-            CritterData.Create(locationId)
+            Dim critterId = CritterData.Create(locationId, CritterTypes.GenerateCritterType())
+            'TODO: other stuff like health and whatnot?
             Return True
         End If
         Return False
@@ -48,10 +49,11 @@ Public Class Location
         Else
             locationId = LocationData.CreateXY(x, y)
             'spawn stuff
+            Dim spawnedCritter =
+                SpawnCritter(locationId)
             Dim spawnedSomething =
                 SpawnTree(locationId) OrElse
-                SpawnVendor(locationId) OrElse
-                SpawnCritter(locationId)
+                SpawnVendor(locationId)
         End If
     End Sub
     Public Sub New(x As Integer, y As Integer)
@@ -77,5 +79,16 @@ Public Class Location
     End Function
     Public Function GetInventory() As GroundInventory
         Return New GroundInventory(locationId)
+    End Function
+    Public Function HasCritters() As Boolean
+        Return GetCritters().Any() 'TODO: directly the ask the question of the data store
+    End Function
+    Public Function GetCritters() As List(Of Critter)
+        Return CritterData.
+            ReadForLocation(locationId).
+            Select(Function(critterId)
+                       Return New Critter(critterId)
+                   End Function).
+                   ToList()
     End Function
 End Class

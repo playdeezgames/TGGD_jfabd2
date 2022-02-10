@@ -36,7 +36,7 @@ Public Module Store
             command.ExecuteNonQuery()
         End Using
     End Sub
-    Function GetLastInsertRowId()
+    Function GetLastInsertRowId() As UInt64
         Using command = connection.CreateCommand()
             command.CommandText = "SELECT last_insert_rowid();"
             Return command.ExecuteScalar()

@@ -34,9 +34,10 @@ Public Class Location
         End If
         Return False
     End Function
-    Private Shared Function SpawnCritter(locationId) As Boolean
+    Private Shared Function SpawnCritter(locationId As Integer) As Boolean
         If random.Next(5) < 1 Then
-            Dim critterId = CritterData.Create(locationId, CritterTypes.GenerateCritterType())
+            Dim critterId = CritterData.Create(CritterTypes.GenerateCritterType())
+            CritterLocationData.Write(critterId, locationId)
             'TODO: other stuff like health and whatnot?
             Return True
         End If
@@ -84,7 +85,7 @@ Public Class Location
         Return GetCritters().Any() 'TODO: directly the ask the question of the data store
     End Function
     Public Function GetCritters() As List(Of Critter)
-        Return CritterData.
+        Return CritterLocationData.
             ReadForLocation(locationId).
             Select(Function(critterId)
                        Return New Critter(critterId)

@@ -10,6 +10,7 @@ Module InteractMenu
         Dim hasGroundInventory = Not location.GetInventory().IsEmpty()
         Dim vendor = location.GetVendor()
         Dim hasVendor = vendor IsNot Nothing
+        Dim hasCritter = location.HasCritters()
         While Not done
             ShowMenuTitle("Iteractions:")
             If hasGroundInventory Then
@@ -20,6 +21,9 @@ Module InteractMenu
             End If
             If hasVendor Then
                 ShowMenuItem("3) Vendor")
+            End If
+            If hasCritter Then
+                ShowMenuItem("4) Critter")
             End If
             ShowMenuItem("0) Never mind")
             Select Case Console.ReadLine
@@ -40,6 +44,12 @@ Module InteractMenu
                 Case "3"
                     If hasVendor Then
                         VendorMenu.Run()
+                    Else
+                        InvalidInput()
+                    End If
+                Case "4"
+                    If hasCritter Then
+                        CritterListMenu.Run()
                     Else
                         InvalidInput()
                     End If

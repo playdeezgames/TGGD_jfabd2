@@ -34,4 +34,12 @@
             End Using
         End Using
     End Function
+    Function ReadCritterType(critterId As UInt64) As Integer?
+        Initialize()
+        Using command = connection.CreateCommand()
+            command.CommandText = "SELECT [CritterType] FROM [Critters] WHERE [CritterId]=@CritterId"
+            command.Parameters.AddWithValue("@CritterId", critterId)
+            Return command.ExecuteScalar
+        End Using
+    End Function
 End Module

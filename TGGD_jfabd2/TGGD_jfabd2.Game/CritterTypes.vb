@@ -18,5 +18,7 @@
     Function GetName(critterType As Integer) As String
         Return critterNames(critterType)
     End Function
-
+    Function GenerateTameness(critterType As Integer) As Integer
+        Return 0
+    End Function
 End Module

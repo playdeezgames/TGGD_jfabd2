@@ -36,7 +36,8 @@ Public Class Location
     End Function
     Private Shared Function SpawnCritter(locationId As Integer) As Boolean
         If random.Next(5) < 1 Then
-            Dim critterId = CritterData.Create(CritterTypes.GenerateCritterType())
+            Dim critterType = CritterTypes.GenerateCritterType()
+            Dim critterId = CritterData.Create(critterType, CritterTypes.GenerateTameness(critterType))
             CritterLocationData.Write(critterId, locationId)
             'TODO: other stuff like health and whatnot?
             Return True

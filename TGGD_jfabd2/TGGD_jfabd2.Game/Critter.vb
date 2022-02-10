@@ -12,5 +12,6 @@ Public Class Critter
     End Property
     Sub Feed(item As Item)
         item.Destroy()
+        CritterData.WriteTameness(critterId, CritterData.ReadTameness(critterId) + 1)
     End Sub
 End Class

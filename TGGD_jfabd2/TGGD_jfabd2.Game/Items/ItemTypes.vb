@@ -5,6 +5,8 @@
                 Return True
             Case ItemType.Wallet
                 Return False
+            Case ItemType.Critter
+                Return False
             Case Else
                 Throw New ArgumentOutOfRangeException(NameOf(itemType))
         End Select
@@ -15,6 +17,8 @@
                 Return New List(Of EquipSlot)()
             Case ItemType.Wallet
                 Return New List(Of EquipSlot) From {EquipSlot.Wallet}
+            Case ItemType.Critter
+                Return New List(Of EquipSlot) From {EquipSlot.LeftShoulder, EquipSlot.RightShoulder}
             Case Else
                 Throw New ArgumentOutOfRangeException(NameOf(itemType))
         End Select

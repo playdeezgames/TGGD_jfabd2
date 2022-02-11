@@ -14,4 +14,12 @@ Public Class Critter
         item.Destroy()
         CritterData.WriteTameness(critterId, CritterData.ReadTameness(critterId) + 1)
     End Sub
+    Function GetCharacteristic(characteristic As Characteristic) As Integer
+        Dim value = CritterCharacteristicData.Read(critterId, characteristic)
+        If Not value.HasValue Then
+            value = Characteristics.GenerateForCritter(characteristic, ReadCritterType(critterId))
+            CritterCharacteristicData.Write(critterId, characteristic, value.Value)
+        End If
+        Return value.Value
+    End Function
 End Class

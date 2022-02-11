@@ -6,6 +6,10 @@ Module StatusMenu
         Dim character = New PlayerCharacter()
         While Not done
             ShowMenuTitle("Status:")
+            Dim stats = [Enum].GetValues(GetType(Characteristic))
+            For Each stat In stats
+                ShowInfo($"{Characteristics.GetAbbreviation(stat)} {character.GetCharacteristic(stat)}")
+            Next
             If Not character.GetInventory().IsEmpty() Then
                 ShowMenuItem($"1) Inventory")
             End If

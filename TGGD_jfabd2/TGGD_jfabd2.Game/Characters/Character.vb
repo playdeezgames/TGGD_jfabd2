@@ -124,4 +124,12 @@ Public Class Character
         Next
         Return result
     End Function
+    Public Function GetCharacteristic(characteristic As Characteristic) As Integer
+        Dim value = CharacterCharacteristicData.Read(characterId, characteristic)
+        If Not value.HasValue Then
+            value = Characteristics.GenerateForCharacter(characteristic)
+            CharacterCharacteristicData.Write(characterId, characteristic, value.Value)
+        End If
+        Return value.Value
+    End Function
 End Class

@@ -132,7 +132,10 @@ Public Class Character
         End If
         Return value.Value
     End Function
-    Function Check(characteristic As Characteristic) As Double
-        Return CharacteristicCheck(GetCharacteristic(characteristic))
+    Function Check(characteristic As Characteristic, Optional delta As Integer = 0) As Double
+        Return DifficultyCheck(characteristic, 1, delta)
+    End Function
+    Function DifficultyCheck(characteristic As Characteristic, difficulty As Integer, Optional delta As Integer = 0) As Double
+        Return CharacteristicCheck(GetCharacteristic(characteristic) / difficulty + delta)
     End Function
 End Class

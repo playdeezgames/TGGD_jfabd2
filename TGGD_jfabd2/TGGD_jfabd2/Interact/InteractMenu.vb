@@ -5,13 +5,13 @@ Module InteractMenu
         Dim done = False
         Dim character = New PlayerCharacter()
         Dim location = character.GetLocation()
-        Dim tree = location.GetTree()
-        Dim canPickFruit = tree IsNot Nothing
-        Dim hasGroundInventory = Not location.GetInventory().IsEmpty()
-        Dim vendor = location.GetVendor()
-        Dim hasVendor = vendor IsNot Nothing
-        Dim hasCritter = location.HasCritters()
         While Not done
+            Dim tree = location.GetTree()
+            Dim canPickFruit = tree IsNot Nothing
+            Dim hasGroundInventory = Not location.GetInventory().IsEmpty()
+            Dim vendor = location.GetVendor()
+            Dim hasVendor = vendor IsNot Nothing
+            Dim hasCritter = location.HasCritters()
             ShowMenuTitle("Iteractions:")
             If hasGroundInventory Then
                 ShowMenuItem("1) Ground")

@@ -5,9 +5,14 @@ Public Class Critter
     Sub New(critterId As UInt64)
         Me.critterId = critterId
     End Sub
-    ReadOnly Property Name() As String
+    ReadOnly Property Name As String
         Get
             Return CritterTypes.GetName(CritterData.ReadCritterType(critterId))
+        End Get
+    End Property
+    ReadOnly Property Tameness As Integer
+        Get
+            Return CritterData.ReadTameness(critterId)
         End Get
     End Property
     Sub Feed(item As Item)
@@ -25,4 +30,13 @@ Public Class Critter
     Function Check(characteristic As Characteristic) As Double
         Return CharacteristicCheck(GetCharacteristic(characteristic))
     End Function
+    Sub Capture(characterId As Integer)
+        Dim locationId = CritterLocationData.ReadForCritter(critterId)
+        If locationId.HasValue Then
+            CritterLocationData.Clear(critterId)
+            Dim itemId = ItemData.Create(ItemType.Critter)
+            PetData.Write(itemId, critterId)
+            InventoryData.Write(characterId, itemId)
+        End If
+    End Sub
 End Class

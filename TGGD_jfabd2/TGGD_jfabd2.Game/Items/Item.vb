@@ -38,6 +38,8 @@ Public Class Item
                 Return FruitTypes.GetName(FruitData.ReadFruitType(ItemId))
             Case ItemType.Wallet
                 Return $"Wallet(Size: {WalletData.Read(ItemId).Value})"
+            Case ItemType.Critter
+                Return CritterTypes.GetName(CritterData.ReadCritterType(PetData.ReadForItem(ItemId)))
             Case Else
                 Throw New NotImplementedException()
         End Select
@@ -48,6 +50,8 @@ Public Class Item
                 Return FruitTypes.GetDescription(FruitData.ReadFruitType(ItemId))
             Case ItemType.Wallet
                 Return "It's a wallet! It holds money!"
+            Case ItemType.Critter
+                Return CritterTypes.GetDescription(CritterData.ReadCritterType(PetData.ReadForItem(ItemId)))
             Case Else
                 Throw New NotImplementedException()
         End Select

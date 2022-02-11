@@ -34,4 +34,20 @@
             End Using
         End Using
     End Function
+    Function ReadForCritter(critterId As UInt64) As Integer?
+        Initialize()
+        Using command = connection.CreateCommand()
+            command.CommandText = "SELECT [LocationId] FROM [CritterLocations] WHERE [CritterId]=@CritterId;"
+            command.Parameters.AddWithValue("@CritterId", critterId)
+            Return command.ExecuteScalar
+        End Using
+    End Function
+    Sub Clear(critterId As UInt64)
+        Initialize()
+        Using command = connection.CreateCommand
+            command.CommandText = "DELETE FROM [CritterLocations] WHERE [CritterId]=@CritterId"
+            command.Parameters.AddWithValue("@CritterId", critterId)
+            command.ExecuteNonQuery()
+        End Using
+    End Sub
 End Module

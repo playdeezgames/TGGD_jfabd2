@@ -1,7 +1,7 @@
 ﻿Imports TGGD_jfabd2.Game
 
 Module CritterMenu
-    Sub run(critter As Critter)
+    Sub Run(critter As Critter)
         Dim done = False
         Dim character As New PlayerCharacter
         While Not done
@@ -10,6 +10,7 @@ Module CritterMenu
             If hasFruit Then
                 ShowMenuItem("1) Feed...")
             End If
+            ShowMenuItem("2) Capture!")
             ShowMenuItem("0) Never mind")
             Select Case Console.ReadLine
                 Case "0"
@@ -20,6 +21,8 @@ Module CritterMenu
                     Else
                         InvalidInput()
                     End If
+                Case "2"
+                    done = CritterCapture.Run(critter)
                 Case Else
                     InvalidInput()
             End Select

@@ -28,4 +28,12 @@
             Return command.ExecuteScalar
         End Using
     End Function
+    Sub ClearForCritter(critterId As Integer)
+        Initialize()
+        Using command = connection.CreateCommand
+            command.CommandText = "DELETE FROM [CritterItems] WHERE [CritterId]=@CritterId;"
+            command.Parameters.AddWithValue("@CritterId", critterId)
+            command.ExecuteNonQuery()
+        End Using
+    End Sub
 End Module

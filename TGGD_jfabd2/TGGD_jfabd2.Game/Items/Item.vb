@@ -61,7 +61,15 @@ Public Class Item
         If characterId.HasValue Then
             InventoryData.Clear(ItemId)
             Dim location = New Character(characterId.Value).GetLocation()
-            GroundData.Write(location.GetLocationId(), ItemId)
+            If ItemData.ReadItemType(ItemId) = ItemType.Critter Then
+                Dim critterId = PetData.ReadForItem(ItemId)
+                PetData.ClearForCritter(critterId)
+                CritterLocationData.Write(critterId, location.GetLocationId())
+                ItemData.Destroy(ItemId)
+            Else
+                GroundData.Write(location.GetLocationId(), ItemId)
+            End If
+
         End If
     End Sub
     Sub PickUp(characterId As Integer)

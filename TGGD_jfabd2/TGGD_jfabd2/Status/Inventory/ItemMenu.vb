@@ -18,8 +18,8 @@ Module ItemMenu
                 Case "0"
                     done = True
                 Case "1"
-                    item.Drop()
                     ShowInfo($"You drop the {item.GetName()}.")
+                    item.Drop()
                     done = True
                 Case "2"
                     If item.CanConsume() Then

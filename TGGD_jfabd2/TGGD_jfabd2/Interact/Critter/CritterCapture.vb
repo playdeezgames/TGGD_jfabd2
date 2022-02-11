@@ -14,5 +14,6 @@ Module CritterCapture
                 ErrorMessage("Fail.")
             End If
         End If
+        Return False
     End Function
 End Module

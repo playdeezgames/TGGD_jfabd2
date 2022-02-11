@@ -2,7 +2,7 @@
 
 Public Class Character
     Private ReadOnly characterId As Integer
-    Public Function GetCharacterId()
+    Public Function GetCharacterId() As Integer
         Return characterId
     End Function
     Public Sub New(characterId As Integer)

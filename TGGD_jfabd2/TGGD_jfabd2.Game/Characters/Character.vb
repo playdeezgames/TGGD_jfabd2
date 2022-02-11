@@ -132,4 +132,7 @@ Public Class Character
         End If
         Return value.Value
     End Function
+    Function Check(characteristic As Characteristic) As Double
+        Return CharacteristicCheck(GetCharacteristic(characteristic))
+    End Function
 End Class

@@ -21,9 +21,14 @@ Module CritterFeedMenu
                     If Integer.TryParse(input, index) Then
                         index -= 1
                         If index < fruits.Count Then
-                            critter.Feed(fruits(index))
+                            If character.Check(Characteristic.Charisma) > critter.Check(Characteristic.Willpower) Then
+                                critter.Feed(fruits(index))
+                                SuccessMessage("Success!!")
+                            Else
+                                ErrorMessage("Fail.")
+                            End If
                         Else
-                            InvalidInput()
+                                InvalidInput()
                         End If
                     Else
                         InvalidInput()

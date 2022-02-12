@@ -124,5 +124,13 @@ Public Class Item
     Sub Destroy()
         ItemData.Destroy(ItemId)
     End Sub
+    Function CanFeed() As Boolean
+        Dim characterId = InventoryData.ReadForItem(ItemId)
+        If characterId.HasValue Then
+            Dim inventory = New CharacterInventory(characterId.Value)
+            Return GetItemType() = ItemType.Critter AndAlso inventory.HasItemType(ItemType.Fruit)
+        End If
+        Return False
+    End Function
 End Class
 

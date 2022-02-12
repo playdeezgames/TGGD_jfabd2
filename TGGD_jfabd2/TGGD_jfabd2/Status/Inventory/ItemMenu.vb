@@ -12,6 +12,9 @@ Module ItemMenu
             If item.CanEquip() Then
                 ShowMenuItem("3) Equip")
             End If
+            If item.CanFeed() Then
+                ShowMenuItem("4) Feed")
+            End If
             ShowMenuItem("0) Never mind")
             ShowPrompt()
             Select Case Console.ReadLine()
@@ -31,6 +34,12 @@ Module ItemMenu
                 Case "3"
                     If item.CanEquip() Then
                         done = EquipItemMenu.Run(item)
+                    Else
+                        InvalidInput()
+                    End If
+                Case "4"
+                    If item.CanFeed() Then
+                        FeedItemMenu.run(item)
                     Else
                         InvalidInput()
                     End If

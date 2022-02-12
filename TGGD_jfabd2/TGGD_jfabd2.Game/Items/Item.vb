@@ -132,5 +132,13 @@ Public Class Item
         End If
         Return False
     End Function
+    Function Feed(food As Item) As Boolean
+        If CanFeed() Then
+            Dim critter = New Critter(PetData.ReadForItem(ItemId))
+            critter.Feed(food)
+            Return True
+        End If
+        Return False
+    End Function
 End Class
 

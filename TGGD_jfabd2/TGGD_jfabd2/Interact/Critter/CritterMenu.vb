@@ -12,6 +12,7 @@ Module CritterMenu
             End If
             ShowMenuItem("2) Capture!")
             ShowMenuItem("0) Never mind")
+            ShowPrompt()
             Select Case Console.ReadLine
                 Case "0"
                     done = True

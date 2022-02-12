@@ -13,6 +13,7 @@ Module CritterFeedMenu
                 index += 1
             Next
             ShowMenuItem("0) Never mind")
+            ShowPrompt()
             Dim input = Console.ReadLine
             Select Case input
                 Case "0"

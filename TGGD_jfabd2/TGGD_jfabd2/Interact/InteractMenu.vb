@@ -26,6 +26,7 @@ Module InteractMenu
                 ShowMenuItem("4) Critter")
             End If
             ShowMenuItem("0) Never mind")
+            ShowPrompt()
             Select Case Console.ReadLine
                 Case "0"
                     done = True

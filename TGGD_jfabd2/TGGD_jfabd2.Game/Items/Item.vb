@@ -126,6 +126,12 @@ Public Class Item
     End Sub
     Function CanFeed() As Boolean
         Dim characterId = InventoryData.ReadForItem(ItemId)
+        If Not characterId.HasValue Then
+            Dim entry = CharacterEquipmentData.ReadForItem(ItemId)
+            If entry IsNot Nothing Then
+                characterId = entry.Item1
+            End If
+        End If
         If characterId.HasValue Then
             Dim inventory = New CharacterInventory(characterId.Value)
             Return GetItemType() = ItemType.Critter AndAlso inventory.HasItemType(ItemType.Fruit)

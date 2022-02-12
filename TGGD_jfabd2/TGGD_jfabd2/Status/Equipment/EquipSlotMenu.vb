@@ -10,6 +10,9 @@ Module EquipSlotMenu
                 Dim item = equipment(equipSlot)
                 ShowMenuTitle(item.GetName())
                 ShowMenuItem("1) Unequip")
+                If item.CanFeed() Then
+                    ShowMenuItem("2) Feed")
+                End If
                 ShowMenuItem("0) Never mind")
                 ShowPrompt()
                 Select Case Console.ReadLine()
@@ -18,6 +21,10 @@ Module EquipSlotMenu
                     Case "1"
                         item.Unequip()
                         done = True
+                    Case "2"
+                        If item.CanFeed() Then
+                            FeedItemMenu.Run(item)
+                        End If
                     Case Else
                         InvalidInput()
                 End Select

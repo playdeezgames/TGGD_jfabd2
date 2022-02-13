@@ -31,6 +31,8 @@
         CharacterEquipmentData.Clear(itemId)
         FruitData.Destroy(itemId)
         WalletData.Destroy(itemId)
+        PetData.Destroy(itemId)
+        CorpseData.Destroy(itemId)
         Using command = connection.CreateCommand()
             command.CommandText = "DELETE FROM [Items] WHERE [ItemId]=@ItemId;"
             command.Parameters.AddWithValue("@ItemId", itemId)

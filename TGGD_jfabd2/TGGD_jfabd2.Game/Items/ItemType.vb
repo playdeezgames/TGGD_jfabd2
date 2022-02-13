@@ -2,4 +2,5 @@
     Fruit
     Wallet
     Critter
+    CritterCorpse
 End Enum

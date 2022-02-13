@@ -36,4 +36,12 @@
             command.ExecuteNonQuery()
         End Using
     End Sub
+    Sub Destroy(itemId As Integer)
+        Initialize()
+        Using command = connection.CreateCommand
+            command.CommandText = "DELETE FROM [CritterItems] WHERE [ItemId]=@ItemId;"
+            command.Parameters.AddWithValue("@ItemId", itemId)
+            command.ExecuteNonQuery()
+        End Using
+    End Sub
 End Module

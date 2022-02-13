@@ -46,6 +46,8 @@ Public Class Item
                 Return $"Wallet(Size: {WalletData.Read(ItemId).Value})"
             Case ItemType.Critter
                 Return CritterTypes.GetName(CritterData.ReadCritterType(PetData.ReadForItem(ItemId)))
+            Case ItemType.Critter
+                Return "dead " & CritterTypes.GetName(CorpseData.ReadForItem(ItemId))
             Case Else
                 Throw New NotImplementedException()
         End Select
@@ -58,6 +60,8 @@ Public Class Item
                 Return "It's a wallet! It holds money!"
             Case ItemType.Critter
                 Return CritterTypes.GetDescription(CritterData.ReadCritterType(PetData.ReadForItem(ItemId)))
+            Case ItemType.CritterCorpse
+                Return "Shhhh. It's 'sleeping'."
             Case Else
                 Throw New NotImplementedException()
         End Select

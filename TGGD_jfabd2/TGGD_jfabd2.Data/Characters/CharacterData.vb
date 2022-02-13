@@ -98,4 +98,17 @@
             command.ExecuteNonQuery()
         End Using
     End Sub
+    Function ReadAll() As List(Of Integer)
+        Initialize()
+        Using command = connection.CreateCommand()
+            command.CommandText = "SELECT [CharacterId] FROM [Characters];"
+            Using reader = command.ExecuteReader
+                Dim result As New List(Of Integer)
+                While reader.Read()
+                    result.Add(reader("CharacterId"))
+                End While
+                Return result
+            End Using
+        End Using
+    End Function
 End Module

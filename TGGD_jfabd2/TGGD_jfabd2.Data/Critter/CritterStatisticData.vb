@@ -30,4 +30,13 @@
             command.ExecuteNonQuery()
         End Using
     End Sub
+    Sub Clear(critterId As Integer)
+        Initialize()
+        Using command = connection.CreateCommand
+            command.CommandText = "DELETE FROM [CritterStatistics] WHERE [CritterId]=@CritterId"
+            command.Parameters.AddWithValue("@CritterId", critterId)
+            command.ExecuteNonQuery()
+        End Using
+    End Sub
+
 End Module

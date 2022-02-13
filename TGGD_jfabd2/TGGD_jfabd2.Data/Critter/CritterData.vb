@@ -43,4 +43,28 @@
             command.ExecuteNonQuery()
         End Using
     End Sub
+    Function ReadAll() As List(Of Integer)
+        Initialize()
+        Using command = connection.CreateCommand()
+            command.CommandText = "SELECT [CritterId] FROM [Critters];"
+            Using reader = command.ExecuteReader
+                Dim result As New List(Of Integer)
+                While reader.Read()
+                    result.Add(reader("CritterId"))
+                End While
+                Return result
+            End Using
+        End Using
+    End Function
+    Sub Destroy(critterId As Integer)
+        Initialize()
+        CritterCharacteristicData.Clear(critterId)
+        CritterStatisticData.Clear(critterId)
+        CritterLocationData.Clear(critterId)
+        Using command = connection.CreateCommand
+            command.CommandText = "DELETE FROM [Critters] WHERE [CritterId]=@CritterId"
+            command.Parameters.Add("@CritterId", critterId)
+            command.ExecuteNonQuery()
+        End Using
+    End Sub
 End Module

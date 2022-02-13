@@ -8,7 +8,7 @@ Module PickFruit
         Else
             Dim tree = character.GetLocation().GetTree()
             Dim fruit = tree.PickFruit()
-            character.UpKeep()
+            Game.Update()
             If fruit IsNot Nothing Then
                 SuccessMessage($"You acquire {FruitTypes.GetName(fruit.GetFruitType())}")
                 character.GetInventory().Add(fruit)

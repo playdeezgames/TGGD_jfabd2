@@ -43,7 +43,6 @@ Public Class Character
                 deltaX = -1
         End Select
         CharacterData.WriteXY(characterId, CharacterData.ReadX(characterId) + deltaX, CharacterData.ReadY(characterId) + deltaY)
-        UpKeep()
         Game.Update()
     End Sub
 
@@ -100,7 +99,7 @@ Public Class Character
             ChangeStatistic(CharacterStatisticType.Jools, walletSize - jools)
         End If
     End Sub
-    Public Sub UpKeep()
+    Public Sub Update()
         Metabolize()
         UpKeepWallet()
     End Sub

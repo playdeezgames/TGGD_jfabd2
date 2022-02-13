@@ -5,6 +5,26 @@ Public Class Critter
     Sub New(critterId As UInt64)
         Me.critterId = critterId
     End Sub
+    Sub Update()
+        'TODO: hungry!
+        Dim satiety = GetStatistic(CritterStatisticType.Satiety)
+        If satiety > CritterStatisticTypes.MinimumValue(Me, CritterStatisticType.Satiety) Then
+            CritterStatisticData.Write(critterId, CritterStatisticType.Satiety, satiety - 1)
+        Else
+            Dim health = GetStatistic(CritterStatisticType.Health)
+            health -= 1
+            If health > CritterStatisticTypes.MinimumValue(Me, CritterStatisticType.Health) Then
+                CritterStatisticData.Write(critterId, CritterStatisticType.Health, health)
+            Else
+                Dim critterType = CritterData.ReadCritterType(critterId)
+                Dim locationId = CritterLocationData.ReadForCritter(critterId)
+                CritterData.Destroy(critterId)
+                Dim itemId = ItemData.Create(ItemType.CritterCorpse)
+                CorpseData.Write(itemId, critterType)
+                GroundData.Write(locationId, itemId)
+            End If
+        End If
+    End Sub
     ReadOnly Property Name As String
         Get
             Return CritterTypes.GetName(CritterData.ReadCritterType(critterId))
@@ -18,6 +38,7 @@ Public Class Critter
     Sub Feed(item As Item)
         item.Destroy()
         CritterData.WriteTameness(critterId, CritterData.ReadTameness(critterId) + 1)
+        'TODO: add satiety!
     End Sub
     Function GetCharacteristic(characteristic As Characteristic) As Integer
         Dim value = CritterCharacteristicData.Read(critterId, characteristic)

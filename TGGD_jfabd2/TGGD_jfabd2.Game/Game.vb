@@ -8,6 +8,17 @@ Public Module Game
     End Sub
     Public Sub Update()
         Tree.Update()
+        Dim characterIds = CharacterData.ReadAll()
+        For Each characterId In characterIds
+            Dim character As New Character(characterId)
+            character.Update()
+        Next
+        'upkeep critters
+        Dim critterIds = CritterData.ReadAll()
+        For Each critterId In critterIds
+            Dim critter As New Critter(critterId)
+            critter.Update()
+        Next
     End Sub
     Public Function Roll(ByVal dieCount As Integer, ByVal dieSize As Integer) As Integer
         Dim result = dieCount

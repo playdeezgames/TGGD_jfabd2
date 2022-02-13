@@ -11,7 +11,7 @@ Public Class Item
         Dim character As New Character(InventoryData.ReadForItem(ItemId).Value)
         Dim satietyBuff = FruitTypes.GetSatietyBuff(FruitData.ReadFruitType(ItemId).Value)
         Dim satiety As Integer = character.GetStatistic(CharacterStatisticType.Satiety)
-        Dim oversatiation = satiety + satietyBuff - CharacterStatisticsTypes.MaximumValue(CharacterStatisticType.Satiety)
+        Dim oversatiation = satiety + satietyBuff - CharacterStatisticsTypes.MaximumValue(character, CharacterStatisticType.Satiety)
         character.ChangeStatistic(CharacterStatisticType.Satiety, satietyBuff)
         If oversatiation > 0 Then
             character.ChangeStatistic(CharacterStatisticType.Health, oversatiation)

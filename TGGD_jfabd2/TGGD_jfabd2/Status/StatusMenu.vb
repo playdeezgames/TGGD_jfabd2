@@ -10,11 +10,12 @@ Module StatusMenu
             For Each stat In stats
                 ShowInfo($"{Characteristics.GetAbbreviation(stat)} {character.GetCharacteristic(stat)}")
             Next
+            ShowMenuItem("1) Statististics")
             If Not character.GetInventory().IsEmpty() Then
-                ShowMenuItem($"1) Inventory")
+                ShowMenuItem($"2) Inventory")
             End If
             If character.GetEquipment().Any() Then
-                ShowMenuItem("2) Equipment")
+                ShowMenuItem("3) Equipment")
             End If
             ShowMenuItem("0) Never mind")
             ShowPrompt()
@@ -22,12 +23,14 @@ Module StatusMenu
                 Case "0"
                     done = True
                 Case "1"
+                    CharacterStatistics.Run()
+                Case "2"
                     If Not character.GetInventory().IsEmpty() Then
                         Inventory.Run()
                     Else
                         InvalidInput()
                     End If
-                Case "2"
+                Case "3"
                     If character.GetEquipment().Any() Then
                         Equipment.Run()
                     Else

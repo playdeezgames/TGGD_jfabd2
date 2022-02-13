@@ -66,25 +66,25 @@ Public Class Character
         Return New CharacterInventory(characterId)
     End Function
     Public Function IsAlive() As Boolean
-        Return GetStatistic(CharacterStatisticType.Health) > CharacterStatisticsTypes.MinimumValue(CharacterStatisticType.Health)
+        Return GetStatistic(CharacterStatisticType.Health) > CharacterStatisticsTypes.MinimumValue(Me, CharacterStatisticType.Health)
     End Function
     Public Function GetStatistic(statisticType As CharacterStatisticType) As Integer
         Dim value = CharacterStatisticData.Read(characterId, statisticType)
         If value.HasValue Then
             Return value.Value
         Else
-            Return CharacterStatisticsTypes.InitialValue(statisticType)
+            Return CharacterStatisticsTypes.InitialValue(Me, statisticType)
         End If
     End Function
     Public Sub SetStatistic(statisticType As CharacterStatisticType, value As Integer)
-        value = CharacterStatisticsTypes.ClampValue(statisticType, value)
+        value = CharacterStatisticsTypes.ClampValue(Me, statisticType, value)
         CharacterStatisticData.Write(characterId, statisticType, value)
     End Sub
     Public Sub ChangeStatistic(statisticType As CharacterStatisticType, delta As Integer)
         SetStatistic(statisticType, GetStatistic(statisticType) + delta)
     End Sub
     Private Sub Metabolize()
-        If GetStatistic(CharacterStatisticType.Satiety) > CharacterStatisticsTypes.MinimumValue(CharacterStatisticType.Satiety) Then
+        If GetStatistic(CharacterStatisticType.Satiety) > CharacterStatisticsTypes.MinimumValue(Me, CharacterStatisticType.Satiety) Then
             ChangeStatistic(CharacterStatisticType.Satiety, -1)
         Else
             ChangeStatistic(CharacterStatisticType.Health, -1)

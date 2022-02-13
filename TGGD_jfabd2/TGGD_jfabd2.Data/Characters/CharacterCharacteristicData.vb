@@ -17,7 +17,11 @@
             command.CommandText = "SELECT [Value] FROM [CharacterCharacteristics] WHERE [CharacterId]=@CharacterId AND [Characteristic]=@Characteristic;"
             command.Parameters.AddWithValue("@CharacterId", characterId)
             command.Parameters.AddWithValue("@Characteristic", characteristic)
-            Return command.ExecuteScalar()
+            Dim result = command.ExecuteScalar
+            If result IsNot Nothing Then
+                Return CInt(result)
+            End If
+            Return Nothing
         End Using
     End Function
     Sub Write(characterId As Integer, characteristic As Integer, value As Integer)

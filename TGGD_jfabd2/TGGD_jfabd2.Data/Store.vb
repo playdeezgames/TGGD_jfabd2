@@ -39,7 +39,7 @@ Public Module Store
     Function GetLastInsertRowId() As UInt64
         Using command = connection.CreateCommand()
             command.CommandText = "SELECT last_insert_rowid();"
-            Return command.ExecuteScalar()
+            Return CULng(command.ExecuteScalar())
         End Using
     End Function
 End Module

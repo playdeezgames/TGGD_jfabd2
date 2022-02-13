@@ -23,7 +23,11 @@
         Using command = connection.CreateCommand()
             command.CommandText = "SELECT [CritterType] FROM [Critters] WHERE [CritterId]=@CritterId"
             command.Parameters.AddWithValue("@CritterId", critterId)
-            Return command.ExecuteScalar
+            Dim result = command.ExecuteScalar()
+            If result IsNot Nothing Then
+                Return CInt(result)
+            End If
+            Return Nothing
         End Using
     End Function
     Function ReadTameness(critterId As UInt64) As Integer?
@@ -31,7 +35,11 @@
         Using command = connection.CreateCommand()
             command.CommandText = "SELECT [Tameness] FROM [Critters] WHERE [CritterId]=@CritterId"
             command.Parameters.AddWithValue("@CritterId", critterId)
-            Return command.ExecuteScalar
+            Dim result = command.ExecuteScalar()
+            If result IsNot Nothing Then
+                Return CInt(result)
+            End If
+            Return Nothing
         End Using
     End Function
     Sub WriteTameness(critterId As UInt64, tameness As Integer)
@@ -50,7 +58,7 @@
             Using reader = command.ExecuteReader
                 Dim result As New List(Of Integer)
                 While reader.Read()
-                    result.Add(reader("CritterId"))
+                    result.Add(CInt(reader("CritterId")))
                 End While
                 Return result
             End Using
@@ -60,10 +68,10 @@
         Initialize()
         CritterCharacteristicData.Clear(critterId)
         CritterStatisticData.Clear(critterId)
-        CritterLocationData.Clear(critterId)
+        CritterLocationData.Clear(CULng(critterId))
         Using command = connection.CreateCommand
             command.CommandText = "DELETE FROM [Critters] WHERE [CritterId]=@CritterId"
-            command.Parameters.Add("@CritterId", critterId)
+            command.Parameters.AddWithValue("@CritterId", critterId)
             command.ExecuteNonQuery()
         End Using
     End Sub

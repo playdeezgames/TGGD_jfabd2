@@ -28,7 +28,7 @@
             Dim result As New List(Of Integer)
             Using reader = command.ExecuteReader()
                 While reader.Read()
-                    result.Add(reader("ItemId"))
+                    result.Add(CInt(reader("ItemId")))
                 End While
             End Using
             Return result
@@ -39,7 +39,11 @@
         Using command = connection.CreateCommand()
             command.CommandText = "SELECT [LocationId] FROM [GroundItems] WHERE [ItemId]=@ItemId;"
             command.Parameters.AddWithValue("@ItemId", itemId)
-            Return command.ExecuteScalar()
+            Dim result = command.ExecuteScalar()
+            If result IsNot Nothing Then
+                Return CInt(result)
+            End If
+            Return Nothing
         End Using
     End Function
     Sub Clear(itemId As Integer)

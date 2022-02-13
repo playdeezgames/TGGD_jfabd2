@@ -28,7 +28,7 @@
             Dim result As New List(Of Tuple(Of Integer, String))
             Using reader = command.ExecuteReader()
                 While reader.Read()
-                    result.Add(New Tuple(Of Integer, String)(reader("Mood"), reader("Text")))
+                    result.Add(New Tuple(Of Integer, String)(CInt(reader("Mood")), CStr(reader("Text"))))
                 End While
             End Using
             Return result

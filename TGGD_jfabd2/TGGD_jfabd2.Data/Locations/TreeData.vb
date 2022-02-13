@@ -51,7 +51,11 @@
         Using command = connection.CreateCommand()
             command.CommandText = "SELECT [FruitType] FROM [Trees] WHERE [LocationId]=@LocationId;"
             command.Parameters.AddWithValue("@LocationId", locationId)
-            Return command.ExecuteScalar()
+            Dim result = command.ExecuteScalar()
+            If result IsNot Nothing Then
+                Return CInt(result)
+            End If
+            Return Nothing
         End Using
     End Function
     Public Function Grow() As Boolean
@@ -92,7 +96,11 @@
         Using command = connection.CreateCommand()
             command.CommandText = "SELECT [Available] FROM [Trees] WHERE [LocationId]=@LocationId;"
             command.Parameters.AddWithValue("@LocationId", locationId)
-            Return command.ExecuteScalar()
+            Dim result = command.ExecuteScalar()
+            If result IsNot Nothing Then
+                Return CInt(result)
+            End If
+            Return Nothing
         End Using
     End Function
     Public Function ReadDepletion(locationId As Integer) As Integer?
@@ -100,7 +108,11 @@
         Using command = connection.CreateCommand()
             command.CommandText = "SELECT [Depletion] FROM [Trees] WHERE [LocationId]=@LocationId;"
             command.Parameters.AddWithValue("@LocationId", locationId)
-            Return command.ExecuteScalar()
+            Dim result = command.ExecuteScalar()
+            If result IsNot Nothing Then
+                Return CInt(result)
+            End If
+            Return Nothing
         End Using
     End Function
     Public Sub WriteAvailable(locationId As Integer, available As Integer)

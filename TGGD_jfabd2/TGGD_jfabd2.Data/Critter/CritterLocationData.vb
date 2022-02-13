@@ -28,7 +28,7 @@
             Using reader = command.ExecuteReader
                 Dim result As New List(Of UInt64)
                 While reader.Read()
-                    result.Add(reader("CritterId"))
+                    result.Add(CULng(reader("CritterId")))
                 End While
                 Return result
             End Using
@@ -39,7 +39,11 @@
         Using command = connection.CreateCommand()
             command.CommandText = "SELECT [LocationId] FROM [CritterLocations] WHERE [CritterId]=@CritterId;"
             command.Parameters.AddWithValue("@CritterId", critterId)
-            Return command.ExecuteScalar
+            Dim result = command.ExecuteScalar
+            If result IsNot Nothing Then
+                Return CInt(result)
+            End If
+            Return Nothing
         End Using
     End Function
     Sub Clear(critterId As UInt64)

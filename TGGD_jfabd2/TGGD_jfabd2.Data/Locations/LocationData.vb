@@ -27,8 +27,11 @@
             command.CommandText = "SELECT [LocationId] FROM [Locations] WHERE [X]=@X AND [Y]=@Y;"
             command.Parameters.AddWithValue("@X", x)
             command.Parameters.AddWithValue("@Y", y)
-            Dim id As Long? = command.ExecuteScalar() 'very strange, but leaving out the dim causes an exception when casting
-            Return id
+            Dim result = command.ExecuteScalar()
+            If result IsNot Nothing Then
+                Return CInt(result)
+            End If
+            Return Nothing
         End Using
         Return Nothing
     End Function

@@ -41,7 +41,11 @@
         Using command = connection.CreateCommand()
             command.CommandText = "SELECT [CharacterId] FROM [Players] WHERE [PlayerId]=@PlayerId;"
             command.Parameters.AddWithValue("@PlayerId", 1)
-            Return command.ExecuteScalar()
+            Dim result = command.ExecuteScalar()
+            If result IsNot Nothing Then
+                Return CInt(result)
+            End If
+            Return Nothing
         End Using
     End Function
 End Module

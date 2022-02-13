@@ -23,7 +23,11 @@
         Using command = connection.CreateCommand
             command.CommandText = "SELECT [CritterType] FROM [CorpseItems] WHERE [ItemId]=@ItemId;"
             command.Parameters.AddWithValue("@ItemId", itemId)
-            Return command.ExecuteScalar
+            Dim result = command.ExecuteScalar()
+            If result IsNot Nothing Then
+                Return CInt(result)
+            End If
+            Return Nothing
         End Using
     End Function
     Sub Destroy(itemId As Integer)

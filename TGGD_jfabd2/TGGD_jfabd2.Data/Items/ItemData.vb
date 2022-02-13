@@ -14,14 +14,18 @@
             command.Parameters.AddWithValue("@ItemType", itemType)
             command.ExecuteNonQuery()
         End Using
-        Return GetLastInsertRowId()
+        Return CInt(GetLastInsertRowId())
     End Function
     Function ReadItemType(itemId As Integer) As Integer?
         Initialize()
         Using command = connection.CreateCommand()
             command.CommandText = "SELECT [ItemType] FROM [Items] WHERE [ItemId]=@ItemId;"
             command.Parameters.AddWithValue("@ItemId", itemId)
-            Return command.ExecuteScalar()
+            Dim result = command.ExecuteScalar()
+            If result IsNot Nothing Then
+                Return CInt(result)
+            End If
+            Return Nothing
         End Using
     End Function
     Sub Destroy(itemId As Integer)

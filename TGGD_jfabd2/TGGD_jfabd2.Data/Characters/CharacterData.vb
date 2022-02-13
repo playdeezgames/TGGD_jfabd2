@@ -38,7 +38,7 @@
             command.Parameters.AddWithValue("@Direction", direction)
             command.ExecuteNonQuery()
         End Using
-        Return GetLastInsertRowId()
+        Return CInt(GetLastInsertRowId())
     End Function
     Function ReadX(characterId As Integer) As Integer?
         Initialize()
@@ -105,7 +105,7 @@
             Using reader = command.ExecuteReader
                 Dim result As New List(Of Integer)
                 While reader.Read()
-                    result.Add(reader("CharacterId"))
+                    result.Add(CInt(reader("CharacterId")))
                 End While
                 Return result
             End Using

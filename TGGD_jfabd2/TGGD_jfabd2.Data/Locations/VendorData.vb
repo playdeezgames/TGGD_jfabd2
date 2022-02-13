@@ -25,7 +25,7 @@
         Using command = connection.CreateCommand()
             command.CommandText = "SELECT COUNT(1) FROM [Vendors] WHERE [LocationId]=@LocationId;"
             command.Parameters.AddWithValue("@LocationId", locationId)
-            Return command.ExecuteScalar()
+            Return CBool(command.ExecuteScalar())
         End Using
     End Function
 End Module

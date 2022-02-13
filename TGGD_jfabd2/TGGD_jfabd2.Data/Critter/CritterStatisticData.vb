@@ -17,7 +17,11 @@
             command.CommandText = "SELECT [Value] FROM [CritterStatistics] WHERE [CritterId]=@CritterId AND [StatisticType]=@StatisticType;"
             command.Parameters.AddWithValue("@CritterId", critterId)
             command.Parameters.AddWithValue("@StatisticType", statisticType)
-            Return command.ExecuteScalar()
+            Dim result = command.ExecuteScalar()
+            If result IsNot Nothing Then
+                Return CInt(result)
+            End If
+            Return Nothing
         End Using
     End Function
     Sub Write(critterId As Integer, statisticType As Integer, value As Integer)

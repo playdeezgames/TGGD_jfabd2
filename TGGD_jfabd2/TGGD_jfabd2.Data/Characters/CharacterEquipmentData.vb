@@ -40,7 +40,7 @@
             Dim result As New List(Of Tuple(Of Integer, Integer))
             Using reader = command.ExecuteReader()
                 While reader.Read()
-                    result.Add(New Tuple(Of Integer, Integer)(reader("EquipSlot"), reader("ItemId")))
+                    result.Add(New Tuple(Of Integer, Integer)(CInt(reader("EquipSlot")), CInt(reader("ItemId"))))
                 End While
             End Using
             Return result
@@ -52,7 +52,11 @@
             command.CommandText = "SELECT [ItemId] FROM [CharacterEquippedItems] WHERE [CharacterId]=@CharacterId AND [EquipSlot]=@EquipSlot;"
             command.Parameters.AddWithValue("@CharacterId", characterId)
             command.Parameters.AddWithValue("@EquipSlot", equipSlot)
-            Return command.ExecuteScalar()
+            Dim result = command.ExecuteScalar()
+            If result IsNot Nothing Then
+                Return CInt(result)
+            End If
+            Return Nothing
         End Using
     End Function
     Function ReadForItem(itemId As Integer) As Tuple(Of Integer, Integer)
@@ -62,7 +66,7 @@
             command.Parameters.AddWithValue("@ItemId", itemId)
             Using reader = command.ExecuteReader()
                 If reader.Read() Then
-                    Return New Tuple(Of Integer, Integer)(reader("CharacterId"), reader("EquipSlot"))
+                    Return New Tuple(Of Integer, Integer)(CInt(reader("CharacterId")), CInt(reader("EquipSlot")))
                 End If
             End Using
         End Using

@@ -10,7 +10,7 @@ Module EquipSlotMenu
                 Dim item = equipment(equipSlot)
                 ShowMenuTitle(item.GetName())
                 ShowMenuItem("1) Unequip")
-                If item.IsCritter() Then
+                If item.CanFeed() Then
                     ShowMenuItem("2) Feed")
                 End If
                 ShowMenuItem("0) Never mind")
@@ -22,7 +22,7 @@ Module EquipSlotMenu
                         item.Unequip()
                         done = True
                     Case "2"
-                        If item.IsCritter() Then
+                        If item.CanFeed() Then
                             FeedItemMenu.Run(item)
                         End If
                     Case Else

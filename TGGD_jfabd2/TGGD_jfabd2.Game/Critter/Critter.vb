@@ -39,4 +39,11 @@ Public Class Critter
             InventoryData.Write(characterId, itemId)
         End If
     End Sub
+    Function GetStatistic(statisticType As CritterStatisticType) As Integer
+        Dim value = CritterStatisticData.Read(critterId, statisticType)
+        If Not value.HasValue Then
+            value = CritterStatisticTypes.InitialValue(Me, statisticType)
+        End If
+        Return value.Value
+    End Function
 End Class

@@ -7,6 +7,12 @@ Public Class Item
     Function CanConsume() As Boolean
         Return InventoryData.ReadForItem(ItemId).HasValue AndAlso ItemTypes.CanConsume(GetItemType())
     End Function
+    Function GetCritter() As Critter
+        If IsCritter() Then
+            Return New Critter(PetData.ReadForItem(ItemId))
+        End If
+        Return Nothing
+    End Function
     Private Sub ConsumeFruit()
         Dim character As New Character(InventoryData.ReadForItem(ItemId).Value)
         Dim satietyBuff = FruitTypes.GetSatietyBuff(FruitData.ReadFruitType(ItemId).Value)
@@ -133,13 +139,26 @@ Public Class Item
             End If
         End If
         If characterId.HasValue Then
+            Return GetItemType() = ItemType.Critter
+        End If
+        Return False
+    End Function
+    Function CanFeed() As Boolean
+        Dim characterId = InventoryData.ReadForItem(ItemId)
+        If Not characterId.HasValue Then
+            Dim entry = CharacterEquipmentData.ReadForItem(ItemId)
+            If entry IsNot Nothing Then
+                characterId = entry.Item1
+            End If
+        End If
+        If characterId.HasValue Then
             Dim inventory = New CharacterInventory(characterId.Value)
             Return GetItemType() = ItemType.Critter AndAlso inventory.HasItemType(ItemType.Fruit)
         End If
         Return False
     End Function
     Function Feed(food As Item) As Boolean
-        If IsCritter() Then
+        If CanFeed() Then
             Dim critter = New Critter(PetData.ReadForItem(ItemId))
             critter.Feed(food)
             Return True

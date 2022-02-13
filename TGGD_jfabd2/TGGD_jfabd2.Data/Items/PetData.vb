@@ -20,7 +20,7 @@
             command.ExecuteNonQuery()
         End Using
     End Sub
-    Function ReadForItem(itemId) As Integer?
+    Function ReadForItem(itemId As Integer) As Integer?
         Initialize()
         Using command = connection.CreateCommand
             command.CommandText = "SELECT [CritterId] FROM [CritterItems] WHERE [ItemId]=@ItemId;"

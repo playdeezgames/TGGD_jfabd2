@@ -12,7 +12,7 @@ Module ItemMenu
             If item.CanEquip() Then
                 ShowMenuItem("3) Equip")
             End If
-            If item.CanFeed() Then
+            If item.IsCritter() Then
                 ShowMenuItem("4) Feed")
             End If
             ShowMenuItem("0) Never mind")
@@ -38,8 +38,8 @@ Module ItemMenu
                         InvalidInput()
                     End If
                 Case "4"
-                    If item.CanFeed() Then
-                        FeedItemMenu.run(item)
+                    If item.IsCritter() Then
+                        FeedItemMenu.Run(item)
                     Else
                         InvalidInput()
                     End If

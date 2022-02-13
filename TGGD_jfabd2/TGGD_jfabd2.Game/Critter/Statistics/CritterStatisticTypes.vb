@@ -1,5 +1,15 @@
 ﻿Public Module CritterStatisticTypes
-    Function InitialValue(statisticType As CritterStatisticType) As Integer
+    Function GetName(statisticType As CritterStatisticType) As String
+        Select Case statisticType
+            Case CritterStatisticType.Health
+                Return "Health"
+            Case CritterStatisticType.Satiety
+                Return "Satiety"
+            Case Else
+                Throw New ArgumentOutOfRangeException(NameOf(statisticType))
+        End Select
+    End Function
+    Function InitialValue(critter As Critter, statisticType As CritterStatisticType) As Integer
         Select Case statisticType
             Case CritterStatisticType.Health
                 Return 100
@@ -9,7 +19,7 @@
                 Throw New ArgumentOutOfRangeException(NameOf(statisticType))
         End Select
     End Function
-    Function MinimumValue(statisticType As CritterStatisticType) As Integer
+    Function MinimumValue(critter As Critter, statisticType As CritterStatisticType) As Integer
         Select Case statisticType
             Case CritterStatisticType.Health
                 Return 0
@@ -19,7 +29,7 @@
                 Throw New ArgumentOutOfRangeException(NameOf(statisticType))
         End Select
     End Function
-    Function MaximumValue(statisticType As CritterStatisticType) As Integer
+    Function MaximumValue(critter As Critter, statisticType As CritterStatisticType) As Integer
         Select Case statisticType
             Case CritterStatisticType.Health
                 Return 100
@@ -29,11 +39,11 @@
                 Throw New ArgumentOutOfRangeException(NameOf(statisticType))
         End Select
     End Function
-    Function ClampValue(statisticType As CritterStatisticType, value As Integer) As Integer
-        If value < MinimumValue(statisticType) Then
-            Return MinimumValue(statisticType)
-        ElseIf value > MaximumValue(statisticType) Then
-            Return MaximumValue(statisticType)
+    Function ClampValue(critter As Critter, statisticType As CritterStatisticType, value As Integer) As Integer
+        If value < MinimumValue(critter, statisticType) Then
+            Return MinimumValue(critter, statisticType)
+        ElseIf value > MaximumValue(critter, statisticType) Then
+            Return MaximumValue(critter, statisticType)
         Else
             Return value
         End If

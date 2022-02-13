@@ -124,7 +124,7 @@ Public Class Item
     Sub Destroy()
         ItemData.Destroy(ItemId)
     End Sub
-    Function CanFeed() As Boolean
+    Function IsCritter() As Boolean
         Dim characterId = InventoryData.ReadForItem(ItemId)
         If Not characterId.HasValue Then
             Dim entry = CharacterEquipmentData.ReadForItem(ItemId)
@@ -139,7 +139,7 @@ Public Class Item
         Return False
     End Function
     Function Feed(food As Item) As Boolean
-        If CanFeed() Then
+        If IsCritter() Then
             Dim critter = New Critter(PetData.ReadForItem(ItemId))
             critter.Feed(food)
             Return True

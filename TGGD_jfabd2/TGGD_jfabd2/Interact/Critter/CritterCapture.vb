@@ -6,7 +6,7 @@ Module CritterCapture
         If character.GetInventory().IsFull() Then
             ErrorMessage("Yer inventory is full!")
         Else
-            If character.DifficultyCheck(Characteristic.Dexterity, 2, critter.Tameness) > critter.Check(Characteristic.Dexterity) Then
+            If character.DifficultyCheck(Characteristic.Dexterity, 2, critter.GetStatistic(CritterStatisticType.Tameness)) > critter.Check(Characteristic.Dexterity) Then
                 critter.Capture(character.GetCharacterId())
                 SuccessMessage("Success!!")
                 Return True

@@ -34,7 +34,4 @@
     Function GetDescription(critterType As Integer) As String
         Return critterDescriptions(critterType)
     End Function
-    Function GenerateTameness(critterType As Integer) As Integer
-        Return 0
-    End Function
 End Module

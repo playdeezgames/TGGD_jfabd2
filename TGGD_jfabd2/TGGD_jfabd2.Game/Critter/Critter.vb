@@ -30,11 +30,6 @@ Public Class Critter
             Return CritterTypes.GetName(CritterData.ReadCritterType(critterId).Value)
         End Get
     End Property
-    ReadOnly Property Tameness As Integer
-        Get
-            Return CritterData.ReadTameness(critterId).Value
-        End Get
-    End Property
     Sub Feed(item As Item)
         Dim fruitType = item.GetFruitType()
         If fruitType.HasValue Then
@@ -46,7 +41,7 @@ Public Class Critter
                 ChangeStatistic(CritterStatisticType.Health, oversatiation)
             End If
             item.Destroy()
-            CritterData.WriteTameness(critterId, CritterData.ReadTameness(critterId).Value + 1)
+            ChangeStatistic(CritterStatisticType.Tameness, 1)
         End If
     End Sub
     Function GetCharacteristic(characteristic As Characteristic) As Integer

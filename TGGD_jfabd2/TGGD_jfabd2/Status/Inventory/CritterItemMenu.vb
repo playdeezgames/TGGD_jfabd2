@@ -9,7 +9,7 @@ Module CritterItemMenu
                 ShowMenuTitle(critter.Name)
                 Dim stats = [Enum].GetValues(GetType(Characteristic))
                 For Each stat In stats
-                    ShowInfo($"{Characteristics.GetAbbreviation(stat)} {critter.GetCharacteristic(stat)}")
+                    ShowInfo($"{Characteristics.GetAbbreviation(CType(stat, Characteristic))} {critter.GetCharacteristic(CType(stat, Characteristic))}")
                 Next
                 ShowMenuItem("1) Statistics")
                 If item.CanFeed() Then

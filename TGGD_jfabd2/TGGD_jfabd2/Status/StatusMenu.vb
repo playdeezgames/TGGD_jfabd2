@@ -8,7 +8,7 @@ Module StatusMenu
             ShowMenuTitle("Status:")
             Dim stats = [Enum].GetValues(GetType(Characteristic))
             For Each stat In stats
-                ShowInfo($"{Characteristics.GetAbbreviation(stat)} {character.GetCharacteristic(stat)}")
+                ShowInfo($"{Characteristics.GetAbbreviation(CType(stat, Characteristic))} {character.GetCharacteristic(CType(stat, Characteristic))}")
             Next
             ShowMenuItem("1) Statististics")
             If Not character.GetInventory().IsEmpty() Then

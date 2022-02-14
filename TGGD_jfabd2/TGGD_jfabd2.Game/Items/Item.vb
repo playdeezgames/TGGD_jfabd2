@@ -9,7 +9,7 @@ Public Class Item
     End Function
     Function GetCritter() As Critter
         If IsCritter() Then
-            Return New Critter(PetData.ReadForItem(ItemId))
+            Return New Critter(CULng(PetData.ReadForItem(ItemId).Value))
         End If
         Return Nothing
     End Function
@@ -36,18 +36,18 @@ Public Class Item
         End If
     End Sub
     Function GetItemType() As ItemType
-        Return ItemData.ReadItemType(ItemId)
+        Return CType(ItemData.ReadItemType(ItemId).Value, ItemType)
     End Function
     Function GetName() As String
         Select Case GetItemType()
             Case ItemType.Fruit
-                Return FruitTypes.GetName(FruitData.ReadFruitType(ItemId))
+                Return FruitTypes.GetName(FruitData.ReadFruitType(ItemId).Value)
             Case ItemType.Wallet
                 Return $"Wallet(Size: {WalletData.Read(ItemId).Value})"
             Case ItemType.Critter
-                Return CritterTypes.GetName(CritterData.ReadCritterType(PetData.ReadForItem(ItemId)))
+                Return CritterTypes.GetName(CritterData.ReadCritterType(CULng(PetData.ReadForItem(ItemId).Value)).Value)
             Case ItemType.CritterCorpse
-                Return "dead " & CritterTypes.GetName(CorpseData.ReadForItem(ItemId))
+                Return "dead " & CritterTypes.GetName(CorpseData.ReadForItem(ItemId).Value)
             Case Else
                 Throw New NotImplementedException()
         End Select
@@ -55,11 +55,11 @@ Public Class Item
     Function GetDescription() As String
         Select Case GetItemType()
             Case ItemType.Fruit
-                Return FruitTypes.GetDescription(FruitData.ReadFruitType(ItemId))
+                Return FruitTypes.GetDescription(FruitData.ReadFruitType(ItemId).Value)
             Case ItemType.Wallet
                 Return "It's a wallet! It holds money!"
             Case ItemType.Critter
-                Return CritterTypes.GetDescription(CritterData.ReadCritterType(PetData.ReadForItem(ItemId)))
+                Return CritterTypes.GetDescription(CritterData.ReadCritterType(CULng(PetData.ReadForItem(ItemId).Value)).Value)
             Case ItemType.CritterCorpse
                 Return "Shhhh. It's 'sleeping'."
             Case Else
@@ -72,9 +72,9 @@ Public Class Item
             InventoryData.Clear(ItemId)
             Dim location = New Character(characterId.Value).GetLocation()
             If ItemData.ReadItemType(ItemId) = ItemType.Critter Then
-                Dim critterId = PetData.ReadForItem(ItemId)
+                Dim critterId = PetData.ReadForItem(ItemId).Value
                 PetData.ClearForCritter(critterId)
-                CritterLocationData.Write(critterId, location.GetLocationId())
+                CritterLocationData.Write(CULng(critterId), location.GetLocationId())
                 ItemData.Destroy(ItemId)
             Else
                 GroundData.Write(location.GetLocationId(), ItemId)
@@ -163,7 +163,7 @@ Public Class Item
     End Function
     Function Feed(food As Item) As Boolean
         If CanFeed() Then
-            Dim critter = New Critter(PetData.ReadForItem(ItemId))
+            Dim critter = New Critter(CULng(PetData.ReadForItem(ItemId).Value))
             critter.Feed(food)
             Return True
         End If

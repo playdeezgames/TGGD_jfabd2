@@ -18,7 +18,7 @@
             Case CharacterStatisticType.Health
                 Return MaximumValue(character, statisticType)
             Case CharacterStatisticType.Satiety
-                Return MaximumValue(character, statisticType) / 2
+                Return MaximumValue(character, statisticType) \ 2
             Case CharacterStatisticType.CarryingCapacity
                 Return 2
             Case CharacterStatisticType.Jools
@@ -44,7 +44,7 @@
     Function MaximumValue(character As Character, statisticType As CharacterStatisticType) As Integer
         Select Case statisticType
             Case CharacterStatisticType.Health
-                Return (character.GetCharacteristic(Characteristic.Size) + character.GetCharacteristic(Characteristic.Constitution)) / 2
+                Return (character.GetCharacteristic(Characteristic.Size) + character.GetCharacteristic(Characteristic.Constitution)) \ 2
             Case CharacterStatisticType.Satiety
                 Return character.GetCharacteristic(Characteristic.Constitution)
             Case CharacterStatisticType.CarryingCapacity

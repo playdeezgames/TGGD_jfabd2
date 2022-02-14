@@ -49,7 +49,7 @@ Public Class Location
         If id.HasValue Then
             locationId = id.Value
         Else
-            locationId = LocationData.CreateXY(x, y)
+            locationId = CInt(LocationData.CreateXY(x, y))
             'spawn stuff
             Dim spawnedCritter =
                 SpawnCritter(locationId)

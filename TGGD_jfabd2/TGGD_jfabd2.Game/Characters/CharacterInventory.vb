@@ -32,13 +32,15 @@ Public Class CharacterInventory
         Return GetItems().Count() 'TODO: ask more directly
     End Function
     Function HasFruitType(fruitType As Integer) As Boolean
-        Return GetItems().Any(Function(x)
-                                  Return x.GetFruitType() = fruitType
+        Return GetItems().Any(Function(candidate)
+                                  Dim candidateFruitType = candidate.GetFruitType()
+                                  Return candidateFruitType.HasValue AndAlso candidateFruitType.Value = fruitType
                               End Function)
     End Function
     Function RemoveFruit(fruitType As Integer) As Boolean
-        Dim item = GetItems().FirstOrDefault(Function(x)
-                                                 Return x.GetFruitType() = fruitType
+        Dim item = GetItems().FirstOrDefault(Function(candidate)
+                                                 Dim candidateFruitType = candidate.GetFruitType()
+                                                 Return candidateFruitType.HasValue AndAlso candidateFruitType.Value = fruitType
                                              End Function)
         If item IsNot Nothing Then
             ItemData.Destroy(item.ItemId)

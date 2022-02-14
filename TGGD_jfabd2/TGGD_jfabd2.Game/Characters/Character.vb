@@ -42,7 +42,7 @@ Public Class Character
             Case Else 'assume all other directions are west, i suppose
                 deltaX = -1
         End Select
-        CharacterData.WriteXY(characterId, CharacterData.ReadX(characterId) + deltaX, CharacterData.ReadY(characterId) + deltaY)
+        CharacterData.WriteXY(characterId, CharacterData.ReadX(characterId).Value + deltaX, CharacterData.ReadY(characterId).Value + deltaY)
         Game.Update()
     End Sub
 
@@ -109,7 +109,7 @@ Public Class Character
     Public Function GetMessages() As List(Of CharacterMessage)
         Return CharacterMessageData.Read(characterId).Select(
             Function(x As Tuple(Of Integer, String))
-                Return New CharacterMessage(x.Item1, x.Item2)
+                Return New CharacterMessage(CType(x.Item1, Mood), x.Item2)
             End Function).ToList()
     End Function
     Public Sub ClearMessages()
@@ -119,7 +119,7 @@ Public Class Character
         Dim equipment = CharacterEquipmentData.ReadForCharacter(characterId)
         Dim result As New Dictionary(Of EquipSlot, Item)
         For Each entry In equipment
-            result(entry.Item1) = New Item(entry.Item2)
+            result(CType(entry.Item1, EquipSlot)) = New Item(entry.Item2)
         Next
         Return result
     End Function
@@ -135,6 +135,6 @@ Public Class Character
         Return DifficultyCheck(characteristic, 1, delta)
     End Function
     Function DifficultyCheck(characteristic As Characteristic, difficulty As Integer, Optional delta As Integer = 0) As Double
-        Return CharacteristicCheck(GetCharacteristic(characteristic) / difficulty + delta)
+        Return CharacteristicCheck(GetCharacteristic(characteristic) \ difficulty + delta)
     End Function
 End Class

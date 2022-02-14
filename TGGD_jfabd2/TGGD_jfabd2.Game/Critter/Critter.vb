@@ -9,30 +9,30 @@ Public Class Critter
         'TODO: hungry!
         Dim satiety = GetStatistic(CritterStatisticType.Satiety)
         If satiety > CritterStatisticTypes.MinimumValue(Me, CritterStatisticType.Satiety) Then
-            CritterStatisticData.Write(critterId, CritterStatisticType.Satiety, satiety - 1)
+            CritterStatisticData.Write(CInt(critterId), CritterStatisticType.Satiety, satiety - 1)
         Else
             Dim health = GetStatistic(CritterStatisticType.Health)
             health -= 1
             If health > CritterStatisticTypes.MinimumValue(Me, CritterStatisticType.Health) Then
-                CritterStatisticData.Write(critterId, CritterStatisticType.Health, health)
+                CritterStatisticData.Write(CInt(critterId), CritterStatisticType.Health, health)
             Else
                 Dim critterType = CritterData.ReadCritterType(critterId)
                 Dim locationId = CritterLocationData.ReadForCritter(critterId)
-                CritterData.Destroy(critterId)
+                CritterData.Destroy(CInt(critterId))
                 Dim itemId = ItemData.Create(ItemType.CritterCorpse)
-                CorpseData.Write(itemId, critterType)
-                GroundData.Write(locationId, itemId)
+                CorpseData.Write(itemId, CInt(critterType))
+                GroundData.Write(CInt(locationId), itemId)
             End If
         End If
     End Sub
     ReadOnly Property Name As String
         Get
-            Return CritterTypes.GetName(CritterData.ReadCritterType(critterId))
+            Return CritterTypes.GetName(CritterData.ReadCritterType(critterId).Value)
         End Get
     End Property
     ReadOnly Property Tameness As Integer
         Get
-            Return CritterData.ReadTameness(critterId)
+            Return CritterData.ReadTameness(critterId).Value
         End Get
     End Property
     Sub Feed(item As Item)
@@ -46,14 +46,14 @@ Public Class Critter
                 ChangeStatistic(CritterStatisticType.Health, oversatiation)
             End If
             item.Destroy()
-            CritterData.WriteTameness(critterId, CritterData.ReadTameness(critterId) + 1)
+            CritterData.WriteTameness(critterId, CritterData.ReadTameness(critterId).Value + 1)
         End If
     End Sub
     Function GetCharacteristic(characteristic As Characteristic) As Integer
-        Dim value = CritterCharacteristicData.Read(critterId, characteristic)
+        Dim value = CritterCharacteristicData.Read(CInt(critterId), characteristic)
         If Not value.HasValue Then
-            value = Characteristics.GenerateForCritter(characteristic, ReadCritterType(critterId))
-            CritterCharacteristicData.Write(critterId, characteristic, value.Value)
+            value = Characteristics.GenerateForCritter(characteristic, ReadCritterType(critterId).Value)
+            CritterCharacteristicData.Write(CInt(critterId), characteristic, value.Value)
         End If
         Return value.Value
     End Function
@@ -70,7 +70,7 @@ Public Class Critter
         End If
     End Sub
     Function GetStatistic(statisticType As CritterStatisticType) As Integer
-        Dim value = CritterStatisticData.Read(critterId, statisticType)
+        Dim value = CritterStatisticData.Read(CInt(critterId), statisticType)
         If Not value.HasValue Then
             value = CritterStatisticTypes.InitialValue(Me, statisticType)
         End If
@@ -78,7 +78,7 @@ Public Class Critter
     End Function
     Public Sub SetStatistic(statisticType As CritterStatisticType, value As Integer)
         value = CritterStatisticTypes.ClampValue(Me, statisticType, value)
-        CritterStatisticData.Write(critterId, statisticType, value)
+        CritterStatisticData.Write(CInt(critterId), statisticType, value)
     End Sub
     Public Sub ChangeStatistic(statisticType As CritterStatisticType, delta As Integer)
         SetStatistic(statisticType, GetStatistic(statisticType) + delta)

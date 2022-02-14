@@ -14,7 +14,7 @@
             Case CritterStatisticType.Health
                 Return MaximumValue(critter, statisticType)
             Case CritterStatisticType.Satiety
-                Return MaximumValue(critter, statisticType) / 2
+                Return MaximumValue(critter, statisticType) \ 2
             Case Else
                 Throw New ArgumentOutOfRangeException(NameOf(statisticType))
         End Select
@@ -32,7 +32,7 @@
     Function MaximumValue(critter As Critter, statisticType As CritterStatisticType) As Integer
         Select Case statisticType
             Case CritterStatisticType.Health
-                Return (critter.GetCharacteristic(Characteristic.Constitution) + critter.GetCharacteristic(Characteristic.Size)) / 2
+                Return (critter.GetCharacteristic(Characteristic.Constitution) + critter.GetCharacteristic(Characteristic.Size)) \ 2
             Case CritterStatisticType.Satiety
                 Return critter.GetCharacteristic(Characteristic.Constitution)
             Case Else

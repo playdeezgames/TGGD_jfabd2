@@ -23,12 +23,12 @@ Public Class VendorFruit
     End Property
     Sub HandleSale()
         If FruitTypes.GeneratePrice(FruitType) < BuyingPrice Then
-            FruitPriceData.Write(locationId, FruitType, FruitPriceData.ReadForFruitType(locationId, FruitType) - 1)
+            FruitPriceData.Write(locationId, FruitType, FruitPriceData.ReadForFruitType(locationId, FruitType).Value - 1)
         End If
     End Sub
     Sub HandleBuy()
         If FruitTypes.GeneratePrice(FruitType) > BuyingPrice Then
-            FruitPriceData.Write(locationId, FruitType, FruitPriceData.ReadForFruitType(locationId, FruitType) + 1)
+            FruitPriceData.Write(locationId, FruitType, FruitPriceData.ReadForFruitType(locationId, FruitType).Value + 1)
         End If
     End Sub
 End Class

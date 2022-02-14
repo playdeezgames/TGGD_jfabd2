@@ -5,6 +5,8 @@
                 Return "Health"
             Case CritterStatisticType.Satiety
                 Return "Satiety"
+            Case CritterStatisticType.Tameness
+                Return "Tameness"
             Case Else
                 Throw New ArgumentOutOfRangeException(NameOf(statisticType))
         End Select
@@ -15,15 +17,15 @@
                 Return MaximumValue(critter, statisticType)
             Case CritterStatisticType.Satiety
                 Return MaximumValue(critter, statisticType) \ 2
+            Case CritterStatisticType.Tameness
+                Return MinimumValue(critter, statisticType)
             Case Else
                 Throw New ArgumentOutOfRangeException(NameOf(statisticType))
         End Select
     End Function
     Function MinimumValue(critter As Critter, statisticType As CritterStatisticType) As Integer
         Select Case statisticType
-            Case CritterStatisticType.Health
-                Return 0
-            Case CritterStatisticType.Satiety
+            Case CritterStatisticType.Health, CritterStatisticType.Satiety, CritterStatisticType.Tameness
                 Return 0
             Case Else
                 Throw New ArgumentOutOfRangeException(NameOf(statisticType))
@@ -35,6 +37,8 @@
                 Return (critter.GetCharacteristic(Characteristic.Constitution) + critter.GetCharacteristic(Characteristic.Size)) \ 2
             Case CritterStatisticType.Satiety
                 Return critter.GetCharacteristic(Characteristic.Constitution)
+            Case CritterStatisticType.Tameness
+                Return Integer.MaxValue
             Case Else
                 Throw New ArgumentOutOfRangeException(NameOf(statisticType))
         End Select

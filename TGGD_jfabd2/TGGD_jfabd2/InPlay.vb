@@ -43,7 +43,6 @@ Module InPlay
         Dim done As Boolean = False
         While Not done
             Dim character = New PlayerCharacter()
-            ShowCharacterMessages(character)
             If character.IsAlive() Then
                 Dim location = character.GetLocation()
                 Dim hasCritter = location.HasCritters()

@@ -22,7 +22,7 @@ Public Class Item
         If oversatiation > 0 Then
             character.ChangeStatistic(CharacterStatisticType.Health, oversatiation)
         End If
-        character.AddMessage(New CharacterMessage(Mood.Success, $"You eat the {GetName()}."))
+        character.AddMessage(Mood.Success, $"You eat the {GetName()}.")
         ItemData.Destroy(ItemId)
     End Sub
     Sub Consume()

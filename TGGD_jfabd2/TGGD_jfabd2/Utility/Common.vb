@@ -33,21 +33,4 @@ Module Common
         Console.WriteLine(text)
         Console.ForegroundColor = ConsoleColor.Gray
     End Sub
-    Sub ShowCharacterMessages(character As Character)
-        Dim messages = character.GetMessages()
-        For Each message In messages
-            Select Case message.GetMood()
-                Case Mood.Failure
-                    Console.ForegroundColor = ConsoleColor.Red
-                Case Mood.Info
-                    Console.ForegroundColor = ConsoleColor.Gray
-                Case Mood.Success
-                    Console.ForegroundColor = ConsoleColor.Green
-                Case Else
-                    Throw New NotImplementedException()
-            End Select
-            Console.WriteLine(message.GetText())
-        Next
-        character.ClearMessages()
-    End Sub
 End Module

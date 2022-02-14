@@ -87,7 +87,7 @@ Public Class Character
             ChangeStatistic(CharacterStatisticType.Satiety, -1)
         Else
             ChangeStatistic(CharacterStatisticType.Health, -1)
-            AddMessage(New CharacterMessage(Mood.Failure, "Yer starvin'!"))
+            AddMessage(Mood.Failure, "Yer starvin'!")
         End If
     End Sub
     Private Sub UpKeepWallet()
@@ -103,17 +103,17 @@ Public Class Character
         Metabolize()
         UpKeepWallet()
     End Sub
-    Public Sub AddMessage(message As CharacterMessage)
-        CharacterMessageData.Write(characterId, message.GetMood(), message.GetText())
-    End Sub
-    Public Function GetMessages() As List(Of CharacterMessage)
-        Return CharacterMessageData.Read(characterId).Select(
-            Function(x As Tuple(Of Integer, String))
-                Return New CharacterMessage(CType(x.Item1, Mood), x.Item2)
-            End Function).ToList()
-    End Function
-    Public Sub ClearMessages()
-        CharacterMessageData.Clear(characterId)
+    Public Sub AddMessage(mood As Mood, text As String)
+        Select Case mood
+            Case Mood.Failure
+                Console.ForegroundColor = ConsoleColor.Red
+
+            Case Mood.Success
+                Console.ForegroundColor = ConsoleColor.Green
+            Case Else
+                Console.ForegroundColor = ConsoleColor.Gray
+        End Select
+        Console.WriteLine(text)
     End Sub
     Public Function GetEquipment() As Dictionary(Of EquipSlot, Item)
         Dim equipment = CharacterEquipmentData.ReadForCharacter(characterId)

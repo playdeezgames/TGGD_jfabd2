@@ -15,9 +15,6 @@ Module ItemMenu
             If item.IsCritter() Then
                 ShowMenuItem("4) Critter...")
             End If
-            If item.CanFeed() Then
-                ShowMenuItem("9) Feed")
-            End If
             ShowMenuItem("0) Never mind")
             ShowPrompt()
             Select Case Console.ReadLine()
@@ -43,12 +40,6 @@ Module ItemMenu
                 Case "4"
                     If item.IsCritter() Then
                         done = CritterItemMenu.Run(item)
-                    Else
-                        InvalidInput()
-                    End If
-                Case "9"
-                    If item.CanFeed() Then
-                        FeedItemMenu.Run(item)
                     Else
                         InvalidInput()
                     End If

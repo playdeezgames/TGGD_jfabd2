@@ -1,5 +1,5 @@
 ﻿Module CritterTypes
-    Function GenerateCritterType()
+    Function GenerateCritterType() As Integer
         Return random.Next(1, 11)
     End Function
     Private ReadOnly critterNames As New Dictionary(Of Integer, String) From

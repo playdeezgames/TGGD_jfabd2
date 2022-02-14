@@ -36,9 +36,18 @@ Public Class Critter
         End Get
     End Property
     Sub Feed(item As Item)
-        item.Destroy()
-        CritterData.WriteTameness(critterId, CritterData.ReadTameness(critterId) + 1)
-        'TODO: add satiety!
+        Dim fruitType = item.GetFruitType()
+        If fruitType.HasValue Then
+            Dim satietyBuff = FruitTypes.GetSatietyBuff(fruitType.Value)
+            Dim satiety As Integer = GetStatistic(CritterStatisticType.Satiety)
+            Dim oversatiation = satiety + satietyBuff - CritterStatisticTypes.MaximumValue(Me, CritterStatisticType.Satiety)
+            ChangeStatistic(CritterStatisticType.Satiety, satietyBuff)
+            If oversatiation > 0 Then
+                ChangeStatistic(CritterStatisticType.Health, oversatiation)
+            End If
+            item.Destroy()
+            CritterData.WriteTameness(critterId, CritterData.ReadTameness(critterId) + 1)
+        End If
     End Sub
     Function GetCharacteristic(characteristic As Characteristic) As Integer
         Dim value = CritterCharacteristicData.Read(critterId, characteristic)
@@ -67,4 +76,11 @@ Public Class Critter
         End If
         Return value.Value
     End Function
+    Public Sub SetStatistic(statisticType As CritterStatisticType, value As Integer)
+        value = CritterStatisticTypes.ClampValue(Me, statisticType, value)
+        CritterStatisticData.Write(critterId, statisticType, value)
+    End Sub
+    Public Sub ChangeStatistic(statisticType As CritterStatisticType, delta As Integer)
+        SetStatistic(statisticType, GetStatistic(statisticType) + delta)
+    End Sub
 End Class

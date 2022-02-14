@@ -5,8 +5,7 @@ Public Class Critter
     Sub New(critterId As UInt64)
         Me.critterId = critterId
     End Sub
-    Sub Update()
-        'TODO: hungry!
+    Private Sub UpdateHunger()
         Dim satiety = GetStatistic(CritterStatisticType.Satiety)
         If satiety > CritterStatisticTypes.MinimumValue(Me, CritterStatisticType.Satiety) Then
             CritterStatisticData.Write(CInt(critterId), CritterStatisticType.Satiety, satiety - 1)
@@ -24,6 +23,25 @@ Public Class Critter
                 GroundData.Write(CInt(locationId), itemId)
             End If
         End If
+    End Sub
+    Sub EscapeAttempt()
+        If Not CritterLocationData.ReadForCritter(critterId).HasValue Then
+            Dim itemId = PetData.ReadForCritter(critterId).Value
+            Dim characterId = InventoryData.ReadForItem(itemId)
+            If characterId Is Nothing Then
+                characterId = CharacterEquipmentData.ReadForItem(itemId).Item1
+            End If
+            Dim character = New Character(characterId.Value)
+            If CharacteristicCheck(Characteristic.Willpower) > character.DifficultyCheck(Characteristic.Charisma, 1, GetStatistic(CritterStatisticType.Tameness)) Then
+                ItemData.Destroy(itemId)
+                CritterLocationData.Write(critterId, character.GetLocation().GetLocationId())
+                character.AddMessage(Mood.Failure, $"{Name} has escaped!")
+            End If
+        End If
+    End Sub
+    Sub Update()
+        UpdateHunger()
+        EscapeAttempt()
     End Sub
     ReadOnly Property Name As String
         Get

@@ -32,6 +32,18 @@
             Return Nothing
         End Using
     End Function
+    Function ReadForCritter(critterId As ULong) As Integer?
+        Initialize()
+        Using command = connection.CreateCommand
+            command.CommandText = "SELECT [ItemId] FROM [CritterItems] WHERE [CritterId]=@CritterId;"
+            command.Parameters.AddWithValue("@CritterId", critterId)
+            Dim result = command.ExecuteScalar()
+            If result IsNot Nothing Then
+                Return CInt(result)
+            End If
+            Return Nothing
+        End Using
+    End Function
     Sub ClearForCritter(critterId As Integer)
         Initialize()
         Using command = connection.CreateCommand

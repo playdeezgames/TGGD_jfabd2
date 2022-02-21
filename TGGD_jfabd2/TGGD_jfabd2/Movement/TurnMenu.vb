@@ -1,36 +1,32 @@
-﻿Imports TGGD_jfabd2.Game
+﻿Imports Terminal.Gui
+Imports TGGD_jfabd2.Game
 
 Module TurnMenu
+    Private Sub TurnLeft()
+        Dim character = New PlayerCharacter()
+        character.TurnLeft()
+        Application.RequestStop()
+    End Sub
+    Private Sub TurnRight()
+        Dim character = New PlayerCharacter()
+        character.TurnRight()
+        Application.RequestStop()
+    End Sub
+    Private Sub TurnAround()
+        Dim character = New PlayerCharacter()
+        character.TurnAround()
+        Application.RequestStop()
+    End Sub
     Sub Run()
-        Dim done As Boolean = False
-        While Not done
-            ShowMenuTitle("Turn which way?")
-            ShowMenuItem("1) Left")
-            ShowMenuItem("2) Right")
-            ShowMenuItem("3) Around")
-            ShowMenuItem("0) Never mind")
-            ShowPrompt()
-            Select Case Console.ReadLine()
-                Case "0"
-                    done = True
-                Case "1"
-                    Dim character = New PlayerCharacter()
-                    character.TurnLeft()
-                    done = True
-                    ShowInfo("You turn left.")
-                Case "2"
-                    Dim character = New PlayerCharacter()
-                    character.TurnRight()
-                    done = True
-                    ShowInfo("You turn right.")
-                Case "3"
-                    Dim character = New PlayerCharacter()
-                    character.TurnAround()
-                    done = True
-                    ShowInfo("You turn around.")
-                Case Else
-                    InvalidInput()
-            End Select
-        End While
+        Dim cancelButton As New Button("Never mind")
+        AddHandler cancelButton.Clicked, AddressOf Application.RequestStop
+        Dim leftButton As New Button("Left")
+        AddHandler leftButton.Clicked, AddressOf TurnLeft
+        Dim rightButton As New Button("Right")
+        AddHandler rightButton.Clicked, AddressOf TurnRight
+        Dim aroundButton As New Button("Around")
+        AddHandler aroundButton.Clicked, AddressOf TurnAround
+        Dim dlg As New Dialog("Turn...", cancelButton, leftButton, rightButton, aroundButton)
+        Application.Run(dlg)
     End Sub
 End Module

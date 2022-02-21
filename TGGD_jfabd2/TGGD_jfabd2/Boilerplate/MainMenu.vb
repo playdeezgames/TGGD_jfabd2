@@ -1,31 +1,6 @@
 ﻿Imports Terminal.Gui
 
 Module MainMenu
-    Private Sub OldRun()
-        Dim done As Boolean = False
-        While Not done
-            Console.WriteLine()
-            Console.ForegroundColor = ConsoleColor.Magenta
-            Console.WriteLine("A Game in VB about Fruits")
-            Console.ForegroundColor = ConsoleColor.DarkMagenta
-            Console.WriteLine("A production of TheGrumpyGameDev")
-            ShowMenuTitle("Main Menu:")
-            ShowMenuItem("1) Start")
-            ShowMenuItem("2) Continue")
-            ShowMenuItem("0) Quit")
-            ShowPrompt()
-            Select Case Console.ReadLine()
-                Case "0"
-                    done = Confirm.Run("Are you sure you want to quit?")
-                Case "1"
-                    Start.Run()
-                Case "2"
-                    LoadGame.Run()
-                Case Else
-                    InvalidInput()
-            End Select
-        End While
-    End Sub
     Private Sub ConfirmQuit()
         If MessageBox.Query("Are you sure?", "Are you sure you want to quit?", "No", "Yes") = 1 Then
             Application.RequestStop()

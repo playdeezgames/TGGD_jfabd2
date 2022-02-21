@@ -39,6 +39,11 @@ Module MainMenu
         Dim quitButton As New Button("Quit")
         AddHandler quitButton.Clicked, AddressOf ConfirmQuit
         Dim dlg As New Dialog("Main Menu", startButton, continueButton, quitButton)
+        AddHandler dlg.KeyPress, Sub(args)
+                                     If args.KeyEvent.Key = Key.Esc Then
+                                         args.Handled = True
+                                     End If
+                                 End Sub
         'TODO: figure out the widths and positions
         dlg.Add(New Label(38, 10, "A Game in VB about Fruits"))
         dlg.Add(New Label(34, 12, "A production of TheGrumpyGameDev"))

@@ -77,6 +77,11 @@ Module InPlay
         Dim dlg As New Dialog("Yer playin' the game!", menuButton)
 
         Dim statusLabel As New Label(New Rect(1, 1, 40, 5))
+        AddHandler dlg.KeyPress, Sub(args)
+                                     If args.KeyEvent.Key = Key.Esc Then
+                                         args.Handled = True
+                                     End If
+                                 End Sub
         Application.Run(dlg)
     End Sub
 End Module

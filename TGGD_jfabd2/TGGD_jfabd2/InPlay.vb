@@ -1,5 +1,5 @@
 ﻿Imports TGGD_jfabd2.Game
-
+Imports Terminal.Gui
 Module InPlay
     Sub ShowStatus(canPickFruit As Boolean, tree As Tree, hasGroundInventory As Boolean, hasVendor As Boolean, hasCritter As Boolean)
         ShowMenuTitle("Yer playin' the game!")
@@ -39,7 +39,7 @@ Module InPlay
         End Select
         Return False
     End Function
-    Sub Run()
+    Sub OldRun()
         Dim done As Boolean = False
         While Not done
             Dim character = New PlayerCharacter()
@@ -66,5 +66,17 @@ Module InPlay
                 ErrorMessage("Yer dead!") 'TODO: make a character message!
             End If
         End While
+    End Sub
+    Sub Run()
+        Dim menuButton As New Button("Menu")
+        AddHandler menuButton.Clicked, Sub()
+                                           If GameMenu.Run() Then
+                                               Application.RequestStop()
+                                           End If
+                                       End Sub
+        Dim dlg As New Dialog("Yer playin' the game!", menuButton)
+
+        Dim statusLabel As New Label(New Rect(1, 1, 40, 5))
+        Application.Run(dlg)
     End Sub
 End Module

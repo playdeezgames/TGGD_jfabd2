@@ -17,8 +17,7 @@
     End Sub
     Public Sub Create(locationId As Integer, fruitType As Integer, available As Integer, depletion As Integer, regenerationCounter As Integer, regenerationThreshold As Integer)
         Initialize()
-        Using command = connection.CreateCommand()
-            command.CommandText =
+        Using command = CreateCommand(
                 "REPLACE INTO [Trees]
                 (
                     [LocationId],
@@ -36,13 +35,13 @@
                     @Depletion,
                     @RegenerationCounter,
                     @RegenerationThreshold
-                );"
-            command.Parameters.AddWithValue("@LocationId", locationId)
-            command.Parameters.AddWithValue("@FruitType", fruitType)
-            command.Parameters.AddWithValue("@Available", available)
-            command.Parameters.AddWithValue("@Depletion", depletion)
-            command.Parameters.AddWithValue("@RegenerationCounter", regenerationCounter)
-            command.Parameters.AddWithValue("@RegenerationThreshold", regenerationThreshold)
+                );",
+            MakeParameter("@LocationId", locationId),
+            MakeParameter("@FruitType", fruitType),
+            MakeParameter("@Available", available),
+            MakeParameter("@Depletion", depletion),
+            MakeParameter("@RegenerationCounter", regenerationCounter),
+            MakeParameter("@RegenerationThreshold", regenerationThreshold))
             command.ExecuteNonQuery()
         End Using
     End Sub

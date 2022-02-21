@@ -7,16 +7,16 @@
                 [CritterType] INT NOT NULL
             );")
     End Sub
-    Function Create(critterType As Integer) As UInt64
+    Function Create(critterType As Integer) As Long
         Initialize()
         Using command = connection.CreateCommand()
             command.CommandText = "INSERT INTO [Critters]([CritterType]) VALUES(@CritterType);"
             command.Parameters.AddWithValue("@CritterType", critterType)
             command.ExecuteNonQuery()
-            Return GetLastInsertRowId()
+            Return LastInsertRowId
         End Using
     End Function
-    Function ReadCritterType(critterId As UInt64) As Integer?
+    Function ReadCritterType(critterId As Long) As Integer?
         Initialize()
         Using command = connection.CreateCommand()
             command.CommandText = "SELECT [CritterType] FROM [Critters] WHERE [CritterId]=@CritterId"
@@ -45,7 +45,7 @@
         Initialize()
         CritterCharacteristicData.Clear(critterId)
         CritterStatisticData.Clear(critterId)
-        CritterLocationData.Clear(CULng(critterId))
+        CritterLocationData.Clear(CLng(critterId))
         Using command = connection.CreateCommand
             command.CommandText = "DELETE FROM [Critters] WHERE [CritterId]=@CritterId"
             command.Parameters.AddWithValue("@CritterId", critterId)

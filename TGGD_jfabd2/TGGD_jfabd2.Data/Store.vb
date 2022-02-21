@@ -36,10 +36,23 @@ Public Module Store
             command.ExecuteNonQuery()
         End Using
     End Sub
-    Function GetLastInsertRowId() As UInt64
-        Using command = connection.CreateCommand()
-            command.CommandText = "SELECT last_insert_rowid();"
-            Return CULng(command.ExecuteScalar())
-        End Using
+    ReadOnly Property LastInsertRowId() As Long
+        Get
+            Using command = connection.CreateCommand()
+                command.CommandText = "SELECT last_insert_rowid();"
+                Return CLng(command.ExecuteScalar())
+            End Using
+        End Get
+    End Property
+    Function CreateCommand(query As String, ParamArray parameters() As SQLiteParameter) As SQLiteCommand
+        Dim command = connection.CreateCommand()
+        command.CommandText = query
+        For Each parameter In parameters
+            command.Parameters.Add(parameter)
+        Next
+        Return command
+    End Function
+    Function MakeParameter(name As String, value As Object) As SQLiteParameter
+        Return New SQLiteParameter(name, value)
     End Function
 End Module

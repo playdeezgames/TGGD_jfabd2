@@ -16,7 +16,7 @@ Public Module Game
         'upkeep critters
         Dim critterIds = CritterData.ReadAll()
         For Each critterId In critterIds
-            Dim critter As New Critter(CULng(critterId))
+            Dim critter As New Critter(CLng(critterId))
             critter.Update()
         Next
     End Sub

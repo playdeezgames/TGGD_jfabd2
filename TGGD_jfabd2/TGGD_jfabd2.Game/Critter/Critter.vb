@@ -1,8 +1,8 @@
 ﻿Imports TGGD_jfabd2.Data
 
 Public Class Critter
-    Private ReadOnly critterId As UInt64
-    Sub New(critterId As UInt64)
+    Private ReadOnly critterId As Long
+    Sub New(critterId As Long)
         Me.critterId = critterId
     End Sub
     Private Sub UpdateHunger()

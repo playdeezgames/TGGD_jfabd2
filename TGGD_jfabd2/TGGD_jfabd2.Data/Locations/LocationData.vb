@@ -35,7 +35,7 @@
         End Using
         Return Nothing
     End Function
-    Public Function CreateXY(x As Integer, y As Integer) As UInt64
+    Public Function CreateXY(x As Integer, y As Integer) As Long
         Initialize()
         Using command = connection.CreateCommand()
             command.CommandText = "INSERT INTO [Locations] ([X],[Y]) VALUES(@X,@Y);"
@@ -43,6 +43,6 @@
             command.Parameters.AddWithValue("@Y", y)
             command.ExecuteNonQuery()
         End Using
-        Return GetLastInsertRowId()
+        Return LastInsertRowId
     End Function
 End Module

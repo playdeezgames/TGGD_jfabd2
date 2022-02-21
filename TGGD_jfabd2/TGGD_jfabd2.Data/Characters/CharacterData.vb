@@ -38,7 +38,7 @@
             command.Parameters.AddWithValue("@Direction", direction)
             command.ExecuteNonQuery()
         End Using
-        Return CInt(GetLastInsertRowId())
+        Return CInt(LastInsertRowId)
     End Function
     Function ReadX(characterId As Integer) As Integer?
         Initialize()

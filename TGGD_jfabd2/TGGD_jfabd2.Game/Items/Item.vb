@@ -9,7 +9,7 @@ Public Class Item
     End Function
     Function GetCritter() As Critter
         If IsCritter() Then
-            Return New Critter(CULng(PetData.ReadForItem(ItemId).Value))
+            Return New Critter(CLng(PetData.ReadForItem(ItemId).Value))
         End If
         Return Nothing
     End Function
@@ -45,7 +45,7 @@ Public Class Item
             Case ItemType.Wallet
                 Return $"Wallet(Size: {WalletData.Read(ItemId).Value})"
             Case ItemType.Critter
-                Return CritterTypes.GetName(CritterData.ReadCritterType(CULng(PetData.ReadForItem(ItemId).Value)).Value)
+                Return CritterTypes.GetName(CritterData.ReadCritterType(CLng(PetData.ReadForItem(ItemId).Value)).Value)
             Case ItemType.CritterCorpse
                 Return "dead " & CritterTypes.GetName(CorpseData.ReadForItem(ItemId).Value)
             Case Else
@@ -59,7 +59,7 @@ Public Class Item
             Case ItemType.Wallet
                 Return "It's a wallet! It holds money!"
             Case ItemType.Critter
-                Return CritterTypes.GetDescription(CritterData.ReadCritterType(CULng(PetData.ReadForItem(ItemId).Value)).Value)
+                Return CritterTypes.GetDescription(CritterData.ReadCritterType(CLng(PetData.ReadForItem(ItemId).Value)).Value)
             Case ItemType.CritterCorpse
                 Return "Shhhh. It's 'sleeping'."
             Case Else
@@ -74,7 +74,7 @@ Public Class Item
             If ItemData.ReadItemType(ItemId) = ItemType.Critter Then
                 Dim critterId = PetData.ReadForItem(ItemId).Value
                 PetData.ClearForCritter(critterId)
-                CritterLocationData.Write(CULng(critterId), location.GetLocationId())
+                CritterLocationData.Write(CLng(critterId), location.GetLocationId())
                 ItemData.Destroy(ItemId)
             Else
                 GroundData.Write(location.GetLocationId(), ItemId)
@@ -163,7 +163,7 @@ Public Class Item
     End Function
     Function Feed(food As Item) As Boolean
         If CanFeed() Then
-            Dim critter = New Critter(CULng(PetData.ReadForItem(ItemId).Value))
+            Dim critter = New Critter(CLng(PetData.ReadForItem(ItemId).Value))
             critter.Feed(food)
             Return True
         End If

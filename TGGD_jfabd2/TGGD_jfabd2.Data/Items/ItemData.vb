@@ -14,7 +14,7 @@
             command.Parameters.AddWithValue("@ItemType", itemType)
             command.ExecuteNonQuery()
         End Using
-        Return CInt(GetLastInsertRowId())
+        Return CInt(LastInsertRowId)
     End Function
     Function ReadItemType(itemId As Integer) As Integer?
         Initialize()

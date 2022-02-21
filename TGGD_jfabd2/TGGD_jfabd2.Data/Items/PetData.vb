@@ -11,7 +11,7 @@
                 FOREIGN KEY ([ItemId]) REFERENCES [Items]([ItemId])
             );")
     End Sub
-    Sub Write(itemId As Integer, critterId As UInt64)
+    Sub Write(itemId As Integer, critterId As Long)
         Initialize()
         Using command = connection.CreateCommand
             command.CommandText = "REPLACE INTO [CritterItems]([CritterId],[ItemId]) VALUES(@CritterId,@ItemId);"
@@ -32,7 +32,7 @@
             Return Nothing
         End Using
     End Function
-    Function ReadForCritter(critterId As ULong) As Integer?
+    Function ReadForCritter(critterId As Long) As Integer?
         Initialize()
         Using command = connection.CreateCommand
             command.CommandText = "SELECT [ItemId] FROM [CritterItems] WHERE [CritterId]=@CritterId;"

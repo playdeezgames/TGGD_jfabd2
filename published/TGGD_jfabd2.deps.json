@@ -8,7 +8,8 @@
     ".NETCoreApp,Version=v5.0": {
       "TGGD_jfabd2/1.0.0": {
         "dependencies": {
-          "TGGD_jfabd2.Game": "1.0.0"
+          "TGGD_jfabd2.Game": "1.0.0",
+          "Terminal.Gui": "1.4.0"
         },
         "runtime": {
           "TGGD_jfabd2.dll": {}
@@ -57,6 +58,17 @@
             "assetType": "runtime",
             "assemblyVersion": "4.0.2.0",
             "fileVersion": "4.700.19.56404"
+          }
+        }
+      },
+      "NStack.Core/0.16.0": {
+        "dependencies": {
+          "System.ValueTuple": "4.5.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/NStack.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
           }
         }
       },
@@ -255,6 +267,7 @@
         }
       },
       "System.Security.Principal.Windows/4.7.0": {},
+      "System.ValueTuple/4.5.0": {},
       "System.Windows.Extensions/4.7.0": {
         "dependencies": {
           "System.Drawing.Common": "4.7.0"
@@ -271,6 +284,17 @@
             "assetType": "runtime",
             "assemblyVersion": "4.0.1.0",
             "fileVersion": "4.700.19.56404"
+          }
+        }
+      },
+      "Terminal.Gui/1.4.0": {
+        "dependencies": {
+          "NStack.Core": "0.16.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Terminal.Gui.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.4.0.0"
           }
         }
       },
@@ -332,6 +356,13 @@
       "sha512": "sha512-mtVirZr++rq+XCDITMUdnETD59XoeMxSpLRIII7JRI6Yj0LEDiO1pPn0ktlnIj12Ix8bfvQqQDMMIF9wC98oCA==",
       "path": "microsoft.win32.systemevents/4.7.0",
       "hashPath": "microsoft.win32.systemevents.4.7.0.nupkg.sha512"
+    },
+    "NStack.Core/0.16.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-DbScJtx9D3eAlc34lMsszsB246OCbrsu5FaITTOgRUIzOSLAlTItuKIxbU318HxM1cWF60yFV+/Lnh5ZOHLcoQ==",
+      "path": "nstack.core/0.16.0",
+      "hashPath": "nstack.core.0.16.0.nupkg.sha512"
     },
     "runtime.native.System.Data.SqlClient.sni/4.7.0": {
       "type": "package",
@@ -452,12 +483,26 @@
       "path": "system.security.principal.windows/4.7.0",
       "hashPath": "system.security.principal.windows.4.7.0.nupkg.sha512"
     },
+    "System.ValueTuple/4.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-okurQJO6NRE/apDIP23ajJ0hpiNmJ+f0BwOlB/cSqTLQlw5upkf+5+96+iG2Jw40G1fCVCyPz/FhIABUjMR+RQ==",
+      "path": "system.valuetuple/4.5.0",
+      "hashPath": "system.valuetuple.4.5.0.nupkg.sha512"
+    },
     "System.Windows.Extensions/4.7.0": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-CeWTdRNfRaSh0pm2gDTJFwVaXfTq6Xwv/sA887iwPTneW7oMtMlpvDIO+U60+3GWTB7Aom6oQwv5VZVUhQRdPQ==",
       "path": "system.windows.extensions/4.7.0",
       "hashPath": "system.windows.extensions.4.7.0.nupkg.sha512"
+    },
+    "Terminal.Gui/1.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-PdTKE1DwYAk5MK6fDW+MkBQKzIex7FJMdrgxmaPDdSN9LsfR9n9nlFO8mbwMEH7zQ/7iMvkR/GKOSPITPh75uQ==",
+      "path": "terminal.gui/1.4.0",
+      "hashPath": "terminal.gui.1.4.0.nupkg.sha512"
     },
     "TGGD_jfabd2.Data/1.0.0": {
       "type": "project",

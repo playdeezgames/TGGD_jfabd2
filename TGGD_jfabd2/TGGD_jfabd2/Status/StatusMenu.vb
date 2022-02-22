@@ -56,7 +56,7 @@ Module StatusMenu
         AddHandler cancelButton.Clicked, AddressOf Application.RequestStop
         Dim statisticsButton As New Button("Statistics...")
         AddHandler statisticsButton.Clicked, Sub()
-
+                                                 CharacterStatistics.Run()
                                              End Sub
         Dim inventoryButton As New Button("Inventory...")
         Dim equipmentButton As New Button("Equipment...")
@@ -67,9 +67,11 @@ Module StatusMenu
                                 equipmentButton.Enabled = character.GetEquipment().Any()
                             End Sub
         AddHandler inventoryButton.Clicked, Sub()
+                                                Inventory.Run()
                                                 updateButtons()
                                             End Sub
         AddHandler equipmentButton.Clicked, Sub()
+                                                Equipment.Run()
                                                 updateButtons()
                                             End Sub
         updateButtons()

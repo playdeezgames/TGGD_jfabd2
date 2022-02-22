@@ -1,6 +1,7 @@
-﻿Imports TGGD_jfabd2.Game
+﻿Imports Terminal.Gui
+Imports TGGD_jfabd2.Game
 Module Inventory
-    Sub Run()
+    Private Sub OldRun()
         Dim done As Boolean
         While Not done
             Dim items = New PlayerCharacter().GetInventory().GetItems()
@@ -32,5 +33,11 @@ Module Inventory
                     End If
             End Select
         End While
+    End Sub
+    Sub Run()
+        Dim cancelButton As New Button("Never mind")
+        AddHandler cancelButton.Clicked, AddressOf Application.RequestStop
+        Dim dlg As New Dialog("Inventory", cancelButton)
+        Application.Run(dlg)
     End Sub
 End Module

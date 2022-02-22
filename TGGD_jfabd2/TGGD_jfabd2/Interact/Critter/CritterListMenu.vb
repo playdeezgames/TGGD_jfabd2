@@ -44,6 +44,15 @@ Module CritterListMenu
         AddHandler cancelButton.Clicked, AddressOf Application.RequestStop
         Dim dlg As New Dialog("Critter...", cancelButton)
         Dim listView As New ListView(New Rect(1, 1, 40, 20), GetCritters())
+        AddHandler listView.OpenSelectedItem, Sub(args)
+                                                  CritterMenu.Run(CType(args.Value, Critter))
+                                                  Dim critters = GetCritters()
+                                                  If critters.Count() > 0 Then
+                                                      listView.SetSource(critters)
+                                                  Else
+                                                      Application.RequestStop()
+                                                  End If
+                                              End Sub
         dlg.Add(listView)
         Application.Run(dlg)
     End Sub

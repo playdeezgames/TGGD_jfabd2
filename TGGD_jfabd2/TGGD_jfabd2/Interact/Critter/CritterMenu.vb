@@ -1,7 +1,8 @@
-﻿Imports TGGD_jfabd2.Game
+﻿Imports Terminal.Gui
+Imports TGGD_jfabd2.Game
 
 Module CritterMenu
-    Sub Run(critter As Critter)
+    Private Sub OldRun(critter As Critter)
         Dim done = False
         Dim character As New PlayerCharacter
         While Not done
@@ -28,5 +29,12 @@ Module CritterMenu
                     InvalidInput()
             End Select
         End While
+    End Sub
+    Sub Run(critter As Critter)
+        Dim cancelButton As New Button("Never mind")
+        AddHandler cancelButton.Clicked, AddressOf Application.RequestStop
+        Dim dlg As New Dialog(critter.Name, cancelButton)
+        dlg.Add(New Label(1, 1, critter.Description))
+        Application.Run(dlg)
     End Sub
 End Module

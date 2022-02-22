@@ -56,6 +56,11 @@ Public Class Critter
             Return CritterTypes.GetName(CritterData.ReadCritterType(critterId).Value)
         End Get
     End Property
+    ReadOnly Property Description As String
+        Get
+            Return CritterTypes.GetDescription(CritterData.ReadCritterType(critterId).Value)
+        End Get
+    End Property
     Private Sub BuffSatiety(satietyBuff As Integer)
         Dim satiety As Integer = GetStatistic(CritterStatisticType.Satiety)
         Dim oversatiation = satiety + satietyBuff - CritterStatisticTypes.MaximumValue(Me, CritterStatisticType.Satiety)

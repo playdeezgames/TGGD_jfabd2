@@ -50,7 +50,30 @@ Module ItemMenu
     Sub Run(item As Item)
         Dim cancelButton As New Button("Never mind")
         AddHandler cancelButton.Clicked, AddressOf Application.RequestStop
-        Dim dlg As New Dialog(item.GetName(), cancelButton)
+        Dim dropButton As New Button("Drop")
+        AddHandler dropButton.Clicked, Sub()
+                                           item.Drop()
+                                           Application.RequestStop()
+                                       End Sub
+        Dim consumeButton As New Button("Consume")
+        consumeButton.Enabled = item.CanConsume
+        AddHandler consumeButton.Clicked, Sub()
+                                              item.Consume()
+                                              Application.RequestStop()
+                                          End Sub
+        Dim equipButton As New Button("Equip")
+        equipButton.Enabled = item.CanEquip
+        AddHandler equipButton.Clicked, Sub()
+                                            If EquipItemMenu.Run(item) Then
+                                                Application.RequestStop()
+                                            End If
+                                        End Sub
+        Dim critterButton As New Button("Critter...")
+        critterButton.Enabled = item.IsCritter
+        AddHandler critterButton.Clicked, Sub()
+                                              'TODO: critter item menu
+                                          End Sub
+        Dim dlg As New Dialog(item.GetName(), cancelButton, dropButton, consumeButton, equipButton, critterButton)
         dlg.Add(New Label(1, 1, item.GetDescription()))
         Application.Run(dlg)
     End Sub

@@ -1,7 +1,8 @@
-﻿Imports TGGD_jfabd2.Game
+﻿Imports Terminal.Gui
+Imports TGGD_jfabd2.Game
 
 Module InteractMenu
-    Sub Run()
+    Private Sub OldRun()
         Dim done = False
         Dim character = New PlayerCharacter()
         Dim location = character.GetLocation()
@@ -58,5 +59,11 @@ Module InteractMenu
                     InvalidInput()
             End Select
         End While
+    End Sub
+    Sub Run()
+        Dim cancelButton As New Button("Never mind")
+        AddHandler cancelButton.Clicked, AddressOf Application.RequestStop
+        Dim dlg As New Dialog("Interact...", cancelButton)
+        Application.Run(dlg)
     End Sub
 End Module

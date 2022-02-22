@@ -56,6 +56,16 @@ Module InPlay
                                            UpdateStatus(statusLabel)
                                            UpdateButtons(moveButton, turnButton, statusButton, interactButton)
                                        End Sub
+        AddHandler statusButton.Clicked, Sub()
+                                             StatusMenu.Run()
+                                             UpdateStatus(statusLabel)
+                                             UpdateButtons(moveButton, turnButton, statusButton, interactButton)
+                                         End Sub
+        AddHandler interactButton.Clicked, Sub()
+                                               InteractMenu.Run()
+                                               UpdateStatus(statusLabel)
+                                               UpdateButtons(moveButton, turnButton, statusButton, interactButton)
+                                           End Sub
         Dim dlg As New Dialog("Yer playin' the game!", moveButton, turnButton, statusButton, interactButton, menuButton)
         AddHandler dlg.KeyPress, Sub(args)
                                      If args.KeyEvent.Key = Key.Esc Then

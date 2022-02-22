@@ -67,7 +67,6 @@ Module InteractMenu
         Dim canPickFruit = tree IsNot Nothing
         Dim vendor = location.GetVendor()
         Dim hasVendor = vendor IsNot Nothing
-        Dim hasCritter = location.HasCritters()
         Dim cancelButton As New Button("Never mind")
         AddHandler cancelButton.Clicked, AddressOf Application.RequestStop
         Dim groundButton As New Button("Ground...")
@@ -87,9 +86,10 @@ Module InteractMenu
 
                                          End Sub
         Dim critterButton As New Button("Critter...")
-        critterButton.Enabled = hasCritter
+        critterButton.Enabled = location.HasCritters()
         AddHandler critterButton.Clicked, Sub()
-
+                                              CritterListMenu.Run()
+                                              critterButton.Enabled = location.HasCritters()
                                           End Sub
         Dim dlg As New Dialog("Interact...", cancelButton, groundButton, treeButton, vendorButton, critterButton)
         Application.Run(dlg)

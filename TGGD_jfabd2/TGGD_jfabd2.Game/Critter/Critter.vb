@@ -110,4 +110,7 @@ Public Class Critter
     Function DifficultyCheck(characteristic As Characteristic, difficulty As Integer, Optional delta As Integer = 0) As Double
         Return CharacteristicCheck(GetCharacteristic(characteristic) \ difficulty + delta)
     End Function
+    Public Overrides Function ToString() As String
+        Return Name
+    End Function
 End Class

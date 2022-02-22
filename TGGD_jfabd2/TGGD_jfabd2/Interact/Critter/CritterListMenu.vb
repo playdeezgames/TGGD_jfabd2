@@ -1,7 +1,8 @@
-﻿Imports TGGD_jfabd2.Game
+﻿Imports Terminal.Gui
+Imports TGGD_jfabd2.Game
 
 Module CritterListMenu
-    Sub Run()
+    Private Sub OldRun()
         Dim done = False
         Dim character = New PlayerCharacter()
         Dim location = character.GetLocation()
@@ -32,5 +33,18 @@ Module CritterListMenu
                     End If
             End Select
         End While
+    End Sub
+    Private Function GetCritters() As IList
+        Dim character = New PlayerCharacter()
+        Dim location = character.GetLocation()
+        Return location.GetCritters()
+    End Function
+    Sub Run()
+        Dim cancelButton As New Button("Never mind")
+        AddHandler cancelButton.Clicked, AddressOf Application.RequestStop
+        Dim dlg As New Dialog("Critter...", cancelButton)
+        Dim listView As New ListView(New Rect(1, 1, 40, 20), GetCritters())
+        dlg.Add(listView)
+        Application.Run(dlg)
     End Sub
 End Module

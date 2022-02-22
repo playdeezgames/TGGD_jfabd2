@@ -61,9 +61,37 @@ Module InteractMenu
         End While
     End Sub
     Sub Run()
+        Dim character = New PlayerCharacter()
+        Dim location = character.GetLocation()
+        Dim tree = location.GetTree()
+        Dim canPickFruit = tree IsNot Nothing
+        Dim hasGroundInventory = Not location.GetInventory().IsEmpty()
+        Dim vendor = location.GetVendor()
+        Dim hasVendor = vendor IsNot Nothing
+        Dim hasCritter = location.HasCritters()
         Dim cancelButton As New Button("Never mind")
         AddHandler cancelButton.Clicked, AddressOf Application.RequestStop
-        Dim dlg As New Dialog("Interact...", cancelButton)
+        Dim groundButton As New Button("Ground...")
+        groundButton.Enabled = hasGroundInventory
+        AddHandler groundButton.Clicked, Sub()
+
+                                         End Sub
+        Dim treeButton As New Button("Tree")
+        treeButton.Enabled = canPickFruit
+        AddHandler treeButton.Clicked, Sub()
+                                           PickFruit.Run()
+                                       End Sub
+        Dim vendorButton As New Button("Vendor...")
+        vendorButton.Enabled = hasVendor
+        AddHandler vendorButton.Clicked, Sub()
+
+                                         End Sub
+        Dim critterButton As New Button("Critter...")
+        critterButton.Enabled = hasCritter
+        AddHandler critterButton.Clicked, Sub()
+
+                                          End Sub
+        Dim dlg As New Dialog("Interact...", cancelButton, groundButton, treeButton, vendorButton, critterButton)
         Application.Run(dlg)
     End Sub
 End Module

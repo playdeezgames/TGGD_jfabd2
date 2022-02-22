@@ -1,6 +1,8 @@
 ﻿Public Module ItemTypes
     Function CanConsume(itemType As ItemType) As Boolean
         Select Case itemType
+            Case ItemType.None
+                Return False
             Case ItemType.Fruit
                 Return True
             Case ItemType.Wallet
@@ -15,6 +17,8 @@
     End Function
     Function GetEquipSlots(itemType As ItemType) As List(Of EquipSlot)
         Select Case itemType
+            Case ItemType.None
+                Return New List(Of EquipSlot)()
             Case ItemType.Fruit
                 Return New List(Of EquipSlot)()
             Case ItemType.Wallet

@@ -36,10 +36,17 @@ Public Class Item
         End If
     End Sub
     Function GetItemType() As ItemType
-        Return CType(ItemData.ReadItemType(ItemId).Value, ItemType)
+        Dim value = ItemData.ReadItemType(ItemId)
+        If value.HasValue Then
+            Return CType(value.Value, ItemType)
+        Else
+            Return ItemType.None
+        End If
     End Function
     Function GetName() As String
         Select Case GetItemType()
+            Case ItemType.None
+                Return ""
             Case ItemType.Fruit
                 Return FruitTypes.GetName(FruitData.ReadFruitType(ItemId).Value)
             Case ItemType.Wallet
@@ -54,6 +61,8 @@ Public Class Item
     End Function
     Function GetDescription() As String
         Select Case GetItemType()
+            Case ItemType.None
+                Return ""
             Case ItemType.Fruit
                 Return FruitTypes.GetDescription(FruitData.ReadFruitType(ItemId).Value)
             Case ItemType.Wallet

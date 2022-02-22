@@ -169,5 +169,8 @@ Public Class Item
         End If
         Return False
     End Function
+    Public Overrides Function ToString() As String
+        Return GetName()
+    End Function
 End Class
 

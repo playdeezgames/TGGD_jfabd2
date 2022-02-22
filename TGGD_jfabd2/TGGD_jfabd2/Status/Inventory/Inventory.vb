@@ -1,43 +1,24 @@
 ﻿Imports Terminal.Gui
 Imports TGGD_jfabd2.Game
 Module Inventory
-    Private Sub OldRun()
-        Dim done As Boolean
-        While Not done
-            Dim items = New PlayerCharacter().GetInventory().GetItems()
-            If Not items.Any() Then
-                Return
-            End If
-            ShowMenuTitle("Yer Inventory:")
-            Dim index = 1
-            For Each item In items
-                ShowMenuItem($"{index}) {item.GetName()}")
-                index += 1
-            Next
-            ShowMenuItem("0) Never mind")
-            ShowPrompt()
-            Dim input = Console.ReadLine()
-            Select Case input
-                Case "0"
-                    done = True
-                Case Else
-                    If Integer.TryParse(input, index) Then
-                        index -= 1
-                        If index < items.Count Then
-                            ItemMenu.Run(items(index))
-                        Else
-                            InvalidInput()
-                        End If
-                    Else
-                        InvalidInput()
-                    End If
-            End Select
-        End While
-    End Sub
+    Private Function GetInventory() As IList
+        Return CType(New PlayerCharacter().GetInventory().GetItems(), IList)
+    End Function
     Sub Run()
         Dim cancelButton As New Button("Never mind")
         AddHandler cancelButton.Clicked, AddressOf Application.RequestStop
         Dim dlg As New Dialog("Inventory", cancelButton)
+        Dim listView As New ListView(New Rect(1, 1, 40, 22), GetInventory())
+        AddHandler listView.OpenSelectedItem, Sub(args)
+                                                  ItemMenu.Run(CType(args.Value, Item))
+                                                  Dim inventory = GetInventory()
+                                                  If inventory.Count() > 0 Then
+                                                      listView.SetSource(inventory)
+                                                  Else
+                                                      Application.RequestStop()
+                                                  End If
+                                              End Sub
+        dlg.Add(listView)
         Application.Run(dlg)
     End Sub
 End Module

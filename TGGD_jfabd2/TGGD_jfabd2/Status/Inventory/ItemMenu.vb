@@ -1,6 +1,7 @@
-﻿Imports TGGD_jfabd2.Game
+﻿Imports Terminal.Gui
+Imports TGGD_jfabd2.Game
 Module ItemMenu
-    Sub Run(item As Item)
+    Private Sub OldRun(item As Item)
         Dim done = False
         While Not done
             ShowMenuTitle(item.GetName())
@@ -45,5 +46,12 @@ Module ItemMenu
                     End If
             End Select
         End While
+    End Sub
+    Sub Run(item As Item)
+        Dim cancelButton As New Button("Never mind")
+        AddHandler cancelButton.Clicked, AddressOf Application.RequestStop
+        Dim dlg As New Dialog(item.GetName(), cancelButton)
+        dlg.Add(New Label(1, 1, item.GetDescription()))
+        Application.Run(dlg)
     End Sub
 End Module

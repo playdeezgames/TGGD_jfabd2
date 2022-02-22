@@ -1,23 +1,17 @@
-﻿Imports TGGD_jfabd2.Game
+﻿Imports Terminal.Gui
+Imports TGGD_jfabd2.Game
 
 Module GroundItemMenu
     Sub Run(item As Item, characterId As Integer)
-        Dim done = False
-        While Not done
-            ShowMenuTitle(item.GetName())
-            ShowInfo(item.GetDescription())
-            ShowMenuItem("1) Pick up")
-            ShowMenuItem("0) Never mind")
-            ShowPrompt()
-            Select Case Console.ReadLine()
-                Case "0"
-                    done = True
-                Case "1"
-                    item.PickUp(characterId)
-                    ShowInfo($"You pick up the {item.GetName()}.")
-                    done = True
-            End Select
-        End While
+        Dim cancelButton As New Button("Never mind")
+        AddHandler cancelButton.Clicked, AddressOf Application.RequestStop
+        Dim pickUpButton As New Button("Pick Up")
+        AddHandler pickUpButton.Clicked, Sub()
+                                             item.PickUp(characterId)
+                                             Application.RequestStop()
+                                         End Sub
+        Dim dlg As New Dialog(item.GetName(), cancelButton, pickUpButton)
+        dlg.Add(New Label(1, 1, item.GetDescription))
+        Application.Run(dlg)
     End Sub
-
 End Module

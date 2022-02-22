@@ -65,16 +65,16 @@ Module InteractMenu
         Dim location = character.GetLocation()
         Dim tree = location.GetTree()
         Dim canPickFruit = tree IsNot Nothing
-        Dim hasGroundInventory = Not location.GetInventory().IsEmpty()
         Dim vendor = location.GetVendor()
         Dim hasVendor = vendor IsNot Nothing
         Dim hasCritter = location.HasCritters()
         Dim cancelButton As New Button("Never mind")
         AddHandler cancelButton.Clicked, AddressOf Application.RequestStop
         Dim groundButton As New Button("Ground...")
-        groundButton.Enabled = hasGroundInventory
+        groundButton.Enabled = Not location.GetInventory().IsEmpty()
         AddHandler groundButton.Clicked, Sub()
-
+                                             Ground.Run()
+                                             groundButton.Enabled = Not location.GetInventory().IsEmpty()
                                          End Sub
         Dim treeButton As New Button("Tree")
         treeButton.Enabled = canPickFruit

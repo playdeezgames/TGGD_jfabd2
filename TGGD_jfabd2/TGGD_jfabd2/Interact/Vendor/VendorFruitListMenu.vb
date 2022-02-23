@@ -1,7 +1,8 @@
-﻿Imports TGGD_jfabd2.Game
+﻿Imports Terminal.Gui
+Imports TGGD_jfabd2.Game
 
 Module VendorFruitListMenu
-    Sub Run(vendor As Vendor)
+    Private Sub OldRun(vendor As Vendor)
         Dim done = False
         While Not done
             ShowMenuTitle("Fruits:")
@@ -31,5 +32,25 @@ Module VendorFruitListMenu
             End Select
 
         End While
+    End Sub
+    Private Function GetFruits(vendor As Vendor) As IList
+        Return CType(vendor.GetFruitTypes(), IList)
+    End Function
+    Sub Run(vendor As Vendor)
+        Dim cancelButton As New Button("Never mind")
+        AddHandler cancelButton.Clicked, AddressOf Application.RequestStop
+        Dim dlg As New Dialog("Fruits:", cancelButton)
+        Dim listView As New ListView(New Rect(1, 1, 40, 22), GetFruits(vendor))
+        AddHandler listView.OpenSelectedItem, Sub(args)
+                                                  VendorFruitMenu.Run(CType(args.Value, VendorFruit))
+                                                  Dim inventory = GetFruits(vendor)
+                                                  If inventory.Count() > 0 Then
+                                                      listView.SetSource(inventory)
+                                                  Else
+                                                      Application.RequestStop()
+                                                  End If
+                                              End Sub
+        dlg.Add(listView)
+        Application.Run(dlg)
     End Sub
 End Module

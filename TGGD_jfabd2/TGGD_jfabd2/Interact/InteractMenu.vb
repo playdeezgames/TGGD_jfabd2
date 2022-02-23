@@ -83,7 +83,7 @@ Module InteractMenu
         Dim vendorButton As New Button("Vendor...")
         vendorButton.Enabled = hasVendor
         AddHandler vendorButton.Clicked, Sub()
-
+                                             VendorMenu.Run()
                                          End Sub
         Dim critterButton As New Button("Critter...")
         critterButton.Enabled = location.HasCritters()

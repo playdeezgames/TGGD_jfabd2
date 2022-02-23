@@ -31,4 +31,7 @@ Public Class VendorFruit
             FruitPriceData.Write(locationId, FruitType, FruitPriceData.ReadForFruitType(locationId, FruitType).Value + 1)
         End If
     End Sub
+    Public Overrides Function ToString() As String
+        Return Name
+    End Function
 End Class

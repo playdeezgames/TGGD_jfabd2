@@ -71,7 +71,9 @@ Module ItemMenu
         Dim critterButton As New Button("Critter...")
         critterButton.Enabled = item.IsCritter
         AddHandler critterButton.Clicked, Sub()
-                                              'TODO: critter item menu
+                                              If CritterItemMenu.Run(item) Then
+                                                  Application.RequestStop()
+                                              End If
                                           End Sub
         Dim dlg As New Dialog(item.GetName(), cancelButton, dropButton, consumeButton, equipButton, critterButton)
         dlg.Add(New Label(1, 1, item.GetDescription()))

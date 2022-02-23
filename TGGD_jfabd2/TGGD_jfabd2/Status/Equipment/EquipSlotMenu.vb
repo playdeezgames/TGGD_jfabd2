@@ -46,7 +46,9 @@ Module EquipSlotMenu
                                           End Sub
         Dim critterButton As New Button("Critter...")
         AddHandler critterButton.Clicked, Sub()
-                                              'TODO: go to critter item menu
+                                              If CritterItemMenu.Run(item) Then
+                                                  Application.RequestStop()
+                                              End If
                                           End Sub
         critterButton.Enabled = item.IsCritter
         Dim dlg As New Dialog(EquipSlots.GetName(equipSlot), cancelButton, unequipButton, critterButton)

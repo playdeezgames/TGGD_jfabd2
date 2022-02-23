@@ -1,7 +1,8 @@
-﻿Imports TGGD_jfabd2.Game
+﻿Imports Terminal.Gui
+Imports TGGD_jfabd2.Game
 
 Module CritterFeedMenu
-    Sub Run(critter As Critter)
+    Private Sub OldRun(critter As Critter)
         Dim done = False
         Dim character As New PlayerCharacter
         While Not done
@@ -38,4 +39,34 @@ Module CritterFeedMenu
             End Select
         End While
     End Sub
+    Private Function GetFruits() As IList
+        Return CType(New PlayerCharacter().GetInventory().GetItems(ItemType.Fruit), IList)
+    End Function
+    Private Sub Feed(critter As Critter, character As Character, fruit As Item)
+        If character.Check(Characteristic.Charisma) > critter.Check(Characteristic.Willpower) Then
+            critter.Feed(fruit)
+            MessageBox.Query("Success!!", "It takes the fruit, and seems less afraid of you.", "Ok")
+        Else
+            MessageBox.Query("Fail!", "It is cautious.", "Ok")
+        End If
+    End Sub
+
+    Sub Run(critter As Critter)
+        Dim cancelButton As New Button("Never mind")
+        AddHandler cancelButton.Clicked, AddressOf Application.RequestStop
+        Dim dlg As New Dialog($"Feed the {critter.Name}:", cancelButton)
+        Dim listView As New ListView(New Rect(1, 1, 40, 22), GetFruits())
+        AddHandler listView.OpenSelectedItem, Sub(args)
+                                                  Feed(critter, New PlayerCharacter(), CType(args.Value, Item))
+                                                  Dim inventory = GetFruits()
+                                                  If inventory.Count() > 0 Then
+                                                      listView.SetSource(inventory)
+                                                  Else
+                                                      Application.RequestStop()
+                                                  End If
+                                              End Sub
+        dlg.Add(listView)
+        Application.Run(dlg)
+    End Sub
+
 End Module

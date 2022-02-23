@@ -33,7 +33,19 @@ Module CritterMenu
     Sub Run(critter As Critter)
         Dim cancelButton As New Button("Never mind")
         AddHandler cancelButton.Clicked, AddressOf Application.RequestStop
-        Dim dlg As New Dialog(critter.Name, cancelButton)
+        Dim feedButton As New Button("Feed...")
+        feedButton.Enabled = New PlayerCharacter().GetInventory().HasItemType(ItemType.Fruit)
+        AddHandler feedButton.Clicked, Sub()
+                                           CritterFeedMenu.Run(critter)
+                                           feedButton.Enabled = New PlayerCharacter().GetInventory().HasItemType(ItemType.Fruit)
+                                       End Sub
+        Dim captureButton As New Button("Capture!")
+        AddHandler captureButton.Clicked, Sub()
+                                              If CritterCapture.Run(critter) Then
+                                                  Application.RequestStop()
+                                              End If
+                                          End Sub
+        Dim dlg As New Dialog(critter.Name, cancelButton, feedButton, captureButton)
         dlg.Add(New Label(1, 1, critter.Description))
         Application.Run(dlg)
     End Sub
